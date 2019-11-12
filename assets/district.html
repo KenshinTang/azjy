@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title></title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no">
+  <meta http-equiv="Cache-Control" content="public" >
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="format-detection" content="telephone=no">
+  <meta name="apple-mobile-web-app-status-bar-style"  content="black" />
+  <meta name="renderer" content="webkit">
+  <meta name="description" content="All About Children">
+  <meta name="keywords" content="All About Children">
+  <link rel="stylesheet" href="inc/g.css" type="text/css">
+  <link rel="stylesheet" href="css/common.css" type="text/css">
+  <link rel="stylesheet" href="css/unique.css" type="text/css">
+  <script src="js/jquery-3.1.1.min.js"></script>
+  <script type="text/javascript" src="js/common.js"></script>
+</head>
+<body>
+<header class="bb0">
+  <div class="back1" onclick="Comm.close();"></div>
+  <div class="menu1"></div>
+  <div class="titlebar">select district</div>
+</header>
+
+<section>
+  <div class="district-ls">
+    <!--<div class="district-l">111</div>-->
+  </div>
+</section>
+
+<script src="inc/g.js"></script>
+<script src="js/md5.js"></script>
+<script src="inc/dict.js"></script>
+
+<script>
+  var user = Comm.db("user");
+  var pageData = {};
+
+  function pageload() {
+    GDict.load(function () {
+      var h = '';
+      for (var i in GDict._data.state) {
+        h += '<div class="district-l" onclick="select(' + GDict._data.state[i].dictid + ')">' + GDict._data.state[i].dictname + '</div>';
+      }
+      $(".district-ls").html(h);
+    });
+  }
+
+  function pageresume(){
+
+  }
+
+  //选择区域
+  function select(dictid) {
+    Comm.db("district", {dictid: dictid});
+    Comm.close();
+  }
+</script>
+</body>
+</html>

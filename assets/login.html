@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title></title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no">
+  <meta http-equiv="Cache-Control" content="public">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="format-detection" content="telephone=no">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  <meta name="renderer" content="webkit">
+  <meta name="description" content="All About Children">
+  <meta name="keywords" content="All About Children">
+  <link rel="stylesheet" href="inc/g.css" type="text/css">
+  <link rel="stylesheet" href="css/common.css" type="text/css">
+  <link rel="stylesheet" href="css/unique.css" type="text/css">
+  <script src="js/jquery-3.1.1.min.js"></script>
+  <script type="text/javascript" src="js/common.js"></script>
+</head>
+
+<body>
+  <header class="bb0">
+    <!--<div class="back1"></div>-->
+    <div class="menu1 font16 c-666" onclick="Comm.gotop('home.html')">Skip</div>
+    <div class="titlebar"></div>
+  </header>
+  <section>
+    <div class="brp logo login-logo"></div>
+    <div class="loginButton loginButton1 brp Facebook" onclick="sanlogin('1')">Facebook</div>
+    <!--
+    <div class="loginButton loginButton2 brp login-b-bg pre" onclick="sanlogin('3')">Instagram<div class="Instagram loginButton2-1"></div></div>
+    -->
+    <div class="loginButton loginButton3 brp Twitter" onclick="sanlogin('2')">Twitter</div>
+    <div class="loginButton loginButton4 brp Loginemail" onclick="Comm.go('emailLogin.html')">Login email</div>
+    <div class="loginButton5" onclick="Comm.go('reg.html')">Join in</div>
+  </section>
+
+  <script src="inc/g.js"></script>
+  <script src="js/md5.js"></script>
+
+  <script>
+    var user = Comm.db("user");
+    var pageData = { phone: "", password: "" };
+    var san_Obj = {1: "facebook", 2: "twitter", 3: "instagram"};
+
+    Comm.db("agreement", null);
+    if (user) {
+      Comm.gotop('home.html');
+    }
+
+    function pageload() {
+
+    }
+
+    //第三方登录
+    function sanlogin(t) {
+      //1:facebook 2:Twitter 3:Instagram
+      Comm.extLogin({type: t}, function(data) {
+        console.log(data);
+
+        if (data != 0) {
+          AJAX2.post("api/three/login", {id: data.id, name: data.nickname, type: san_Obj[data.type]}, function(data2) {
+            if (data2.action == "toBindMail") {
+//            Comm.message("Please bind the email address");
+              Comm.db("sanLogin", data2);
+              Comm.go('bindEmail.html');
+              return;
+            } else if (data2.action == "toReLogin") {
+              Comm.message("Login failed, login again");
+              return;
+            } else if (data2.action == "toBanned") {
+              Comm.message("User was disabled");
+              return;
+            } else if (data2.token) {
+              data2.token = data2.token.token;
+              Comm.db("user", data2);
+              Comm.db("_token", data2.token);
+              setTimeout(function() {
+                Comm.registerPush({state: 1, token: data2.token, url: config.root + "api/customer/modify"}, function (a) {
+
+                });
+              }, 500);
+
+              setTimeout(function() {
+                Comm.gotop('home.html');
+              }, 1000);
+            }
+
+          }, function(data) {
+            Comm.message(data);
+          })
+        } else {
+
+        }
+      })
+    }
+  </script>
+</body>
+
+</html>

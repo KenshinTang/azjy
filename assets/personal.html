@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title></title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no">
+  <meta http-equiv="Cache-Control" content="public" >
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="format-detection" content="telephone=no">
+  <meta name="apple-mobile-web-app-status-bar-style"  content="black" />
+  <meta name="renderer" content="webkit">
+  <meta name="description" content="All About Children">
+  <meta name="keywords" content="All About Children">
+  <link rel="stylesheet" href="inc/g.css" type="text/css">
+  <link rel="stylesheet" href="css/common.css" type="text/css">
+  <link rel="stylesheet" href="css/unique.css" type="text/css">
+  <script src="js/jquery-3.1.1.min.js"></script>
+  <script type="text/javascript" src="js/common.js"></script>
+</head>
+<body>
+<header class="bb0">
+  <div class="back1" onclick="Comm.close();"></div>
+  <div class="menu1"></div>
+  <div class="titlebar">Member Center</div>
+</header>
+
+<section class="bg-grey-1">
+  <div class="sp10"></div>
+  <div class="PL-ls bg-white">
+    <div class="ovf PL-2 bb3">
+      <div class="left PL-2-l">Portrait</div>
+      <div class="right PL-2-r brp arrowRight"></div>
+      <div class="PL-2-c" id="faceImg"><img class="bra" src="images/personal.png" alt="" onerror="this.src='images/personal.png';this.onerror=null;" onload="$(this).fadeTo('slow',1);" style="opacity:0;display: block;"></div>
+    </div>
+    <div class="ovf PL-1 bb3">
+      <div class="left PL-1-l">Name</div>
+      <div class="PL-1-c" style="margin-right: 15px;"><input class="tar" id="personal-nickname" type="text" placeholder="Please enter nickname" maxlength="11" oninput="CommonFunction.removeEmoji(event);"></div>
+    </div>
+    <div class="ovf PL-1 bb3">
+      <div class="left PL-1-l">Email</div>
+      <div class="PL-1-c" style="margin-right: 15px;"><input class="tar" id="personal-email" type="text" placeholder="Please enter email" maxlength="11" oninput="CommonFunction.removeEmoji(event);" readonly></div>
+    </div>
+    <div class="ovf PL-1 bb3" onclick="ifSan(1)">
+      <div class="left PL-1-l">Facebook</div>
+      <div class="right PL-1-r brp arrowRight facebookToken"></div>
+      <div class="PL-1-c" id="facebookToken"></div>
+    </div>
+    <div class="ovf PL-1 bb3" onclick="ifSan(2)">
+      <div class="left PL-1-l">Twitter</div>
+      <div class="right PL-1-r brp arrowRight twitterToken"></div>
+      <div class="PL-1-c" id="twitterToken"></div>
+    </div>
+    <div class="ovf PL-1 bb3" onclick="ifSan(3)">
+      <div class="left PL-1-l">Instagram</div>
+      <div class="right PL-1-r brp arrowRight instagramToken"></div>
+      <div class="PL-1-c" id="instagramToken"></div>
+    </div>
+    <div class="ovf PL-1 bb3" onclick="Comm.go('userAddress.html')">
+      <div class="right PL-1-r brp arrowRight"></div>
+      <div class="left PL-1-l">Address</div>
+      <div class="tar row1" id="address"></div>
+    </div>
+    <div class="ovf PL-1" onclick="Comm.go('modifyPassword.html')">
+      <div class="right PL-1-r brp arrowRight"></div>
+      <div class="left PL-1-l" style="width: 200px;">Change Password</div>
+    </div>
+  </div>
+</section>
+
+<footer class="footer1 bg-grey-1" style="border-top: 1px solid #f4f4f4;">
+  <div class="footer-button" onclick="submit()">SAVE</div>
+</footer>
+
+<script src="inc/g.js"></script>
+<script src="js/md5.js"></script>
+<script src="inc/upimg/upload.js"></script>
+
+<script>
+  var user = Comm.db("user");
+  var user2;
+  var upHeader = null;
+
+  function pageload() {
+    upHeader = new imgUploader("faceImg");
+    getUser();
+  }
+
+  function pageresume(){
+    AJAX2.post("api/customer/show", {}, function (data){
+      user2.address = data.address;
+      $("#address").html(user2.address && user2.address != "null" ? user2.address : "");
+
+      if (user2.facebookToken == "") {
+        $("#facebookToken").html("Not linked");
+      } else {
+        $("#facebookToken").html("linked");
+        $(".facebookToken").removeClass("arrowRight");
+      }
+
+      if (user2.twitterToken == "") {
+        $("#twitterToken").html("Not linked");
+      } else {
+        $("#twitterToken").html("linked");
+        $(".twitterToken").removeClass("arrowRight");
+      }
+
+      if (user2.instagramToken == "") {
+        $("#instagramToken").html("Not linked");
+      } else {
+        $("#instagramToken").html("linked");
+        $(".instagramToken").removeClass("arrowRight");
+      }
+
+    }, function(data) {
+      Comm.message(data);
+    })
+  }
+
+  //得到用户信息
+  function getUser() {
+    AJAX2.post("api/customer/show", {}, function (data){
+      user2 = data;
+
+      if (user2.face) {
+        if (user2.face.slice(0,4) == "http") {
+          $("#faceImg img").attr({"src": user2.face});
+        } else {
+          $("#faceImg img").attr({"src": config.ossroot + user2.face});
+        }
+      }
+
+      $("#personal-nickname").val(user2.customerName);
+      $("#personal-email").val(user2.email);
+      $("#address").html(user2.address && user2.address != "null" ? user2.address : "");
+
+      if (user2.facebookToken == "") {
+        $("#facebookToken").html("Not linked");
+      } else {
+        $("#facebookToken").html("linked");
+        $(".facebookToken").removeClass("arrowRight");
+      }
+
+      if (user2.twitterToken == "") {
+        $("#twitterToken").html("Not linked");
+      } else {
+        $("#twitterToken").html("linked");
+        $(".twitterToken").removeClass("arrowRight");
+      }
+
+      if (user2.instagramToken == "") {
+        $("#instagramToken").html("Not linked");
+      } else {
+        $("#instagramToken").html("linked");
+        $(".instagramToken").removeClass("arrowRight");
+      }
+
+    }, function(data) {
+      Comm.message(data);
+    })
+  }
+
+  function submit() {
+    var customerName = $("#personal-nickname").val();
+
+    if (customerName == "") {
+      Comm.message("Please enter a name");
+      return;
+    }
+
+    if (upHeader.imgList[0]) {
+      user2.face = upHeader.imgList[0];
+    }
+
+    AJAX2.post("api/customer/modify", {customerName: customerName, face: user2.face, address: user2.address}, function (data){
+      user2 = data;
+      Comm.close();
+
+    }, function(data) {
+      Comm.message(data);
+    })
+  }
+
+  //判断是否绑定
+  function ifSan(t) {
+    if (t == 1) {
+      if (!user2.facebookToken) {
+        sanlogin(t);
+      }
+    } else if (t == 2) {
+      if (!user2.twitterToken) {
+        sanlogin(t);
+      }
+    } else if (t == 3) {
+      if (!user2.instagramToken) {
+        sanlogin(t);
+      }
+    }
+  }
+
+  //第三方登录
+  function sanlogin(t) {
+    console.log(t);
+
+    //1:facebook 2:Twitter 3:Instagram
+    Comm.extLogin({type: t}, function(data) {
+      console.log(data);
+
+      AJAX2.post("api/three/login", {id: data.id, name: data.nickname, type: san_Obj[data.type]}, function(data2) {
+        if (data2.action == "toBindMail") {
+//            Comm.message("Please bind the email address");
+          Comm.db("sanLogin", data2);
+          Comm.go('bindEmail.html');
+          return;
+        }
+
+      }, function(data) {
+        Comm.message(data);
+      })
+    })
+  }
+</script>
+</body>
+</html>

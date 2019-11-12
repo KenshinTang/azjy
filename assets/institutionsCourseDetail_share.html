@@ -1,0 +1,1236 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title></title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no">
+  <meta http-equiv="Cache-Control" content="public" >
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="format-detection" content="telephone=no">
+  <meta name="apple-mobile-web-app-status-bar-style"  content="black" />
+  <meta name="renderer" content="webkit">
+  <meta name="description" content="All About Children">
+  <meta name="keywords" content="All About Children">
+  <link rel="stylesheet" href="mui/css/mui.min.css">
+  <link rel="stylesheet" href="inc/g.css" type="text/css">
+  <link rel="stylesheet" href="css/common.css" type="text/css">
+  <link rel="stylesheet" href="css/unique.css" type="text/css">
+  <link rel="stylesheet" href="side/side.css" type="text/css">
+  <script src="js/jquery-3.1.1.min.js"></script>
+  <script type="text/javascript" src="js/common.js"></script>
+  <style>
+    #box>ul>li{
+      height: 65vw;
+    }
+    input{
+      border: 0px !important;
+      width: 100% !important;
+      height: 100% !important;
+      margin: 0px !important;
+      padding: 0px !important;
+    }
+    .myCourse-1{
+      padding: 15px 0px 0px 0px;
+    }
+    .myCourse-3 {
+      width: 6px;
+      height: 6px;
+      float: left;
+      margin: 0px 6px;
+      margin-top: 7px;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <!--<div class="back1" onclick="Comm.close();"></div>
+  <div class="menu1 brp share hide" onclick="openWindow(3)"></div>-->
+  <div class="titlebar ovf ICD-1 hide">
+    <div class="left ICD-1-c brp ICD-1-c-active" onclick="changeTheme1(1)">Details</div>
+    <div class="left ICD-1-c brp"  style="width:50%;" onclick="changeTheme1(2)">Choose class</div>
+    <div class="left ICD-1-c brp" onclick="changeTheme1(3)">Review</div>
+  </div>
+</header>
+
+<section class="pre">
+  <div id="refreshContainer" class="mui-content mui-scroll-wrapper hide">
+    <div class="mui-scroll">
+      <!--数据列表-->
+      <ul class="mui-table-view mui-table-view-chevron" id="listView">
+
+        <div class="ICD-1s ICD-ss">
+          <div class="detail-t-img">
+            <div id="box">
+              <ul></ul>
+            </div>
+          </div>
+
+          <div class="ICD-1s-1">
+            <!--<div class="pad15">-->
+            <!--<div class="font20">Here is the course name</div>-->
+            <!--<div class="c-999 mt5">Here is the subtitle that describes the course conent deion.</div>-->
+            <!--<div class="c-yellow-1 mt10">A$<span class="font24">300</span></div>-->
+            <!--</div>-->
+
+            <!--<div class="sp10"></div>-->
+
+            <!--<div class="pad15">-->
+            <!--<div class="font18 mb20">Course introduction</div>-->
+
+            <!--<div class="ovf ICD-l">-->
+            <!--<div class="left ICD-l-c c-222">Course category</div>-->
+            <!--<div class="left ICD-l-c c-888">Math</div>-->
+            <!--</div>-->
+
+            <!--<div class="ovf ICD-l">-->
+            <!--<div class="left ICD-l-c c-222">Course category</div>-->
+            <!--<div class="left ICD-l-c c-888">Math</div>-->
+            <!--</div>-->
+            <!--</div>-->
+
+            <!--<div class="sp10"></div>-->
+
+            <!--<div class="pad15">-->
+            <!--<div class="font18 mb20">Course details</div>-->
+            <!--<div class="ICD-3">sfadsjafklsjflkjasd;f</div>-->
+            <!--</div>-->
+          </div>
+
+          <div class="sp10"></div>
+
+          <div class="pad15 font18 bb3">History classes(<span id="history-totalCount">0</span>)</div>
+
+          <div class="ICD-l2s">
+            <!--<div class="ICD-l2 ovf">-->
+            <!--<div class="right ICD-l2-r brp Done"></div>-->
+            <!--<div class="ICD-l2-c c-888 font12">-->
+            <!--<div class="c-333 font16 row1">First grade autumn art class</div>-->
+            <!--<div class="mt10 row1">Enrollment date：2018.09.01-2018.10.01</div>-->
+            <!--<div class="mt10 row1">Start date：2018.10.01-2018.11.01</div>-->
+            <!--<div class="mt10 row1">Educator：Casey</div>-->
+            <!--<div class="mt10 row1">Enrollment capacity：50/50</div>-->
+            <!--</div>-->
+            <!--</div>-->
+            <!--<div class="sp5"></div>-->
+
+            <!--<div class="ICD-l2 ovf">-->
+            <!--<div class="right ICD-l2-r brp Done"></div>-->
+            <!--<div class="ICD-l2-c c-888 font12">-->
+            <!--<div class="c-333 font16 row1">First grade autumn art class</div>-->
+            <!--<div class="mt10 row1">Enrollment date：2018.09.01-2018.10.01</div>-->
+            <!--<div class="mt10 row1">Start date：2018.10.01-2018.11.01</div>-->
+            <!--<div class="mt10 row1">Educator：Casey</div>-->
+            <!--<div class="mt10 row1">Enrollment capacity：50/50</div>-->
+            <!--</div>-->
+            <!--</div>-->
+            <!--<div class="sp5"></div>-->
+          </div>
+        </div>
+
+        <div class="ICD-2s ICD-ss hide">
+          <div class="pad15">
+            <div class="font16" id="courseName"></div>
+            <div class="ovf c-999 mt5">
+              <div class="left">Enrolling：<span class="c-yellow-1"><span id="signupcount">0</span> classes</span></div>
+              <div class="right c-yellow-1">A$<span class="font20 price"></span></div>
+            </div>
+            <div class="ovf c-999 mt5 hide">
+              <div class="left">Class started：<span class="c-green-1"><span id="opencount">0</span> classes</span></div>
+              <div class="right c-yellow-1">A$<span class="font20 price"></span></div>
+            </div>
+          </div>
+
+          <div class="sp10"></div>
+
+          <div class="ICD-2s-ls">
+            <!--<div class="pad15">-->
+            <!--<div>First grade math class in autumn(1class)</div>-->
+
+            <!--<div class="IC-2">-->
+            <!--<div class="right IC-2-r">-->
+            <!--<div class="c-red-1 IC-2-r-1">The last 5 days</div>-->
+            <!--<div class="IC-2-r-2" onclick="jsGo(1)">Buy</div>-->
+            <!--</div>-->
+            <!--<div class="IC-2-c font12 c-888">-->
+            <!--<div class="row1 mt10 IC-2-c-c">Registration time：2018.09.01-2018.10.01</div>-->
+            <!--<div class="row1 mt10 IC-2-c-c">Opening hours：2018.09.01-2018.10.01</div>-->
+            <!--<div class="row1 mt10 IC-2-c-c">Teacher：Crasey </div>-->
+            <!--<div class="row1 mt10 IC-2-c-c">Enrollment：30/50</div>-->
+            <!--<div class="row1 mt10 c-yellow-1 IC-2-c-c2">-->
+            <!--<div class="IC-2-c-c2-1">My calendar</div>-->
+            <!--<div class="IC-2-c-c2-2 brp arrowBottom4"></div>-->
+            <!--</div>-->
+            <!--</div>-->
+            <!--</div>-->
+
+            <!--<div class="ICD-tables1 font12 tac c-666">-->
+            <!--<div class="ICD-tables2">-->
+            <!--<table class="ICD-table">-->
+            <!--<tr>-->
+            <!--<td class="ICD-table-td1"></td>-->
+            <!--<td>-->
+            <!--<div>MON</div>-->
+            <!--<div>09-20</div>-->
+            <!--</td>-->
+            <!--<td>-->
+            <!--<div>MON</div>-->
+            <!--<div>09-20</div>-->
+            <!--</td>-->
+            <!--<td>-->
+            <!--<div>MON</div>-->
+            <!--<div>09-20</div>-->
+            <!--</td>-->
+            <!--<td>-->
+            <!--<div>MON</div>-->
+            <!--<div>09-20</div>-->
+            <!--</td>-->
+            <!--<td>-->
+            <!--<div>MON</div>-->
+            <!--<div>09-20</div>-->
+            <!--</td>-->
+            <!--<td>-->
+            <!--<div>MON</div>-->
+            <!--<div>09-20</div>-->
+            <!--</td>-->
+            <!--<td>-->
+            <!--<div>MON</div>-->
+            <!--<div>09-20</div>-->
+            <!--</td>-->
+            <!--<td>-->
+            <!--<div>MON</div>-->
+            <!--<div>09-20</div>-->
+            <!--</td>-->
+            <!--<td>-->
+            <!--<div>MON</div>-->
+            <!--<div>09-20</div>-->
+            <!--</td>-->
+            <!--</tr>-->
+            <!--<tr>-->
+            <!--<td class="ICD-table-td1">-->
+            <!--<div>AM</div>-->
+            <!--<div>09:30-10:30</div>-->
+            <!--</td>-->
+            <!--<td class="brp Course2"></td>-->
+            <!--<td class="brp Course2"></td>-->
+            <!--<td class="brp Course2"></td>-->
+            <!--<td></td>-->
+            <!--<td></td>-->
+            <!--<td></td>-->
+            <!--<td></td>-->
+            <!--<td></td>-->
+            <!--<td></td>-->
+            <!--</tr>-->
+            <!--<tr>-->
+            <!--<td class="ICD-table-td1">-->
+            <!--<div>PM</div>-->
+            <!--<div>14:30-15:30</div>-->
+            <!--</td>-->
+            <!--<td></td>-->
+            <!--<td></td>-->
+            <!--<td></td>-->
+            <!--<td class="brp Course2"></td>-->
+            <!--<td></td>-->
+            <!--<td></td>-->
+            <!--<td></td>-->
+            <!--<td></td>-->
+            <!--<td></td>-->
+            <!--</tr>-->
+            <!--</table>-->
+            <!--</div>-->
+            <!--</div>-->
+            <!--</div>-->
+            <!--<div class="sp10"></div>-->
+          </div>
+        </div>
+
+        <div class="ICD-3s ICD-ss hide">
+          <div class="ID-S3-1 ovf">
+            <div class="left ID-S3-1-l">
+              <div class="ID-S3-1-l-1">
+                <div class="home-6-l-c-4-4">
+                  <div class="left search-goods-l-c-2-1 pre brp starl-n"><div class="search-goods-l-c-2-2 brp starl-y" style="width:100%;"></div></div>
+                  <div class="left ml20 c-yellow-1" id="evaluate5">0</div>
+                </div>
+              </div>
+
+              <div class="ID-S3-1-l-1">
+                <div class="home-6-l-c-4-4">
+                  <div class="left search-goods-l-c-2-1 pre brp starl-n"><div class="search-goods-l-c-2-2 brp starl-y" style="width:80%;"></div></div>
+                  <div class="left ml20 c-yellow-1" id="evaluate4">0</div>
+                </div>
+              </div>
+
+              <div class="ID-S3-1-l-1">
+                <div class="home-6-l-c-4-4">
+                  <div class="left search-goods-l-c-2-1 pre brp starl-n"><div class="search-goods-l-c-2-2 brp starl-y" style="width:60%;"></div></div>
+                  <div class="left ml20 c-yellow-1" id="evaluate3">0</div>
+                </div>
+              </div>
+
+              <div class="ID-S3-1-l-1">
+                <div class="home-6-l-c-4-4">
+                  <div class="left search-goods-l-c-2-1 pre brp starl-n"><div class="search-goods-l-c-2-2 brp starl-y" style="width:40%;"></div></div>
+                  <div class="left ml20 c-yellow-1" id="evaluate2">0</div>
+                </div>
+              </div>
+
+              <div class="ID-S3-1-l-1">
+                <div class="home-6-l-c-4-4">
+                  <div class="left search-goods-l-c-2-1 pre brp starl-n"><div class="search-goods-l-c-2-2 brp starl-y" style="width:20%;"></div></div>
+                  <div class="left ml20 c-yellow-1" id="evaluate1">0</div>
+                </div>
+              </div>
+            </div>
+            <div class="right ID-S3-1-r tac">
+              <div class="ID-S3-1-r-1 c-yellow-1" id="evaluateValue">0</div>
+              <div class="ID-S3-1-r-2 font12">Overall rating</div>
+              <div class="ID-S3-1-r-3"><span id="thumb">0</span>%</div>
+              <div class="ID-S3-1-r-4 font12">Rate of Praise</div>
+            </div>
+            <div class="ID-S3-1-c"></div>
+          </div>
+
+          <div class="sp10"></div>
+
+          <div class="ID-S3-ls">
+            <!--<div class="ID-S3-l">-->
+              <!--<div class="ID-S3-l-1 ovf">-->
+                <!--<div class="left ID-S3-l-1-l"><img src="images/personal.png" alt="" onerror="this.src='images/personal.png';this.onerror=null;" onload="$(this).fadeTo('slow',1);" style="opacity:0;display: block;"></div>-->
+                <!--<div class="right ID-S3-l-1-r">2018-10-01</div>-->
+                <!--<div class="ID-S3-l-1-c">-->
+                  <!--<div class="ID-S3-l-1-c-1">lili</div>-->
+                  <!--<div class="ID-S3-l-1-c-2">-->
+                    <!--<div class="home-6-l-c-4-4">-->
+                      <!--<div class="left search-goods-l-c-2-1 pre brp starl-n"><div class="search-goods-l-c-2-2 brp starl-y" style="width:20%;"></div></div>-->
+                    <!--</div>-->
+                  <!--</div>-->
+                <!--</div>-->
+              <!--</div>-->
+
+              <!--<div class="ID-S3-l-2 bb3">-->
+                <!--The teacher is very professional, the classroom environment is very good, excellent-->
+              <!--</div>-->
+
+              <!--<div class="ID-S3-l-3">-->
+                <!--<div class="ovf mb10">-->
+                  <!--<div class="left font16 c-333">Institutions Reply</div>-->
+                  <!--<div class="right c-aaa">2018-10-01</div>-->
+                <!--</div>-->
+                <!--<div>The teacher is very professional, the classroom environment is very good, excellent</div>-->
+              <!--</div>-->
+
+              <!--<div class="ID-S3-l-4 ovf">-->
+                <!--<div class="ID-S3-l-4-c"><img src="images/test/goods2.jpg" alt="" onerror="this.src='images/error.png';this.onerror=null;" onload="$(this).fadeTo('slow',1);" style="opacity:0;display: block;"></div>-->
+                <!--<div class="ID-S3-l-4-c"><img src="images/test/goods2.jpg" alt="" onerror="this.src='images/error.png';this.onerror=null;" onload="$(this).fadeTo('slow',1);" style="opacity:0;display: block;"></div>-->
+                <!--<div class="ID-S3-l-4-c"><img src="images/test/goods2.jpg" alt="" onerror="this.src='images/error.png';this.onerror=null;" onload="$(this).fadeTo('slow',1);" style="opacity:0;display: block;"></div>-->
+                <!--<div class="ID-S3-l-4-c"><img src="images/test/goods2.jpg" alt="" onerror="this.src='images/error.png';this.onerror=null;" onload="$(this).fadeTo('slow',1);" style="opacity:0;display: block;"></div>-->
+              <!--</div>-->
+            <!--</div>-->
+            <!--<div class="sp5"></div>-->
+          </div>
+        </div>
+
+        <div class="noDataS hide">
+          <div class="noDataS-1 brpscn" style="margin-top: 50px;"></div>
+          <div class="noDataS-2" style="margin-bottom: 50px;">Sorry, there is no relevant data</div>
+        </div>
+
+      </ul>
+    </div>
+  </div>
+
+  <div class="noDataS2 hide">
+    <div class="noDataS-1 brpscn"></div>
+    <div class="noDataS-2">Sorry, The course has been disabled.</div>
+    <div class="noDataS-3" onclick="Comm.close();">Back</div>
+  </div>
+</section>
+
+<div class="app-window1 hide" onclick="openWindow(0)"></div>
+
+<div class="enquiry-window hide">
+  <div class="enquiry-window-1 pre">
+    <div class="enquiry-window-2">Enquiry</div>
+    <div class="enquiry-window-3">
+      <div class="c-green-1 font16">Email</div>
+      <div class="enquiry-window-3-1"><input id="enquiry-email" type="text"></div>
+      <div class="enquiry-window-3-2 hh2 brp font12">OR</div>
+      <div class="c-green-1 font16">Phone number</div>
+      <div class="enquiry-window-3-1"><input id="enquiry-phone" type="tel"></div>
+      <div class="enquiry-window-3-3" onclick="enquiry()">Confirm</div>
+    </div>
+    <div class="enquiry-window-4 brp delete6" onclick="openWindow(1)"></div>
+  </div>
+</div>
+
+<div class="order-window hide">
+  <div class="enquiry-window-1 pre">
+    <div class="enquiry-window-2">Book</div>
+    <div class="enquiry-window-3">
+      <div class="c-green-1 font16">Name</div>
+      <div class="enquiry-window-3-1"><input id="book-name" type="text"></div>
+      <div class="c-green-1 font16">Email</div>
+      <div class="enquiry-window-3-1"><input id="book-email" type="text"></div>
+      <div class="c-green-1 font16">Phone number</div>
+      <div class="enquiry-window-3-1"><input id="book-phone" type="tel"></div>
+      <div class="enquiry-window-3-3" onclick="book()">Confirm</div>
+    </div>
+    <div class="enquiry-window-4 brp delete6" onclick="openWindow(2)"></div>
+  </div>
+</div>
+
+<div class="option-window hide">
+  <div class="ovf option-window-2 bg-grey-1">
+    <div class="brp option-window-2-c" onclick="share('1')">
+      <div class="brp Facebook2 option-window-2-c-1"></div>
+      <div>FACEBOOK</div>
+    </div>
+    <div class="brp option-window-2-c" onclick="share('2')">
+      <div class="brp Instagram2 option-window-2-c-1"></div>
+      <div>INSTAGRAM</div>
+    </div>
+    <div class="brp option-window-2-c" onclick="share('3')">
+      <div class="brp Twitter2 option-window-2-c-1"></div>
+      <div>TWITTER</div>
+    </div>
+  </div>
+  <div class="option-window-1" onclick="share_open()">Cancel</div>
+</div>
+
+<footer class="hide">
+  <div class="ovf ICD-f">
+    <div class="left ICD-f-1 brp Home" onclick="Comm.gotop('home.html')">Home</div>
+    <div class="left ICD-f-2 brp Watchit-n" id="collect" onclick="collect()">Watch it</div>
+    <div class="left ICD-f-3 hide" onclick="openWindow(1)">Enquiry</div>
+    <div class="left ICD-f-4 hide" onclick="showmsg()">Book</div>
+    <div class="left ICD-f-5 hide" onclick="showmsg()">Order</div>
+    <!--<div class="left ICD-f-4 hide" onclick="openWindow(2)">Book</div>
+    <div class="left ICD-f-5 hide" onclick="changeTheme1(2);$($('.ICD-1-c')[1]).addClass('ICD-1-c-active');type=2;">Order</div>-->
+    <div class="left ICD-f-6 hide" onclick="">Has been disabled</div>
+  </div>
+</footer>
+
+<script src="inc/g.js"></script>
+<script src="js/md5.js"></script>
+<script src="inc/dict.js"></script>
+<script src="side/side.js"></script>
+<script src="mui/js/mui.min.js"></script>
+
+<script>
+	/* 暂时修改内容 */
+	function showmsg(){
+		$("#tips").stop().fadeIn();
+		setTimeout(function(){
+			$("#tips").stop().fadeOut();
+		},1000);
+	}
+	/* 暂时修改内容 */
+	
+	
+  var user = Comm.db("user");
+  var pageData = { pageno: 1, totalPage: 1, ifFirst: true, courseId: Comm.query("courseId"), collectids: 0, collect: Comm.query("collect"), type: 1 };
+  var courseDetail = {};
+  var weekArr = {0: "SUN", 1: "MON", 2: "TUE", 3: "WED", 4: "THU", 5: "FRI", 6: "SAT"};
+  var openClassArr = [];
+  var childrenArr = [];
+  var calendar_obj = [];
+  var said = Comm.query("areaid");
+  Comm.db("selectClass", null);
+  Comm.db("children", null);
+  Comm.db("submitObj_l", null);
+  Comm.db("coupon_code", null);
+
+  function pageload() {
+    GDict.load(function () {
+      mui.init({
+        pullRefresh: {
+          container: "#refreshContainer",//下拉刷新容器标识，querySelector能定位的css选择器均可，比如：id、.class等
+          up: {
+            height: 50,//可选.默认50.触发上拉加载拖动距离
+            auto: false,//可选,默认false.自动上拉加载一次
+            contentrefresh: "loading...",//可选，正在加载状态时，上拉加载控件上显示的标题内容
+            contentnomore: "There's no more data",//可选，请求完毕若没有更多数据时显示的提醒内容；
+            contentinit: "Pull up shows more",
+            contentdown: "Pull up shows more",
+            callback: upData //必选，刷新函数，根据具体业务来编写，比如通过ajax从服务器获取新数据；
+          }
+        }
+      });
+      Comm.calcSection();
+
+      mui("#listView").off('tap');
+
+      mui("#listView").on('tap', '.IC-2-r-2', function (e) {
+        e.stopPropagation();
+
+        if (!checkIsLogin2()) {
+          return;
+        }
+
+        if (childrenArr.length <= 0) {
+          Comm.message("Please add children");
+          return;
+        }
+
+        var classesId = $(this).attr("classesId");
+        var selectClass;
+        for (var i in openClassArr) {
+          if (openClassArr[i].classesId == classesId) {
+            selectClass = openClassArr[i];
+            Comm.db("selectClass", selectClass);
+            break;
+          }
+        }
+        console.log(selectClass);
+
+        if (selectClass.maxCount <= selectClass.curCount) {
+          Comm.message("The number of applicants is full");
+          return;
+        }
+
+        AJAX2.get("api/class/isSignup", {classesid: classesId}, function (data) {
+          var childrenArr_l = [];
+
+          for (var i in childrenArr) {
+            var num1 = 0;
+            for (var ii in data) {
+              if (childrenArr[i].childid != data[ii].studentId) {
+                num1++;
+              }
+            }
+            if (data.length == num1) {
+              childrenArr_l.push(childrenArr[i]);
+            }
+          }
+          console.log(childrenArr_l);
+
+          //判断所有孩子的性别是否符合
+          var childNoFitNum = 0;
+          for (var i in childrenArr_l) {
+            if (courseDetail.sex != 4 && childrenArr_l[i].gender != courseDetail.sex) {
+              childNoFitNum++;
+            }
+          }
+          if (childNoFitNum == childrenArr_l.length) {
+            Comm.message("children gender mismatch");
+            return;
+          }
+
+          if (Comm.db("children_home" + user.customerId)) {
+            var child_select = Comm.db("children_home" + user.customerId);
+
+            //判断首页选中的孩子是否满足
+            var num2 = 0;
+            for (var i in childrenArr_l) {
+              if (childrenArr_l[i].childid != child_select.childid) {
+                num2++;
+              }
+            }
+
+            if (childrenArr_l.length == num2) {
+              Comm.go('selectChildren.html?classesId=' + classesId + '&sex=' + courseDetail.sex + '&ageLimit=' + courseDetail.ageLimit + '&courseId=' + pageData.courseId);
+              return;
+            }
+
+            if (courseDetail.sex != 4 && child_select.gender != courseDetail.sex) {
+              Comm.go('selectChildren.html?classesId=' + classesId + '&sex=' + courseDetail.sex + '&ageLimit=' + courseDetail.ageLimit + '&courseId=' + pageData.courseId);
+              return;
+            }
+
+            var submitObj_l = {
+              classesid: classesId,
+              childid: child_select.childid,
+              courseId: pageData.courseId,
+              ageLimitArr: courseDetail.ageLimit
+            };
+
+            Comm.db("children", child_select);
+            Comm.db("submitObj_l", submitObj_l);
+            Comm.go("orderOrder.html");
+          } else {
+            Comm.go('selectChildren.html?classesId=' + classesId + '&sex=' + courseDetail.sex + '&ageLimit=' + courseDetail.ageLimit + '&courseId=' + pageData.courseId);
+          }
+
+        }, function(data) {
+          Comm.message(data);
+        })
+      })
+
+      mui("#listView").on('tap', '.IC-2-c-c2', function (e) {
+        e.stopPropagation();
+        $(this).parents().filter(".ICD-2s-l").find(".ICD-tables1").toggleClass("hide");
+        $(this).parents().filter(".ICD-2s-l").find(".myCourse-1").toggleClass("hide");
+        $($(this).find(".arrowBottom4")).toggleClass("arrowTop4");
+      })
+
+      getCourseDetail();
+    });
+  }
+
+  function pageresume(){
+
+  }
+
+  function upData() {
+    if (pageData.type == 1) {
+      getClass(function (flag) {
+        mui('#refreshContainer').pullRefresh().endPullupToRefresh(flag);
+      });
+    } else if (pageData.type == 2) {
+      getClass2(function (flag) {
+        mui('#refreshContainer').pullRefresh().endPullupToRefresh(flag);
+      });
+    } else if (pageData.type == 3) {
+      getEvaList(function (flag) {
+        mui('#refreshContainer').pullRefresh().endPullupToRefresh(flag);
+      });
+    }
+  }
+
+  //切换标题
+  function changeTheme1(type) {
+    if (pageData.type == type) {
+      return;
+    }
+    pageData.type = type;
+    $(".ICD-ss").addClass("hide");
+    $(".ICD-" + pageData.type + "s").removeClass("hide");
+    $(".ICD-1-c").removeClass("ICD-1-c-active");
+    $(event.target).addClass("ICD-1-c-active");
+    pageData.pageno = 1;
+    pageData.totalPage = 1;
+    pageData.ifFirst = true;
+    openClassArr = [];
+    $(".noDataS").addClass("hide");
+    $(".ICD-l2s").html("");
+    $(".ICD-2s-ls").html("");
+    $(".ID-S3-ls").html("");
+    mui('#refreshContainer').scroll().scrollTo(0, 0);
+    upData();
+  }
+
+  //课程详情
+  function getCourseDetail() {
+    AJAX2.get("api/course/show", {courseId: pageData.courseId}, function (data) {
+      courseDetail = data;
+
+      if (courseDetail.enable == 0) {
+        $(".noDataS2").removeClass("hide");
+        return;
+      } else {
+        $(".menu1").removeClass("hide");
+        $(".titlebar").removeClass("hide");
+        $("#refreshContainer").removeClass("hide");
+      }
+
+      Comm.resizeSection();
+      ifCollect();
+      openAndstart();
+      upData();
+      getChildren();
+      getCalendarList();
+
+      var adImgArr = data.face.split(",");
+      var adList = '';
+      for (var i in adImgArr) {
+        adList += '<li><img src="' + CommonFunction.getImgUrl(config.ossroot + adImgArr[i], "l") + '" alt="" onerror="this.src=\'images/error.png\';this.onerror=null;" onload="$(this).fadeTo(\'slow\',1);" style="opacity:0;display: block;"></li>';
+      }
+      $('#box>ul').html(adList);
+      bannerSide = new Side('box');
+
+      var h = "";
+      h += '<div class="pad15">\
+              <div class="font20">' + courseDetail.courseName + '</div>\
+      <div class="c-999 mt5">' + courseDetail.ds + '</div>\
+      <div class="c-yellow-1 mt10">A$<span class="font24">' + courseDetail.price + '</span></div>\
+              </div>\
+\
+              <div class="sp10"></div>\
+\
+              <div class="pad15">\
+              <div class="font18 mb20">Course introduction</div>\
+\
+      <div class="ovf ICD-l">\
+              <div class="left ICD-l-c c-222">Course category</div>\
+      <div class="left ICD-l-c c-888">' + GDict.getName(courseDetail.category1) + "," + GDict.getName(courseDetail.category2) + '</div>\
+              </div>\
+\
+              <div class="ovf ICD-l">\
+              <div class="left ICD-l-c c-222">Age</div>\
+      <div class="left ICD-l-c c-888">' + GDict.getName(courseDetail.ageLimit) + 'Years old</div>\
+              </div>\
+              \
+              <div class="ovf ICD-l">\
+              <div class="left ICD-l-c c-222">Gender</div>\
+      <div class="left ICD-l-c c-888">' + (courseDetail.sex == 2 ? ('Boy') : (courseDetail.sex == 3 ? ('Girl') : ('No limited'))) + '</div>\
+      </div>\
+      \
+              <div class="ovf ICD-l">\
+              <div class="left ICD-l-c c-222">Total lessons</div>\
+      <div class="left ICD-l-c c-888">' + courseDetail.lessons + ' Courses</div>\
+      </div>\
+      \
+      <div class="ovf ICD-l">\
+              <div class="left ICD-l-c c-222">Class duration</div>\
+      <div class="left ICD-l-c c-888">' + courseDetail.periods + 'minute</div>\
+      </div>\
+      \
+      <div class="ovf ICD-l">\
+              <div class="left ICD-l-c c-222">Address</div>\
+      <div class="left ICD-l-c c-888">' + courseDetail.addrOne + courseDetail.addrTwo + '</div>\
+      </div>\
+              </div>\
+\
+              <div class="sp10"></div>\
+\
+              <div class="pad15">\
+              <div class="font18 mb20">Course details</div>\
+      <div class="ICD-3">' + courseDetail.details + '</div>\
+      </div>';
+      $(".ICD-1s-1").html(h);
+
+      $("#evaluate1").html(courseDetail.evaluate1);
+      $("#evaluate2").html(courseDetail.evaluate2);
+      $("#evaluate3").html(courseDetail.evaluate3);
+      $("#evaluate4").html(courseDetail.evaluate4);
+      $("#evaluate5").html(courseDetail.evaluate5);
+      $("#evaluateValue").html(courseDetail.evaluateValue);
+      $("#courseName").html(courseDetail.courseName);
+      $(".price").html(courseDetail.price);
+
+      var thumbSum = courseDetail.evaluate1 + courseDetail.evaluate2 + courseDetail.evaluate3 + courseDetail.evaluate4 + courseDetail.evaluate5;
+      if (thumbSum > 0 && courseDetail.evaluate5 > 0) {
+        $("#thumb").html((courseDetail.evaluate5 / thumbSum * 100).toFixed(2));
+      }
+
+      if (courseDetail.state == 2) {
+        $(".ICD-f-3").removeClass("hide");
+        $(".ICD-f-4").removeClass("hide");
+        $(".ICD-f-5").removeClass("hide");
+      } else {
+        $(".ICD-f-6").removeClass("hide");
+      }
+
+    }, function(data) {
+      Comm.message(data);
+    })
+  }
+
+  //获取历史班次
+  function getClass(cb) {
+    AJAX2.get("api/class/listClasses", { courseid: pageData.courseId, ishistory: 1, pageno: 1, pagesize: config.pagesize }, function (a) {
+      if (pageData.pageno == 1) {
+        $("#history-totalCount").html(a.totalCount);
+      }
+
+      if (pageData.ifFirst == true) {
+        pageData.ifFirst = false;
+        pageData.totalPage = Math.ceil(a.totalCount / config.pagesize);
+      }
+
+      var data = a.data;
+      var noLoadFlag;
+      if (pageData.totalPage > pageData.pageno) {
+        noLoadFlag = false;
+        pageData.pageno++;
+      } else {
+        noLoadFlag = true;
+      }
+      data = data.splice(0, config.pagesize);
+
+      if (data && data.length > 0) {
+        $(".noDataS").addClass("hide");
+        mui('#refreshContainer').pullRefresh().enablePullupToRefresh();
+      } else {
+        $(".noDataS").removeClass("hide");
+        mui('#refreshContainer').pullRefresh().disablePullupToRefresh();
+      }
+
+      var h = '';
+      for (var i in data) {
+        h += '<div class="ICD-l2 ovf">\
+                <div class="right ICD-l2-r brp Done"></div>\
+                <div class="ICD-l2-c c-888 font12">\
+                <div class="c-333 font16 row1">' + data[i].name + '</div>\
+        <div class="mt10 row1">Enrollment date：' + data[i].startEnroll.replace(/-/g, '.') + '-' + data[i].endEnroll.replace(/-/g, '.') + '</div>\
+        <div class="mt10 row1">Start date：' + data[i].startDate.replace(/-/g, '.') + '-' + data[i].endDate.replace(/-/g, '.') + '</div>\
+        <div class="mt10 row1">Educator：' + data[i].teacher + '</div>\
+        <div class="mt10 row1">Enrollment capacity：' + data[i].curCount + '/' + data[i].maxCount + '</div>\
+      </div>\
+      </div>\
+        <div class="sp5"></div>';
+      }
+      $(".ICD-l2s").append(h);
+
+      cb && cb(noLoadFlag);
+
+    }, function (data) {
+      Comm.message(data);
+    })
+  }
+
+  //获取非历史班次
+  function getClass2(cb) {
+    AJAX2.get("api/class/listClasses", { courseid: pageData.courseId, ishistory: 0, pageno: 1, pagesize: config.pagesize }, function (a) {
+      if (pageData.ifFirst == true) {
+        pageData.ifFirst = false;
+        pageData.totalPage = Math.ceil(a.totalCount / config.pagesize);
+      }
+
+      var data = a.data;
+      var noLoadFlag;
+      if (pageData.totalPage > pageData.pageno) {
+        noLoadFlag = false;
+        pageData.pageno++;
+      } else {
+        noLoadFlag = true;
+      }
+      data = data.splice(0, config.pagesize);
+
+      if (data && data.length > 0) {
+        $(".noDataS").addClass("hide");
+        mui('#refreshContainer').pullRefresh().enablePullupToRefresh();
+      } else {
+        $(".noDataS").removeClass("hide");
+        mui('#refreshContainer').pullRefresh().disablePullupToRefresh();
+      }
+
+      if (data.length <= 0) {
+        return;
+      }
+
+      var classesArr = [];
+      for (var i in data) {
+        classesArr.push(data[i].classesId);
+      }
+
+      AJAX2.get("api/class/listClassesPlan", { classesid: classesArr.join(",") }, function (data2) {
+        for (var i in data) {
+          data[i].dataArr = [];
+        }
+
+        for (var i in data2) {
+          for (var ii in data) {
+            if (data2[i].classesId == data[ii].classesId) {
+              data[ii].dataArr.push(data2[i]);
+            }
+          }
+        }
+
+        var h = '';
+        for (var i in data) {
+          h += '<div class="pad15 ICD-2s-l">\
+                <div>' + data[i].name + '</div>\
+\
+        <div class="IC-2">\
+                <div class="right IC-2-r">\
+                <div class="c-red-1 IC-2-r-1">' + (CommonFunction.timeFormat4(data[i].endEnroll) >= 0 ? ('The last ' + (CommonFunction.timeFormat4(data[i].endEnroll) + 1) + ' days') : ('')) + '</div>\
+        <div class="hide IC-2-r-2' + (data[i].curCount == data[i].maxCount ? (' IC-2-r-2-grey') : ('')) + '" classesId="' + data[i].classesId +  '">Buy</div>\
+                </div>\
+                <div class="IC-2-c font12 c-888">\
+                <div class="row1 mt10 IC-2-c-c">Registration time：' + data[i].startEnroll.replace(/-/g, '.') + '-' + data[i].endEnroll.replace(/-/g, '.') + '</div>\
+        <div class="row1 mt10 IC-2-c-c">Opening hours：' + data[i].startDate.replace(/-/g, '.') + '-' + data[i].endDate.replace(/-/g, '.') + '</div>\
+        <div class="row1 mt10 IC-2-c-c">Teacher：' + data[i].teacher + '</div>\
+        <div class="row1 mt10 IC-2-c-c">Enrollment：' + data[i].curCount + '/' + data[i].maxCount + '</div>\
+        <div class="row1 mt10 c-yellow-1 IC-2-c-c2">\
+                <div class="IC-2-c-c2-1">My calendar</div>\
+        <div class="IC-2-c-c2-2 brp arrowBottom4"></div>\
+                </div>\
+                </div>\
+                </div>\
+\
+                <div class="ICD-tables1 font12 tac c-666 pre hide">\
+                <div class="ICD-tables2 mui-scroll">' + datePush(data[i]) + '</div>\
+                </div>\
+                <div class="ovf myCourse-1 calendar hide">\
+                  <div class="myCourse-2 mr20">\
+                  <div class="bg-blue-1 myCourse-3"></div>\
+                  <div class="myCourse-4">HOLIDAY</div>\
+                  </div>\
+                  <div class="myCourse-2">\
+                  <div class="bg-pink-1 myCourse-3"></div>\
+                  <div class="myCourse-4">STATUTORY</div>\
+                  </div>\
+                  </div>\
+                </div>\
+                <div class="sp10"></div>';
+        }
+        $(".ICD-2s-ls").append(h);
+
+        openClassArr = openClassArr.concat(data);
+
+        cb && cb(noLoadFlag);
+
+        //设置可以水平滑动
+        mui('.ICD-tables2').scroll({
+          scrollY: false, //是否竖向滚动
+          scrollX: true, //是否横向滚动
+          startX: 0, //初始化时滚动至x
+          startY: 0, //初始化时滚动至y
+          indicators: false, //是否显示滚动条
+          deceleration:0.0006, //阻尼系数,系数越小滑动越灵敏
+          bounce: true //是否启用回弹
+        });
+
+      }, function (data) {
+        Comm.message(data);
+      })
+
+    }, function (data) {
+      Comm.message(data);
+    })
+  }
+
+  //排课时间
+  function datePush(data) {
+    data.dataArr2 = {};
+    for (var i in data.dataArr) {
+      if (!data.dataArr2[data.dataArr[i].classesDate]) {
+        data.dataArr2[data.dataArr[i].classesDate] = [];
+      }
+      data.dataArr2[data.dataArr[i].classesDate].push(data.dataArr[i]);
+    }
+
+//    console.log(data);
+
+    var h = '<table class="ICD-table">\
+            <tr>\
+            <td class="ICD-table-td1"></td>';
+    for (var i in data.dataArr2) {
+      h += '<td class="' + (calendar_obj[data.dataArr2[i][0].classesDate] ? (calendar_obj[data.dataArr2[i][0].classesDate].isSummerVacation == 0 ? ('bg-blue-1') : ('bg-pink-1')) : ('')) + '">\
+              <div>' + weekArr[new Date(data.dataArr2[i][0].classesDate).getDay()] + '</div>\
+              <div>' + CommonFunction.timeFormat(new Date(data.dataArr2[i][0].classesDate).getTime(), 'MM-dd') + '</div>\
+            </td>';
+    }
+    h += '</tr>\
+            <tr>\
+            <td class="ICD-table-td1">\
+            <div>AM</div>\
+            <div>' + data.amTime + '</div>\
+    </td>';
+
+    var h_l = [];
+    for (var i in data.dataArr2) {
+      h_l = [];
+      for (var ii in data.dataArr2[i]) {
+        h_l.push(data.dataArr2[i][ii].periodType == 1 ? '<td class="brp Course2"></td>' : '<td></td>');
+      }
+      h += h_l.indexOf('<td class="brp Course2"></td>') >= 0 ? '<td class="brp Course2"></td>' : '<td></td>';
+    }
+    h += '</tr>\
+            <tr>\
+            <td class="ICD-table-td1">\
+            <div>PM</div>\
+            <div>' + data.pmTime + '</div>\
+    </td>';
+    for (var i in data.dataArr2) {
+      h_l = [];
+      for (var ii in data.dataArr2[i]) {
+        h_l.push(data.dataArr2[i][ii].periodType == 2 ? '<td class="brp Course2"></td>' : '<td></td>');
+      }
+      h += h_l.indexOf('<td class="brp Course2"></td>') >= 0 ? '<td class="brp Course2"></td>' : '<td></td>';
+    }
+    h += '</tr>\
+            </table>';
+    return h;
+  }
+
+  //评价
+  function getEvaList(cb) {
+    AJAX2.get("api/evaluate/apilist", {itemid: pageData.courseId, type: 2, pageno: pageData.pageno, pagesize: config.pagesize}, function (a){
+      if (pageData.ifFirst == true) {
+        pageData.ifFirst = false;
+        pageData.totalPage = Math.ceil(a.totalCount / config.pagesize);
+      }
+
+      var data = a.data;
+      var noLoadFlag;
+      if (pageData.totalPage > pageData.pageno) {
+        noLoadFlag = false;
+        pageData.pageno++;
+      } else {
+        noLoadFlag = true;
+      }
+      data = data.splice(0, config.pagesize);
+
+      if (data && data.length > 0) {
+        $(".noDataS").addClass("hide");
+        mui('#refreshContainer').pullRefresh().enablePullupToRefresh();
+      } else {
+        $(".noDataS").removeClass("hide");
+        mui('#refreshContainer').pullRefresh().disablePullupToRefresh();
+      }
+
+      var h = '';
+      for (var i in data) {
+        h += '<div class="ID-S3-l">\
+                <div class="ID-S3-l-1 ovf">\
+                <div class="left ID-S3-l-1-l"><img src="' + (data[i].isAnonymous == 0 ? (config.ossroot + data[i].face) : ('images/personal.png')) + '" alt="" onerror="this.src=\'images/personal.png\';this.onerror=null;" onload="$(this).fadeTo(\'slow\',1);" style="opacity:0;display: block;"></div>\
+                <div class="right ID-S3-l-1-r">' + data[i].addTime.replace(/\.0/g, '') + '</div>\
+                <div class="ID-S3-l-1-c">\
+                <div class="ID-S3-l-1-c-1">' + (data[i].isAnonymous == 0 ? (data[i].customerName) : ('******')) + '</div>\
+                <div class="ID-S3-l-1-c-2">\
+                <div class="home-6-l-c-4-4">\
+                <div class="left search-goods-l-c-2-1 pre brp starl-n"><div class="search-goods-l-c-2-2 brp starl-y" style="width:' + (parseFloat(data[i].value) / 5) * 100 + '%"></div></div>\
+                </div>\
+                </div>\
+                </div>\
+                </div>\
+\
+                <div class="ID-S3-l-2">' + data[i].message + '</div>' + addReplyImg(data[i]) + addReply(data[i]) + '\
+                </div>\
+                <div class="sp5"></div>';
+      }
+      $(".ID-S3-ls").append(h);
+
+      cb && cb(noLoadFlag);
+
+    }, function(data) {
+      Comm.message(data);
+    })
+  }
+
+  //加回复
+  function addReply(data) {
+    var h = '';
+    if (data.insReply && data.insReply != "null") {
+      h += '<div class="ID-S3-l-3 bt3">\
+                <div class="ovf mb10">\
+                <div class="left font16 c-333">Institutions Reply</div>\
+        <div class="right c-aaa">' + data.replyTime + '</div>\
+                </div>\
+                <div>' + data.insReply + '</div>\
+        </div>';
+    }
+    return h;
+  }
+
+  //加图片
+  function addReplyImg(data) {
+    var h = '';
+    if (data.imgurls && data.imgurls != "null") {
+      var arr1 = data.imgurls.split(",");
+
+      h = '<div class="ID-S3-l-4 ovf">';
+      for (var i in arr1) {
+        h += '<div class="ID-S3-l-4-c"><img src="' + config.ossroot + arr1[i] + '" alt="" onerror="this.src=\'images/error.png\';this.onerror=null;" onload="$(this).fadeTo(\'slow\',1);" style="opacity:0;display: block;"></div>';
+      }
+      h += '</div>';
+    }
+    return h;
+  }
+
+  //打开窗口
+  function openWindow(n) {
+    if (!checkIsLogin2()) {
+      return;
+    }
+
+    $(".app-window1").toggleClass("hide");
+
+    if (n == 0) {
+      $(".enquiry-window").addClass("hide");
+      $(".order-window").addClass("hide");
+      $(".option-window").addClass("hide");
+    } else if (n == 1) {
+      $(".enquiry-window").toggleClass("hide");
+    } else if (n == 2) {
+      $(".order-window").toggleClass("hide");
+       $(".order-window .enquiry-window-2");
+    } else if (n == 3) {
+      $(".option-window").toggleClass("hide");
+    }
+  }
+
+  //是否收藏
+  function ifCollect() {
+    if (!user) {
+      return;
+    }
+
+    AJAX2.get("api/collect/iscollect", { itemId: pageData.courseId, itemType: 2 }, function (data) {
+      if (data> 0) {
+        $("#collect").addClass("Watchit-y");
+        pageData.collectids = data;
+      } else {
+        $("#collect").removeClass("Watchit-y");
+        pageData.collectids = 0;
+      }
+
+    }, function (data) {
+      Comm.message(data);
+    })
+  }
+
+  //收藏
+  function collect() {
+    if (!checkIsLogin2()) {
+      return;
+    }
+
+    if (pageData.collectids) {
+      AJAX2.post("api/collect/remove", { collectids: pageData.collectids }, function (data) {
+        pageData.collectids = 0;
+        Comm.message("uncollectible");
+        $("#collect").removeClass("Watchit-y");
+
+        if (pageData.collect == 1 && pageData.collectids == 0) {
+          Comm.db("collect", { itemid: courseDetail.courseId });
+        }
+
+      }, function (data) {
+        Comm.message(data);
+      })
+    } else {
+      AJAX2.post("api/collect/save", { itemId: pageData.courseId, itemType: 2 }, function (data) {
+        pageData.collectids = data.collectid;
+        Comm.message("collected");
+        $("#collect").addClass("Watchit-y");
+
+        if (pageData.collect == 1 && pageData.collectids == 0) {
+          Comm.db("collect", null);
+        }
+
+      }, function (data) {
+        Comm.message(data);
+      })
+    }
+  }
+
+  //回访
+  function enquiry() {
+    if (!checkIsLogin2()) {
+      return;
+    }
+
+    var email = $("#enquiry-email").val();
+    var phone = $("#enquiry-phone").val();
+
+    if (email == "" && phone == "") {
+      Comm.message("Please fill in the email address or telephone number");
+      return;
+    }
+
+    AJAX2.post("api/class/classVisit", { customerId: user.customerId, businessId: courseDetail.businessId, courseId: pageData.courseId, email: email, phone: phone }, function (data) {
+      Comm.message("submitted");
+      openWindow(0);
+
+    }, function (data) {
+      Comm.message(data);
+    })
+  }
+
+  //预约
+  function book() {
+    if (!checkIsLogin2()) {
+      return;
+    }
+
+    var name = $("#book-name").val();
+    var email = $("#book-email").val();
+    var phone = $("#book-phone").val();
+
+    if (name == "") {
+      Comm.message("Please fill your name");
+      return;
+    }
+
+    if (email == "") {
+      Comm.message("Please fill in the email address");
+      return;
+    }
+
+    if (phone == "") {
+      Comm.message("Please fill in the telephone number");
+      return;
+    }
+
+    AJAX2.post("api/class/classAppointment", { customerId: user.customerId, businessId: courseDetail.businessId, nickName: name, courseId: pageData.courseId, email: email, phone: phone }, function (data) {
+      Comm.message("submitted");
+      openWindow(0);
+
+    }, function (data) {
+      Comm.message(data);
+    })
+  }
+
+  //开放课程数量
+  function openAndstart() {
+    AJAX2.post("api/class/openAndstart", { courseId: pageData.courseId }, function (data) {
+      $("#signupcount").html(data[0] && data[0].signupcount != "null" ? data[0].signupcount : 0);
+      $("#opencount").html(data[0] && data[0].opencount != "null" ? data[0].opencount : 0);
+
+    }, function (data) {
+      Comm.message(data);
+    })
+  }
+
+  //toggleTable
+  function toggleTable() {
+    console.log(111);
+    console.log($(event.target));
+  }
+
+  //得到小孩
+  function getChildren() {
+    if (!user) {
+      return;
+    }
+
+    AJAX2.get("api/child/list", {customerid: user.customerId}, function (data){
+      childrenArr = data;
+
+    }, function(data) {
+      Comm.message(data);
+    })
+  }
+
+  //节假日
+  function getCalendarList() {
+    var calendarArr = [];
+
+    AJAX2.get("api/calendar/list", {year: new Date().getFullYear(), areaId: said}, function (data){
+      calendarArr = calendarArr.concat(data);
+
+      AJAX2.get("api/calendar/list", {year: new Date().getFullYear() + 1, areaId: said}, function (data2){
+        calendarArr = calendarArr.concat(data2);
+        for (var i in calendarArr) {
+          calendarArr[i].date = calendarArr[i].year + "-" + calendarArr[i].monthDay.slice(0, 2) + "-" + calendarArr[i].monthDay.slice(2, 4);
+        }
+        calendar_obj = Tool.getDict(calendarArr, "date");
+        console.log(calendar_obj);
+
+      }, function(data) {
+        Comm.message(data);
+      })
+
+    }, function(data) {
+      Comm.message(data);
+    })
+  }
+
+  //分享
+  function share(t) {
+    if (!checkIsLogin2()) {
+      return;
+    }
+
+    Comm.shareUrl({ 
+    	title: courseDetail.courseName, 
+    	desc: courseDetail.ds, 
+    	pic: config.ossroot + courseDetail.face, 
+    	url: config.ip + 'institutionsCourseDetail.html?courseId=' + pageData.courseId, 
+    	platform: t
+    }, function (d) {
+      openWindow(0);
+      if (d == 1) {
+        Comm.message("Share succeed");
+      } else {
+        Comm.message("Share fail");
+      }
+    });
+  }
+</script>
+</body>
+</html>

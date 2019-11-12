@@ -1,0 +1,319 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffffff"
+    tools:context="com.yunlinker.azjy.MapViewActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:id="@+id/relativeLayout"
+            android:layout_width="match_parent"
+            android:layout_height="50dp">
+
+            <ImageView
+                android:id="@+id/img_back"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="13dp"
+                android:src="@mipmap/returnimg" />
+
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:gravity="center"
+                android:text="Search"
+                android:textColor="#333333"
+                android:textSize="18sp" />
+
+            <ImageView
+                android:id="@+id/img_search"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignParentTop="true"
+                android:layout_toStartOf="@+id/img_lb"
+
+                android:padding="10dp"
+                android:src="@mipmap/search" />
+
+            <ImageView
+                android:id="@+id/img_lb"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginRight="15dp"
+                android:padding="10dp"
+                android:src="@mipmap/lb" />
+        </RelativeLayout>
+
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/relativeLayout"
+            android:scrollbars="none"
+            android:id="@+id/horizontalScrollView">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <LinearLayout
+                    android:id="@+id/text_time"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_marginLeft="16dp"
+                    android:gravity="center">
+
+                    <TextView
+                        android:id="@+id/time"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Time"
+                        android:textColor="#333333"
+                        android:textSize="14sp" />
+
+                    <ImageView
+                        android:id="@+id/img_time"
+                        android:layout_width="8dp"
+                        android:layout_height="5dp"
+                        android:layout_marginLeft="5dp"
+                        android:src="@drawable/moren"
+                         />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/text_price"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_marginLeft="29dp"
+                    android:layout_toRightOf="@+id/text_time"
+                    android:gravity="center">
+
+                    <TextView
+                        android:id="@+id/price"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Price"
+                        android:textColor="#333333"
+                        android:textSize="14sp" />
+
+                    <ImageView
+                        android:id="@+id/img_price"
+                        android:layout_width="8dp"
+                        android:layout_height="5dp"
+                        android:layout_marginLeft="5dp"
+                        android:src="@drawable/moren"
+                       />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/text_age"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_marginLeft="29dp"
+                    android:layout_toRightOf="@+id/text_price"
+                    android:gravity="center">
+
+                    <TextView
+                        android:id="@+id/age"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Age"
+                        android:textColor="#333333"
+                        android:textSize="14sp" />
+
+                    <ImageView
+                        android:id="@+id/img_age"
+                        android:layout_width="8dp"
+                        android:layout_height="5dp"
+                        android:layout_marginLeft="5dp"
+                        android:src="@drawable/moren"
+                        />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/text_gender"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_marginLeft="29dp"
+                    android:layout_toRightOf="@+id/text_age"
+                    android:gravity="center">
+
+                    <TextView
+                        android:id="@+id/gender"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Gender"
+                        android:textColor="#333333"
+                        android:textSize="14sp" />
+
+                    <ImageView
+                        android:id="@+id/img_gender"
+                        android:layout_width="8dp"
+                        android:layout_height="5dp"
+                        android:layout_marginLeft="5dp"
+                        android:src="@drawable/moren"
+                        />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/text_recruit_status"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_marginLeft="29dp"
+                    android:layout_toRightOf="@+id/text_gender"
+                    android:gravity="center">
+
+                    <TextView
+                        android:id="@+id/recruit_status"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Recruit Status"
+                        android:textColor="#333333"
+                        android:textSize="14sp" />
+
+                    <ImageView
+                        android:id="@+id/img_recruit_status"
+                        android:layout_width="8dp"
+                        android:layout_height="5dp"
+                        android:layout_marginLeft="5dp"
+                        android:src="@drawable/moren"
+                        />
+                </LinearLayout>
+            </RelativeLayout>
+        </HorizontalScrollView>
+
+        <TextView
+            android:id="@+id/huaxian"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#E5E5E5"
+            android:layout_below="@+id/horizontalScrollView"/>
+
+
+        <com.kongzue.stacklabelview.StackLabel
+            android:id="@+id/stackLabelView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:textColor="#68AF47"
+            app:itemMargin="4dp"
+            android:layout_below="@+id/huaxian"
+            app:paddingHorizontal="12dp"
+            app:paddingVertical="8dp"
+            app:deleteButton="true"
+            app:textSize="12dp"
+            app:deleteButtonImage="@mipmap/backimg"
+            app:labelBackground="@drawable/list_button"
+            />
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/stackLabelView">
+
+            <fragment
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:id="@+id/map"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:name="com.google.android.gms.maps.SupportMapFragment"/>
+
+            <ListView
+                android:visibility="gone"
+                android:id="@+id/age_list"
+                android:layout_width="match_parent"
+                android:divider="#ebebeb"
+                android:layout_height="wrap_content"
+                android:background="#ffffff"/>
+            <ListView
+                android:visibility="gone"
+                android:id="@+id/price_list"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#ffffff"/>
+
+            <ListView
+                android:visibility="gone"
+                android:id="@+id/gender_list"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#ffffff"
+                />
+            <RelativeLayout
+                android:visibility="gone"
+                android:id="@+id/recruit_status_relative"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#ffffff">
+            <LinearLayout
+                android:id="@+id/recruit_status_linear"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#ffffff">
+            <ListView
+                android:id="@+id/recruit_status_list_one"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#ffffff"
+                android:layout_weight="1"/>
+                <ListView
+                    android:visibility="gone"
+                    android:id="@+id/recruit_status_list_two"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#ffffff"
+                    android:layout_weight="1"/>
+            </LinearLayout>
+                <TextView
+                    android:id="@+id/dddddddd"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="#E5E5E5"
+                    android:layout_below="@+id/recruit_status_linear"
+                    />
+                <LinearLayout
+                    android:layout_below="@+id/dddddddd"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp">
+                    <TextView
+                        android:id="@+id/text_reset"
+                        android:layout_width="wrap_content"
+                        android:layout_height="50dp"
+                        android:layout_weight="1"
+                        android:text="Reset"
+                        android:gravity="center"
+                        android:textSize="16sp"
+                        android:textColor="#000000"
+                        />
+                    <TextView
+                        android:id="@+id/text_done"
+                        android:layout_width="wrap_content"
+                        android:layout_height="50dp"
+                        android:layout_weight="1"
+                        android:text="Done"
+                        android:gravity="center"
+                        android:textSize="16sp"
+                        android:background="#7ACC52"
+                        android:textColor="#ffffff"
+                        />
+                </LinearLayout>
+            </RelativeLayout>
+        </FrameLayout>
+
+
+
+    </RelativeLayout>
+
+</LinearLayout>

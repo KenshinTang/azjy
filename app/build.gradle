@@ -1,0 +1,125 @@
+apply plugin: 'com.android.application'
+apply plugin: 'com.mob.sdk'
+apply plugin: 'com.jakewharton.butterknife'
+
+android {
+
+
+    signingConfigs {
+        release {
+            keyAlias 'yunlinker'
+            keyPassword '20160516'
+            storeFile file('G:\\Source\\ionic\\android_azjy\\Yunlinker-20160516.jks')
+            storePassword '20160516'
+        }
+        debug {
+            storeFile file('G:\\Source\\ionic\\android_azjy\\Yunlinker-20160516.jks')
+            storePassword '20160516'
+            keyAlias = 'yunlinker'
+            keyPassword '20160516'
+        }
+    }
+    compileSdkVersion 27
+    buildToolsVersion '27.0.1'
+    sourceSets.main.jniLibs.srcDirs = ['libs']
+    defaultConfig {
+        applicationId "com.yunlinker.azjy"
+        minSdkVersion 19
+        targetSdkVersion 28
+        multiDexEnabled true
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+
+            signingConfig signingConfigs.release
+        }
+    }
+    sourceSets {
+        main {
+            assets.srcDirs = ['../assets']
+            jniLibs.srcDirs = ['libs']
+        }
+    }
+    allprojects {
+        repositories {
+            mavenCentral()
+        }
+    }
+//    dexOptions {
+//        javaMaxHeapSize "4g"
+//        incremental true
+//    }
+
+}
+
+MobSDK {
+    appKey "291c06215f3b4"
+    appSecret "8e5667a8906dbdd915b66526c100d51e"
+
+    ShareSDK {
+        devInfo {
+            Facebook {
+                id 1
+                sortId 1
+                appKey "312645002702382"
+                appSecret "b251c851e3818639a882d109033c985c"
+                callbackUri "https://au.kaifaapp.cn/api/three/facebook/code"
+                shareByAppClient true
+                enable true
+            }
+            Twitter {
+                id 2
+                sortId 2
+                appKey "0AllGDU53GaqDJS1WZKxgiVHJ"
+                appSecret "MS7Mt8YjDoPZ3jHmSnz93DsAPnblBD3BBSx4ilTKnMSiQV6KCf"
+                callbackUri "https://www.allaboutchildrens.com.au"
+                enable true
+            }
+            Instagram {
+                id 3
+                sortId 3
+                appId "bc72068624e44c099d2fcc15bc1de84a"
+                appSecret "881e27567486491ba1a8a0936b02099b"
+                callbackUri "http://www.allaboutchildrens.com.au"
+                enable true
+            }
+        }
+    }
+}
+
+dependencies {
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+    //----------图片选择----------
+    compile project(':imagepicker')
+    compile project(':luban')
+    compile project(':push')
+    //compile 'com.github.hackware1993:MagicIndicator:1.5.0'
+
+    //时间选择器
+    compile 'com.android.support:appcompat-v7:25.3.1'
+    compile 'com.android.support.constraint:constraint-layout:1.0.2'
+    compile 'com.android.support:support-v4:25.3.1'
+    compile 'com.google.code.gson:gson:2.8.1'
+    compile 'com.github.bumptech.glide:glide:4.6.1'
+    compile 'com.squareup.okhttp3:okhttp:3.9.0'
+    compile 'com.umeng.analytics:analytics:latest.integration'
+    compile 'com.qiyukf.unicorn:unicorn:3.7.0'
+    compile 'com.android.support:design:27.0.2'
+    compile 'com.contrarywind:Android-PickerView:4.1.6'
+    compile 'com.jakewharton:butterknife:8.8.1'
+    compile 'com.google.android.gms:play-services-maps:12.0.1'
+    compile 'com.google.android.gms:play-services:12.0.1'
+    compile 'com.android.support:multidex:1.0.1'
+    compile 'com.hjq:xxpermissions:5.0'
+    compile 'com.kongzue.stacklabel:stacklabelview:1.1.0'
+    compile 'com.hyman:flowlayout-lib:1.1.2'
+    testCompile 'junit:junit:4.12'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.6.1'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
+}

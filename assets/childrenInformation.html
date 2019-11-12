@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title></title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no">
+  <meta http-equiv="Cache-Control" content="public" >
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="format-detection" content="telephone=no">
+  <meta name="apple-mobile-web-app-status-bar-style"  content="black" />
+  <meta name="renderer" content="webkit">
+  <meta name="description" content="All About Children">
+  <meta name="keywords" content="All About Children">
+  <link rel="stylesheet" href="inc/g.css" type="text/css">
+  <link rel="stylesheet" href="css/common.css" type="text/css">
+  <link rel="stylesheet" href="css/unique.css" type="text/css">
+  <script src="js/jquery-3.1.1.min.js"></script>
+  <script type="text/javascript" src="js/common.js"></script>
+</head>
+<body>
+<header class="bb0">
+  <div class="back1" onclick="Comm.close();"></div>
+  <div class="menu1"></div>
+  <div class="titlebar">Child information</div>
+</header>
+
+<section class="bg-grey-1">
+  <div class="sp10"></div>
+  <div class="PL-ls bg-white">
+    <div class="ovf PL-2 bb3">
+      <div class="left PL-2-l">Portrait</div>
+      <div class="right PL-2-r brp arrowRight"></div>
+      <div class="PL-2-c" id="faceImg"><img class="bra" src="images/personal.png" alt="" onerror="this.src='images/personal.png';this.onerror=null;" onload="$(this).fadeTo('slow',1);" style="opacity:0;display: block;"></div>
+    </div>
+    <div class="ovf PL-1 bb3">
+      <div class="left PL-1-l">Name</div>
+      <div class="PL-1-c" style="margin-right: 15px;"><input class="tar c-999" id="name" type="text" placeholder="Name" autocomplete="off" oninput="CommonFunction.removeEmoji(event);"></div>
+    </div>
+    <div class="ovf PL-1 bb3">
+      <div class="left PL-1-l">Children's Birthday</div>
+      <div class="PL-1-c" style="margin-right: 15px;" id="birthday"></div>
+    </div>
+    <div class="ovf PL-1 bb3" onclick="sexPicker.show()">
+      <div class="left PL-1-l">Gender</div>
+      <div class="right PL-1-r brp arrowRight"></div>
+      <div class="PL-1-c" id="sex"></div>
+    </div>
+    <div class="ovf PL-1 bb3">
+      <div class="left PL-1-l">Age</div>
+      <div class="PL-1-c" style="margin-right: 15px;"><input class="tar c-999" id="age" type="tel" placeholder="Age" autocomplete="off" oninput="CommonFunction.checkNumber();"></div>
+    </div>
+    <div class="ovf PL-1 bb3" onclick="jsGo(1)">
+      <div class="left PL-1-l">Interest</div>
+      <div class="right PL-1-r brp arrowRight"></div>
+      <div class="PL-1-c row1" id="interest"></div>
+    </div>
+  </div>
+</section>
+
+<footer class="footer1 bg-grey-1" style="border-top: 1px solid #f4f4f4;">
+  <div class="footer-button" onclick="submit()">SAVE</div>
+</footer>
+
+<script src="inc/g.js"></script>
+<script src="js/md5.js"></script>
+<script src="inc/dict.js"></script>
+<script src="js/picker.min.js"></script>
+<script src="inc/upimg/upload.js"></script>
+
+<script>
+  var user = Comm.db("user");
+  var pageData = {cid: Comm.query("cid")};
+  var childrenDetail = {};
+  var sexPicker = null;
+  var upHeader = null;
+
+  function pageload() {
+    upHeader = new imgUploader("faceImg");
+
+    sexPicker = new Commpicker("select sex",[[{text: "Boy", i: 2}, {text: "Girl", i: 3}]],function (a, b, c) {
+      console.log(a, b, c);
+      $('#sex').html(b);
+      childrenDetail.gender = c;
+    });
+
+    GDict.load(function () {
+      getChildrenDetail();
+    });
+  }
+
+  function pageresume(){
+    var o1 = Comm.db("interest");
+    if (o1) {
+      Comm.db("interest", null);
+      childrenDetail.interest = o1.interest;
+      var interestArr = childrenDetail.interest.split(",");
+      var interestString = [];
+      for (var i in interestArr) {
+        interestString.push(GDict.getName(interestArr[i]));
+      }
+      $("#interest").html(interestString.join(","));
+    }
+  }
+
+  function getChildrenDetail() {
+    AJAX2.post("api/child/show", {childid: pageData.cid}, function (data){
+      childrenDetail = data;
+
+      if (data.face) {
+        if (data.face.slice(0,4) == "http") {
+          $("#faceImg img").attr({"src": data.face});
+        } else {
+          $("#faceImg img").attr({"src": config.ossroot + data.face});
+        }
+      }
+
+      $("#name").val(data.name);
+      $("#birthday").html(data.birthday);
+      $("#sex").html(data.gender == 2 ? "Boy" : "Girl");
+      $("#age").val(data.age);
+      var interestArr = data.interest.split(",");
+      var interestString = [];
+      for (var i in interestArr) {
+        interestString.push(GDict.getName(interestArr[i]));
+      }
+      $("#interest").html(interestString.join(","));
+
+    }, function(data) {
+      Comm.message(data);
+    })
+  }
+
+  //提交
+  function submit() {
+    childrenDetail.name = $("#name").val();
+    childrenDetail.age = $("#age").val();
+
+    if (upHeader.imgList[0]) {
+      childrenDetail.face = upHeader.imgList[0];
+    }
+
+    AJAX2.post("api/child/modify", {childid: pageData.cid, face: childrenDetail.face, name: childrenDetail.name, birthday: childrenDetail.birthday, gender: childrenDetail.gender, age: childrenDetail.age, interest: childrenDetail.interest}, function (data){
+      Comm.message("succeed");
+      Comm.close();
+
+    }, function(data) {
+      Comm.message(data);
+    })
+  }
+
+  function jsGo(n) {
+    if (n == 1) {
+      Comm.db("childrenDetail", childrenDetail);
+      Comm.go('interest.html?cid=' + pageData.cid);
+    }
+  }
+</script>
+</body>
+</html>

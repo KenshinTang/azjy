@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title></title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no">
+  <meta http-equiv="Cache-Control" content="public">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="format-detection" content="telephone=no">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  <meta name="renderer" content="webkit">
+  <meta name="description" content="All About Children">
+  <meta name="keywords" content="All About Children">
+  <link rel="stylesheet" href="inc/g.css" type="text/css">
+  <link rel="stylesheet" href="css/common.css" type="text/css">
+  <link rel="stylesheet" href="css/unique.css" type="text/css">
+  <script src="js/jquery-3.1.1.min.js"></script>
+  <script type="text/javascript" src="js/common.js"></script>
+</head>
+
+<body>
+  <header class="bb0">
+    <div class="back1" onclick="Comm.close();"></div>
+    <div class="menu1"></div>
+    <div class="titlebar"></div>
+  </header>
+  <section>
+    <div class="emailLogin-1" style="color:black;">Bind Email</div>
+    <div class="reg-1">
+      <div class="right reg-1-r"></div>
+      <div class="reg-1-c"><input id="reg-email" type="text" placeholder="Email address" autocomplete="off" oninput="checkInput();"></div>
+    </div>
+    <div class="reg-1">
+      <div class="right reg-1-r brp eye-n2" onclick="change_eye()"></div>
+      <div class="reg-1-c"><input id="reg-password" type="password" placeholder="Password" autocomplete="off" oninput="checkInput();"></div>
+    </div>
+    <div class="reg-2 c-666">We will activate the account throught your email, please go to the email address and click the link to activate the account</div>
+    <div class="reg-3 ovf">
+      <table>
+        <tr>
+          <td style="width: 20px;"><div class="left reg-3-1 brp yhxy-n" onclick="selectAgree()"></div></td>
+          <td><div class="left" style="line-height: 15px;">I have read and accepted<span class="c-yellow-1" onclick="Comm.go('agreement.html')">《Service agreement》</span></div></td>
+        </tr>
+      </table>
+    </div>
+    <div class="commonButton1" style="margin-top:50px;" onclick="reg()">Bind Email</div>
+  </section>
+
+  <script src="inc/g.js"></script>
+  <script src="js/md5.js"></script>
+
+  <script>
+    var user = Comm.db("user");
+    var pageData = { email: "", password: "", buttonFlag: true, agreeFlag: false};
+    var agreement;
+    var sanLogin = Comm.db("sanLogin");
+
+    function pageload() {
+      config.ifGoLogin = 0;
+    }
+
+    function pageresume() {
+      agreement = Comm.db("agreement");
+      if (agreement && agreement.agreement == 1) {
+        pageData.agreeFlag = true;
+        $(".reg-3-1").addClass("yhxy-y");
+        checkInput();
+      }
+    }
+
+    //登录
+    function reg() {
+      if (pageData.buttonFlag == true) {
+        pageData.buttonFlag = false;
+        setTimeout(function() {
+          pageData.buttonFlag = true;
+        }, 1000)
+      } else {
+        return;
+      }
+
+      pageData.email = $("#reg-email").val();
+      pageData.password = $("#reg-password").val();
+
+      if (pageData.email == "") {
+        Comm.message("Please enter your email");
+        return;
+      }
+
+      if (pageData.password == "") {
+        Comm.message("Please enter password");
+        return;
+      }
+
+      if (!/^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/.test(pageData.email)) {
+        Comm.message("Please enter the correct email address");
+        return;
+      }
+
+      if (pageData.password.length < 6 || pageData.password.length > 20) {
+        Comm.message("Please enter a password with a length of 6 to 20 digits");
+        return;
+      }
+
+      if (!agreement) {
+        Comm.message("Please read and agree to the agreement");
+        return;
+      }
+
+      if (pageData.agreeFlag == false) {
+        Comm.message("Please check the agreement");
+        return;
+      }
+
+      AJAX2.post("api/three/sendEamil", { id: sanLogin.id, type: sanLogin.type, name: sanLogin.name, email: pageData.email, password: pageData.password }, function (data) {
+        Comm.go('forget2.html');
+
+      }, function (data) {
+        Comm.message(data);
+      })
+    }
+
+    function checkInput() {
+      if ($("#reg-email").val().length > 0  && $("#reg-password").val().length > 0 && pageData.agreeFlag == true) {
+        $('.commonButton1').addClass('commonButton1-active');
+      } else {
+        $('.commonButton1').removeClass('commonButton1-active');
+      }
+    }
+
+    function change_eye() {
+      $(event.target).toggleClass("eye-y2");
+
+      if ($("#reg-password").attr("type") == "password") {
+        $("#reg-password").attr({ "type": "text" });
+      } else {
+        $("#reg-password").attr({ "type": "password" });
+      }
+    }
+
+    //是否同意
+    function selectAgree() {
+      if (agreement && agreement.agreement == 1) {
+        $(event.target).toggleClass("yhxy-y");
+        pageData.agreeFlag = !pageData.agreeFlag;
+        checkInput();
+      } else {
+        Comm.message("Please read and agree to the agreement");
+      }
+    }
+  </script>
+</body>
+
+</html>

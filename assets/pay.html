@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title></title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no">
+  <meta http-equiv="Cache-Control" content="public" >
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="format-detection" content="telephone=no">
+  <meta name="apple-mobile-web-app-status-bar-style"  content="black" />
+  <meta name="renderer" content="webkit">
+  <meta name="description" content="All About Children">
+  <meta name="keywords" content="All About Children">
+  <link rel="stylesheet" href="inc/g.css" type="text/css">
+  <link rel="stylesheet" href="css/common.css" type="text/css">
+  <link rel="stylesheet" href="css/unique.css" type="text/css">
+  <script src="js/jquery-3.1.1.min.js"></script>
+  <script type="text/javascript" src="js/common.js"></script>
+</head>
+<body>
+<header>
+  <div class="back1" onclick="jsGo(1);"></div>
+  <div class="menu1"></div>
+  <div class="titlebar">Order payment</div>
+</header>
+
+<section>
+  <div class="bg-white tac pay-1">
+    <div class="brp pay-1-1 Submitsuccessfully">Submit successfully</div>
+    <div class="brp pay-1-2 c-red-1 mt10 hide">Remaining time: <span id="surplus-time"></span></div>
+  </div>
+
+  <div class="sp10"></div>
+
+  <div class="font16 ovf bg-white pay-2">
+    <div class="left">Order price</div>
+    <div class="right c-yellow-1">A$<span class="price"></span></div>
+  </div>
+
+  <div class="sp10"></div>
+
+  <div class="bg-white">
+    <div class="pay-2 bb3">Payment method</div>
+    <div class="ovf pay-3 bb3">
+      <div class="right pay-3-r brp select2-n select3-y"></div>
+      <div class="pay-3-c font16">Paypal</div>
+    </div>
+    <div class="ovf pay-3 bb3">
+      <div class="right pay-3-r brp select2-n"></div>
+      <div class="pay-3-c font16">Mastercard</div>
+    </div>
+    <div class="ovf pay-3 bb3">
+      <div class="right pay-3-r brp select2-n"></div>
+      <div class="pay-3-c font16">Visa</div>
+    </div>
+  </div>
+</section>
+
+<footer class="footer1">
+  <div class="footer-button" onclick="order()">Confirm</div>
+</footer>
+
+<script src="inc/g.js"></script>
+<script src="js/md5.js"></script>
+
+<script>
+  var user = Comm.db("user");
+  var pageData = {oid: Comm.query("oid")};
+  var submitObj_l = Comm.db("submitObj_l");
+  var submitObj = {
+    classesid: "",
+    childid: "",
+    discountcode: "",
+  };
+  var orderDetail = {};
+  var time1;
+
+  function pageload() {
+    if (pageData.oid) {
+      AJAX2.get("api/order/show", {ordersid: pageData.oid}, function (data){
+        orderDetail = data;
+        $(".price").html(data.payMoney);
+        surplusTime(30 * 60 - Math.ceil((new Date().getTime() - new Date(orderDetail.addTime).getTime()) / 1000));
+
+      }, function(data) {
+        Comm.message(data);
+      })
+    } else {
+      submitObj.classesid = submitObj_l.classesid;
+      submitObj.childid = submitObj_l.childid;
+      submitObj.discountcode = submitObj_l.discountcode;
+      $(".price").html(submitObj_l.price);
+      surplusTime(30 * 60);
+    }
+  }
+
+  function pageresume(){
+
+  }
+
+  function order() {
+    Comm.loading(true);
+
+    if (pageData.oid) {
+      Comm.go(config.root + "api/payment/pay?ordersId=" + pageData.oid);
+    } else {
+      AJAX2.post("api/order/save", submitObj, function (data) {
+        Comm.loading();
+        orderDetail = data;
+        Comm.go(config.root + "api/payment/pay?ordersId=" + orderDetail.ordersId);
+
+      }, function(data) {
+        Comm.loading();
+        Comm.message(data);
+        Comm.gotop("home.html");
+      })
+    }
+  }
+
+  //剩余时间
+  function surplusTime(t) {
+    time1 = setInterval(function () {
+      $(".pay-1-2").removeClass("hide");
+      var time = CommonFunction.timeSurplus([t]);
+      $("#surplus-time").html(time[0].h + ":" + time[0].m + ":" + time[0].s);
+      t--;
+      if (t < -1) {
+        clearInterval(time1);
+        $(".pay-1-2").html("Order timeout");
+      }
+    }, 1000);
+  }
+
+//  //付款
+//  function pay() {
+//
+//  }
+
+//  //支付成功
+//  function paySuccess(d) {
+////    Comm.loading();
+//    if (d.code == 1) {
+//      //支付成功
+//      Comm.go('paySuccess.html?oid=' + orderDetail.ordersId);
+//    } else {
+//      Comm.message(d.msg);
+//      Comm.go('orderDetail.html?oid=' + orderDetail.ordersId + "&come=paySuccess");
+//    }
+//  }
+
+  function jsGo(n) {
+    if (n == 1) {
+      if (pageData.oid) {
+        Comm.close();
+      } else {
+//        submitObj.paytype = pageData.paytype;
+
+        if (JSON.stringify(orderDetail) != "{}") {
+          Comm.gotop("home.html");
+        } else {
+          Comm.loading(true);
+          AJAX2.post("api/order/save", submitObj, function (data) {
+            Comm.loading();
+            Comm.gotop("home.html");
+
+          }, function (data) {
+            Comm.loading();
+            Comm.gotop("home.html");
+          })
+        }
+      }
+    }
+  }
+
+  /*响应android返回键,程序可重写此事件，不可重写，则执行默认事件：关闭*/
+  function androidback() {
+    jsGo(1);
+  }
+</script>
+</body>
+</html>

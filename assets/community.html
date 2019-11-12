@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title></title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no">
+  <meta http-equiv="Cache-Control" content="public" >
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="format-detection" content="telephone=no">
+  <meta name="apple-mobile-web-app-status-bar-style"  content="black" />
+  <meta name="renderer" content="webkit">
+  <meta name="description" content="All About Children">
+  <meta name="keywords" content="All About Children">
+  <link rel="stylesheet" href="mui/css/mui.min.css">
+  <link rel="stylesheet" href="inc/g.css" type="text/css">
+  <link rel="stylesheet" href="css/common.css" type="text/css">
+  <link rel="stylesheet" href="css/unique.css" type="text/css">
+  <script src="js/jquery-3.1.1.min.js"></script>
+  <script type="text/javascript" src="js/common.js"></script>
+  <style>
+    .community1{
+      width: 50% !important;
+    }
+    .opacity_5{
+      opacity: 0.3;
+    }
+  </style>
+</head>
+<body>
+<header>
+  <div class="back1" onclick="Comm.close();"></div>
+  <div class="menu1"></div>
+  <div class="titlebar">My Community</div>
+  <div class="ovf order-t bt3">
+    <div class="order-t-c brp community1 order-t-c-active" onclick="changeTheme(1)">My post</div>
+    <div class="order-t-c brp community1" onclick="changeTheme(2)">Watched post</div>
+  </div>
+</header>
+
+<section class="pre">
+  <div id="refreshContainer" class="mui-content mui-scroll-wrapper">
+    <div class="mui-scroll">
+      <!--数据列表-->
+      <ul class="mui-table-view mui-table-view-chevron" id="listView">
+
+        <div class="noDataS hide">
+          <div class="noDataS-1 brpscn"></div>
+          <div class="noDataS-2">Sorry, there is no relevant data</div>
+        </div>
+
+        <div class="community-l1s"></div>
+        <div class="community-l2s hide"></div>
+
+      </ul>
+    </div>
+  </div>
+
+  <!--<div class="community-l1s">-->
+    <!--<div class="community-l ovf" onclick="Comm.go('communityDetail.html')">-->
+      <!--<div class="left community-l-l"><img src="images/test/goods3.png" alt="" onerror="this.src='images/error.png';this.onerror=null;" onload="$(this).fadeTo('slow',1);" style="opacity:0;display: block;"></div>-->
+      <!--<div class="community-l-c">-->
+        <!--<div class="ovf">-->
+          <!--<div class="left">-->
+            <!--<span class="community-l-c-1">shushuyi233</span>-->
+            <!--<span class="community-l-c-2">Learn</span>-->
+          <!--</div>-->
+          <!--<div class="right community-l-c-3">2018-09-01 09:00:00</div>-->
+        <!--</div>-->
+        <!--<div class="c-666 mt10">Should parents not let their children think that scores are important?</div>-->
+        <!--<div class="font12 c-aaa mt10 ovf">-->
+          <!--<div class="left mr20">3 Reviews</div>-->
+        <!--</div>-->
+      <!--</div>-->
+    <!--</div>-->
+    <!--<div class="sp5"></div>-->
+
+    <!--<div class="community-l ovf">-->
+      <!--<div class="left community-l-l"><img src="images/test/goods3.png" alt="" onerror="this.src='images/error.png';this.onerror=null;" onload="$(this).fadeTo('slow',1);" style="opacity:0;display: block;"></div>-->
+      <!--<div class="community-l-c">-->
+        <!--<div class="ovf">-->
+          <!--<div class="left">-->
+            <!--<span class="community-l-c-1">shushuyi233</span>-->
+            <!--<span class="community-l-c-2">Learn</span>-->
+          <!--</div>-->
+          <!--<div class="right community-l-c-3">2018-09-01 09:00:00</div>-->
+        <!--</div>-->
+        <!--<div class="c-666 mt10">Should parents not let their children think that scores are important?</div>-->
+        <!--<div class="font12 c-aaa mt10 ovf">-->
+          <!--<div class="left mr20">3 Reviews</div>-->
+        <!--</div>-->
+      <!--</div>-->
+    <!--</div>-->
+    <!--<div class="sp5"></div>-->
+  <!--</div>-->
+
+  <!--<div class="community-l2s">-->
+    <!--<div class="community-l ovf" onclick="Comm.go('communityDetail.html')">-->
+      <!--<div class="left community-l-l"><img src="images/test/goods3.png" alt="" onerror="this.src='images/error.png';this.onerror=null;" onload="$(this).fadeTo('slow',1);" style="opacity:0;display: block;"></div>-->
+      <!--<div class="community-l-c">-->
+        <!--<div class="ovf">-->
+          <!--<div class="left">-->
+            <!--<span class="community-l-c-1">shushuyi233</span>-->
+            <!--<span class="community-l-c-2">Learn</span>-->
+          <!--</div>-->
+          <!--<div class="right community-l-c-3">2018-09-01 09:00:00</div>-->
+        <!--</div>-->
+        <!--<div class="c-666 mt10">Should parents not let their children think that scores are important?</div>-->
+        <!--<div class="font12 c-aaa mt10 ovf">-->
+          <!--<div class="left mr20">3 Reviews</div>-->
+          <!--<div class="left mr20">564Collection</div>-->
+          <!--<div class="left">3213Praise</div>-->
+        <!--</div>-->
+      <!--</div>-->
+    <!--</div>-->
+    <!--<div class="sp5"></div>-->
+
+    <!--<div class="community-l ovf" onclick="Comm.go('communityDetail.html')">-->
+      <!--<div class="left community-l-l"><img src="images/test/goods3.png" alt="" onerror="this.src='images/error.png';this.onerror=null;" onload="$(this).fadeTo('slow',1);" style="opacity:0;display: block;"></div>-->
+      <!--<div class="community-l-c">-->
+        <!--<div class="ovf">-->
+          <!--<div class="left">-->
+            <!--<span class="community-l-c-1">shushuyi233</span>-->
+            <!--<span class="community-l-c-2">Learn</span>-->
+          <!--</div>-->
+          <!--<div class="right community-l-c-3">2018-09-01 09:00:00</div>-->
+        <!--</div>-->
+        <!--<div class="c-666 mt10">Should parents not let their children think that scores are important?</div>-->
+        <!--<div class="font12 c-aaa mt10 ovf">-->
+          <!--<div class="left mr20">3 Reviews</div>-->
+          <!--<div class="left mr20">564Collection</div>-->
+          <!--<div class="left">3213Praise</div>-->
+        <!--</div>-->
+      <!--</div>-->
+    <!--</div>-->
+    <!--<div class="sp5"></div>-->
+  <!--</div>-->
+</section>
+
+<script src="inc/g.js"></script>
+<script src="js/md5.js"></script>
+<script src="inc/dict.js"></script>
+<script src="mui/js/mui.min.js"></script>
+
+<script>
+  var user = Comm.db("user");
+  var pageData = {pageno: 1, totalPage: 1, ifFirst: true, type: 1};
+  var communityPost_arr = [];
+  var communityCollect_arr = [];
+
+  function pageload() {
+    mui.init({
+      pullRefresh: {
+        container: "#refreshContainer",//下拉刷新容器标识，querySelector能定位的css选择器均可，比如：id、.class等
+        up: {
+          height: 50,//可选.默认50.触发上拉加载拖动距离
+          auto: false,//可选,默认false.自动上拉加载一次
+          contentrefresh: "loading...",//可选，正在加载状态时，上拉加载控件上显示的标题内容
+          contentnomore: "There's no more data",//可选，请求完毕若没有更多数据时显示的提醒内容；
+          contentinit: "Pull up shows more",
+          contentdown: "Pull up shows more",
+          callback: upData //必选，刷新函数，根据具体业务来编写，比如通过ajax从服务器获取新数据；
+        }
+      }
+    });
+    Comm.calcSection();
+
+    mui("#listView").off('tap');
+
+    mui("#listView").on('tap', '.community-l1', function (e) {
+      e.stopPropagation();
+      Comm.go('communityDetail.html?postid=' + $(this).attr("postId"));
+    })
+
+    mui("#listView").on('tap', '.community-l2', function (e) {
+      e.stopPropagation();
+      if ($(this).attr("enable") == 0) {
+        return;
+      }
+      Comm.go('communityDetail.html?postid=' + $(this).attr("postId"));
+    })
+
+    GDict.load(function () {
+      upData();
+    });
+  }
+
+  function pageresume(){
+    if (Comm.db("collect")) {
+      var d1 = Comm.db("collect");
+      Comm.db("collect", null);
+      ifcollect(d1);
+    }
+
+    var obj_post = Comm.db("obj_post");
+    Comm.db("obj_post", null);
+    if (obj_post && obj_post.change == 1) {
+      if (obj_post.remove == 1) {
+        init();
+        return;
+      }
+
+      var islikediv = $(".community-l").filter("[postid='" + obj_post.postid + "']").find(".likeCount");
+      $(islikediv).html(parseInt($(islikediv).html()) + obj_post.isLike);
+      $(".community-l").filter("[postid='" + obj_post.postid + "']").find(".commentCount").html(obj_post.commentLength);
+    }
+  }
+
+  function upData() {
+    if (pageData.type == 1) {
+      getMyPostList(function (flag) {
+        mui('#refreshContainer').pullRefresh().endPullupToRefresh(flag);
+      });
+    } else if (pageData.type == 2) {
+      getPostCollectList(function (flag) {
+        mui('#refreshContainer').pullRefresh().endPullupToRefresh(flag);
+      });
+    }
+  }
+
+  function init() {
+    pageData.pageno = 1;
+    pageData.totalPage = 1;
+    pageData.ifFirst = true;
+    $(".noDataS").addClass("hide");
+    communityPost_arr = [];
+    communityCollect_arr = [];
+    $(".community-l1s").html("");
+    $(".community-l2s").html("");
+    mui('#refreshContainer').scroll().scrollTo(0, 0);
+    upData();
+  }
+
+  //切换标题
+  function changeTheme(n) {
+    pageData.pageno = 1;
+    pageData.totalPage = 1;
+    pageData.ifFirst = true;
+    pageData.type = n;
+    $(".order-t-c").removeClass("order-t-c-active");
+    $(event.target).addClass("order-t-c-active");
+    communityPost_arr = [];
+    communityCollect_arr = [];
+    $(".noDataS").addClass("hide");
+    $(".community-l1s").html("");
+    $(".community-l2s").html("");
+    mui('#refreshContainer').scroll().scrollTo(0, 0);
+
+    if (pageData.type == 1) {
+      $(".community-l1s").removeClass("hide");
+      $(".community-l2s").addClass("hide");
+    } else if (pageData.type == 2) {
+      $(".community-l1s").addClass("hide");
+      $(".community-l2s").removeClass("hide");
+    }
+    upData();
+  }
+
+  //我的帖子
+  function getMyPostList(cb) {
+    AJAX2.get("api/post/myPostList", { pageno: pageData.pageno, pagesize: config.pagesize }, function (a) {
+      if (pageData.ifFirst == true) {
+        pageData.ifFirst = false;
+        pageData.totalPage = Math.ceil(a.totalCount / config.pagesize);
+      }
+
+      var data = a.data;
+      var noLoadFlag;
+      if (pageData.totalPage > pageData.pageno) {
+        noLoadFlag = false;
+        pageData.pageno++;
+      } else {
+        noLoadFlag = true;
+      }
+      data = data.splice(0, config.pagesize);
+
+      if (data && data.length > 0) {
+        $(".noDataS").addClass("hide");
+        mui('#refreshContainer').pullRefresh().enablePullupToRefresh();
+      } else {
+        $(".noDataS").removeClass("hide");
+        mui('#refreshContainer').pullRefresh().disablePullupToRefresh();
+      }
+
+      var h = '';
+      for (var i in data) {
+        h += '<div class="community-l community-l1 ovf" postId="' + data[i].postId + '">\
+        <div class="left community-l-l"><img src="' + config.ossroot + data[i].face + '" alt="" onerror="this.src=\'images/personal.png\';this.onerror=null;" onload="$(this).fadeTo(\'slow\',1);" style="opacity:0;display: block;"></div>\
+                <div class="community-l-c">\
+                <div class="ovf">\
+                <div class="right community-l-c-3 tar">' + data[i].createTime.split(" ")[0] + '</div>\
+                <div class="community-l-c-4 word row1">\
+                <span class="community-l-c-1">' + data[i].customerName + '</span>\
+                <span class="community-l-c-2">' + GDict.getName(data[i].classifys.split(",")[0]) + '</span>\
+                </div>\
+        </div>\
+        <div class="c-666 mt10">' + data[i].content + '</div>\
+        <div class="font12 c-aaa mt10 ovf">\
+          <div class="left mr20"><span class="commentCount">' + data[i].commentCount + '</span> Reviews</div>\
+          </div>\
+          </div>\
+          </div>\
+          <div class="sp5"></div>';
+      }
+      $(".community-l1s").append(h);
+
+      communityPost_arr = communityPost_arr.concat(data);
+
+      cb && cb(noLoadFlag);
+
+    }, function (data) {
+      Comm.message(data);
+    })
+  }
+
+  //帖子收藏
+  function getPostCollectList(cb) {
+    AJAX2.get("api/collect/collectList", { itemType: 4, pageno: pageData.pageno, pagesize: config.pagesize }, function (a) {
+      if (pageData.ifFirst == true) {
+        pageData.ifFirst = false;
+        pageData.totalPage = Math.ceil(a.totalCount / config.pagesize);
+      }
+
+      var data = a.data;
+      var noLoadFlag;
+      if (pageData.totalPage > pageData.pageno) {
+        noLoadFlag = false;
+        pageData.pageno++;
+      } else {
+        noLoadFlag = true;
+      }
+      data = data.splice(0, config.pagesize);
+
+      if (data && data.length > 0) {
+        $(".noDataS").addClass("hide");
+        mui('#refreshContainer').pullRefresh().enablePullupToRefresh();
+      } else {
+        $(".noDataS").removeClass("hide");
+        mui('#refreshContainer').pullRefresh().disablePullupToRefresh();
+      }
+
+      var h = '';
+      for (var i in data) {
+        h += '<div class="community-l community-l2 ovf' + (data[i].enable == 1 ? ('') : (' opacity_5')) + '" postId="' + data[i].postId + '" enable="' + data[i].enable + '">\
+      <div class="left community-l-l"><img src="' + config.ossroot + data[i].face + '" alt="" onerror="this.src=\'images/personal.png\';this.onerror=null;" onload="$(this).fadeTo(\'slow\',1);" style="opacity:0;display: block;"></div>\
+              <div class="community-l-c">\
+              <div class="ovf">\
+              <div class="right community-l-c-3">' + data[i].createTime.split(" ")[0] + '</div>\
+              <div class="community-l-c-4 word row1">\
+              <span class="community-l-c-1">' + data[i].customerName + '</span>\
+              <span class="community-l-c-2">' + GDict.getName(data[i].classifys.split(",")[0]) + '</span>\
+              </div>\
+      </div>\
+      <div class="c-666 mt10">' + data[i].title + '</div>\
+      <div class="font12 c-aaa mt10 ovf">\
+        <div class="left mr20"><span class="commentCount">' + data[i].commentCount + '</span> Reviews</div>\
+        <div class="left mr20">' + data[i].collectCount + ' Collection</div>\
+        <div class="left"><span class="likeCount">' + data[i].likeCount + '</span> Praise</div>\
+        </div>\
+        </div>\
+        </div>\
+        <div class="sp5"></div>';
+      }
+      $(".community-l2s").append(h);
+
+      communityCollect_arr = communityCollect_arr.concat(data);
+
+      cb && cb(noLoadFlag);
+
+    }, function (data) {
+      Comm.message(data);
+    })
+  }
+
+  //返回是否取消收藏判断
+  function ifcollect(d) {
+    if (!user) {
+      return;
+    }
+
+    if (pageData.type == 2) {
+      for (var i in communityCollect_arr) {
+        if (communityCollect_arr[i].businessId == d.itemid) {
+          $(".collect-g-1").filter("[favoritesid='" + communityCollect_arr[i].collectId + "']").remove();
+          communityCollect_arr.splice(parseInt(i), 1);
+          break;
+        }
+      }
+    }
+  }
+</script>
+</body>
+</html>

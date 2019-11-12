@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title></title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no">
+  <meta http-equiv="Cache-Control" content="public">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="format-detection" content="telephone=no">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  <meta name="renderer" content="webkit">
+  <meta name="description" content="女鞋之都">
+  <meta name="keywords" content="女鞋之都">
+  <link rel="stylesheet" href="mui/css/mui.min.css">
+  <link rel="stylesheet" href="inc/g.css" type="text/css">
+  <link rel="stylesheet" href="css/common.css" type="text/css">
+  <link rel="stylesheet" href="css/unique.css" type="text/css">
+  <script src="js/jquery-3.1.1.min.js"></script>
+  <script type="text/javascript" src="js/common.js"></script>
+</head>
+
+<body>
+<header>
+  <div class="back1" onclick="Comm.close();"></div>
+  <div class="menu1" style="width:90px;">
+    <div class="menu1-c brp more" style="background-size: 4px;" onclick="share_open()"></div>
+  </div>
+  <div class="titlebar" style="margin: 0px 100px;">Details</div>
+</header>
+<section class="pre">
+  <div id="refreshContainer" class="mui-content mui-scroll-wrapper">
+    <div class="mui-scroll">
+      <!--数据列表-->
+      <ul class="mui-table-view mui-table-view-chevron" id="listView">
+
+        <div class="article">
+          <div class="font16" id="title"></div>
+          <div class="ovf mt10 FD-1">
+            <div class="left FD-1-l" id="face"></div>
+            <div class="right FD-1-r" id="createtime"></div>
+            <div class="FD-1-c c-green-1" id="customerName"></div>
+          </div>
+          <div class="mt10" id="content"></div>
+          <div class="FD-2 ovf">
+            <div class="right FD-2-c brp share3 pre" id="shareCount">0</div>
+            <div class="right FD-2-c brp message2 pre" id="commentcount">0</div>
+            <div class="right FD-2-c brp like-n pre" id="likecount" onclick="like()">0</div>
+          </div>
+        </div>
+
+        <div class="sp10"></div>
+
+        <div class="FD-3">Comment(<span id="totalCount">0</span>)</div>
+
+        <div class="FD-ls">
+          <!--<div class="sp5"></div>-->
+          <!--<div class="ID-S3-l">-->
+            <!--<div class="ID-S3-l-1 ovf">-->
+              <!--<div class="left ID-S3-l-1-l"><img src="images/personal.png" alt="" onerror="this.src='images/personal.png';this.onerror=null;" onload="$(this).fadeTo('slow',1);" style="opacity:0;display: block;"></div>-->
+              <!--<div class="right ID-S3-l-1-r">2018-10-01</div>-->
+              <!--<div class="ID-S3-l-1-c">-->
+                <!--<div class="ID-S3-l-1-c-1">lili</div>-->
+                <!--<div class="ID-S3-l-1-c-2">-->
+                  <!--<div class="home-6-l-c-4-4">-->
+                    <!--<div class="left search-goods-l-c-2-1 pre brp starl-n"><div class="search-goods-l-c-2-2 brp starl-y" style="width:20%;"></div></div>-->
+                  <!--</div>-->
+                <!--</div>-->
+              <!--</div>-->
+            <!--</div>-->
+
+            <!--<div class="ID-S3-l-2 bb3">-->
+              <!--The teacher is very professional, the classroom environment is very good, excellent-->
+            <!--</div>-->
+
+            <!--<div class="ID-S3-l-3">-->
+              <!--<div class="ovf mb10">-->
+                <!--<div class="left font16 c-333">Institutions Reply</div>-->
+                <!--<div class="right c-aaa">2018-10-01</div>-->
+              <!--</div>-->
+              <!--<div>The teacher is very professional, the classroom environment is very good, excellent</div>-->
+            <!--</div>-->
+
+            <!--<div class="ID-S3-l-4 ovf">-->
+              <!--<div class="ID-S3-l-4-c"><img src="images/test/goods2.jpg" alt="" onerror="this.src='images/error.png';this.onerror=null;" onload="$(this).fadeTo('slow',1);" style="opacity:0;display: block;"></div>-->
+              <!--<div class="ID-S3-l-4-c"><img src="images/test/goods2.jpg" alt="" onerror="this.src='images/error.png';this.onerror=null;" onload="$(this).fadeTo('slow',1);" style="opacity:0;display: block;"></div>-->
+              <!--<div class="ID-S3-l-4-c"><img src="images/test/goods2.jpg" alt="" onerror="this.src='images/error.png';this.onerror=null;" onload="$(this).fadeTo('slow',1);" style="opacity:0;display: block;"></div>-->
+              <!--<div class="ID-S3-l-4-c"><img src="images/test/goods2.jpg" alt="" onerror="this.src='images/error.png';this.onerror=null;" onload="$(this).fadeTo('slow',1);" style="opacity:0;display: block;"></div>-->
+            <!--</div>-->
+          <!--</div>-->
+        </div>
+
+        <div class="noDataS hide">
+          <div class="noDataS-1 brpscn" style="margin-top: 50px;"></div>
+          <div class="noDataS-2" style="margin-bottom: 50px;">Sorry, there is no relevant data</div>
+        </div>
+
+      </ul>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="FD-f">
+    <div class="right FD-f-r c-green-1" onclick="postReply()">Post</div>
+    <div class="FD-f-c"><input id="postReplyContent" type="text" placeholder="Click to publish my opinion"></div>
+  </div>
+</footer>
+
+<div class="app-window1 hide" onclick="share_open()"></div>
+<div class="option-window hide">
+  <div class="ovf option-window-2 bg-grey-1">
+    <div class="brp option-window-2-c" onclick="collect()">
+      <div class="brp Watchit-n option-window-2-c-1" id="collect" style="background-size: 24px;"></div>
+      <div>Watch it</div>
+    </div>
+    <div class="brp option-window-2-c" onclick="jsGo(1)">
+      <div class="brp Report option-window-2-c-1" style="background-size: 24px;"></div>
+      <div>Report</div>
+    </div>
+  </div>
+  <div class="option-window-1" onclick="share_open()">Cancel</div>
+</div>
+
+<script src="inc/g.js"></script>
+<script src="js/md5.js"></script>
+<script src="mui/js/mui.min.js"></script>
+<script>
+  var user = Comm.db("user");
+  var pageData = { pageno: 1, totalPage: 1, ifFirst: true, postid: Comm.query("postid"), isLike: 0, collectids: 0, collect: Comm.query("collect") };
+  var postDetail = {};
+  var postDetailList_arr = [];
+
+  function pageload() {
+    mui.init({
+      pullRefresh: {
+        container: "#refreshContainer",//下拉刷新容器标识，querySelector能定位的css选择器均可，比如：id、.class等
+        up: {
+          height: 50,//可选.默认50.触发上拉加载拖动距离
+          auto: false,//可选,默认false.自动上拉加载一次
+          contentrefresh: "loading...",//可选，正在加载状态时，上拉加载控件上显示的标题内容
+          contentnomore: "There's no more data",//可选，请求完毕若没有更多数据时显示的提醒内容；
+          contentinit: "Pull up shows more",
+          contentdown: "Pull up shows more",
+          callback: upData //必选，刷新函数，根据具体业务来编写，比如通过ajax从服务器获取新数据；
+        }
+      }
+    });
+    Comm.calcSection();
+
+    getPostDetail();
+    ifCollect();
+    upData();
+  }
+
+  function pageresume() {
+
+  }
+
+  function upData() {
+    getPostDetailList(function (flag) {
+      mui('#refreshContainer').pullRefresh().endPullupToRefresh(flag);
+    });
+  }
+
+  function init() {
+    pageData.pageno = 1;
+    pageData.totalPage = 1;
+    pageData.ifFirst = true;
+    $(".noDataS").addClass("hide");
+    postDetailList_arr = [];
+    $(".FD-ls").html("");
+    mui('#refreshContainer').scroll().scrollTo(0, 0);
+    upData();
+  }
+
+  //文章详情
+  function getPostDetail() {
+    AJAX2.get("api/post/detail", { postId: pageData.postid, pageno: pageData.pageno, pagesize: config.pagesize }, function (data) {
+      postDetail = data;
+
+      pageData.isLike = postDetail.isLike;
+      if (pageData.isLike) {
+        $(".like-n").addClass("like-y");
+      }
+
+      $("#title").html(postDetail.post.title);
+      $("#createtime").html(postDetail.post.createtime);
+      $("#customerName").html(postDetail.post.customerName);
+      $("#content").html(postDetail.post.content);
+      $("#likecount").html(postDetail.post.likecount);
+      $("#commentcount").html(postDetail.post.commentcount);
+      $("#shareCount").html(postDetail.post.shareCount);
+      $("#face").html('<img src="' + config.ossroot + postDetail.post.face + '" alt="" onerror="this.src=\'images/personal.png\';this.onerror=null;" onload="$(this).fadeTo(\'slow\',1);" style="opacity:0;display: block;">');
+
+    }, function (data) {
+      Comm.message(data);
+    })
+  }
+
+  //帖子回复列表
+  function getPostDetailList(cb) {
+    AJAX2.get("api/post/detaillist", { postId: pageData.postid, pageno: pageData.pageno, pagesize: config.pagesize }, function (a) {
+      if (pageData.ifFirst == true) {
+        pageData.ifFirst = false;
+        pageData.totalPage = Math.ceil(a.totalCount / config.pagesize);
+      }
+
+      var data = a.data;
+      var noLoadFlag;
+      if (pageData.totalPage > pageData.pageno) {
+        noLoadFlag = false;
+        pageData.pageno++;
+      } else {
+        noLoadFlag = true;
+      }
+      data = data.splice(0, config.pagesize);
+
+      if (data && data.length > 0) {
+        $(".noDataS").addClass("hide");
+        mui('#refreshContainer').pullRefresh().enablePullupToRefresh();
+      } else {
+        $(".noDataS").removeClass("hide");
+        mui('#refreshContainer').pullRefresh().disablePullupToRefresh();
+      }
+
+      var h = '';
+      for (var i in data) {
+        h += '<div class="sp5"></div>\
+                <div class="ID-S3-l">\
+                <div class="ID-S3-l-1 ovf">\
+                <div class="left ID-S3-l-1-l"><img src="images/personal.png" alt="" onerror="this.src=\'images/personal.png\';this.onerror=null;" onload="$(this).fadeTo(\'slow\',1);" style="opacity:0;display: block;"></div>\
+                <div class="right ID-S3-l-1-r">' + data[i].createTime + '</div>\
+                <div class="ID-S3-l-1-c">\
+                <div class="ID-S3-l-1-c-1 lh40">' + data[i].customerName + '</div>\
+                </div>\
+                </div>\
+\
+                <div class="ID-S3-l-2">' + data[i].content + '</div>' + ifReply(data[i]) + '\
+\
+        <div class="ID-S3-l-4 ovf hide">\
+                <div class="ID-S3-l-4-c"><img src="images/test/goods2.jpg" alt="" onerror="this.src=\'images/error.png\';this.onerror=null;" onload="$(this).fadeTo(\'slow\',1);" style="opacity:0;display: block;"></div>\
+                </div>\
+                </div>';
+      }
+      $(".FD-ls").append(h);
+
+      postDetailList_arr = postDetailList_arr.concat(data);
+
+      cb && cb(noLoadFlag);
+
+    }, function (data) {
+      Comm.message(data);
+    })
+  }
+
+  function ifReply(data) {
+    var h = '';
+    if (data.cusReply && data.cusReply != "null") {
+      h = '<div class="ID-S3-l-3 bt3">\
+                <div class="ovf mb10">\
+                <div class="left font16 c-333">Institutions Reply</div>\
+        <div class="right c-aaa">' + data.cusReplyTime + '</div>\
+                </div>\
+                <div>' + data.cusReply + '</div>\
+        </div>';
+    }
+    return h;
+  }
+
+  //点赞
+  function like() {
+    if (pageData.isLike) {
+      AJAX2.post("api/post/cancelLike", { postId: pageData.postid }, function (data) {
+        pageData.isLike = 0;
+        $("#likecount").removeClass("like-y");
+
+      }, function (data) {
+        Comm.message(data);
+      })
+    } else {
+      AJAX2.post("api/post/postLike", { postId: pageData.postid }, function (data) {
+        pageData.isLike = 1;
+        $("#likecount").addClass("like-y");
+
+      }, function (data) {
+        Comm.message(data);
+      })
+    }
+  }
+
+  //是否收藏
+  function ifCollect() {
+    if (!user) {
+      return;
+    }
+
+    AJAX2.get("api/collect/iscollect", { itemId: pageData.postId, itemType: 4 }, function (data) {
+      if (data> 0) {
+        $("#collect").addClass("star2-y");
+        pageData.collectids = data;
+      } else {
+        $("#collect").removeClass("star2-y");
+        pageData.collectids = 0;
+      }
+
+    }, function (data) {
+      Comm.message(data);
+    })
+  }
+
+  //收藏
+  function collect() {
+    if (pageData.collectids) {
+      AJAX2.post("api/collect/remove", { collectids: pageData.collectids }, function (data) {
+        pageData.collectids = 0;
+        Comm.message("uncollectible");
+        $("#collect").removeClass("Watchit-y");
+
+        if (pageData.collect == 1 && pageData.collectids == 0) {
+          Comm.db("collect", { itemid: goodsDetail.goodsid });
+        }
+
+      }, function (data) {
+        Comm.message(data);
+      })
+    } else {
+      AJAX2.post("api/collect/save", { itemId: pageData.postId, itemType: 4 }, function (data) {
+        pageData.collectids = data.collectid;
+        Comm.message("collected");
+        $("#collect").addClass("Watchit-y");
+
+        if (pageData.collect == 1 && pageData.collectids == 0) {
+          Comm.db("collect", null);
+        }
+
+      }, function (data) {
+        Comm.message(data);
+      })
+    }
+  }
+
+  //帖子回复
+  function postReply() {
+    var content = $("#postReplyContent").val();
+
+    AJAX2.get("api/post/postReply", { postId: pageData.postid, content: content }, function (data) {
+      $("#postReplyContent").val("");
+      init();
+
+    }, function (data) {
+      Comm.message(data);
+    })
+  }
+
+  function share_open() {
+    $(".option-window").toggleClass("hide");
+    $(".app-window1").toggleClass("hide");
+  }
+
+  function jsGo(n, x) {
+    if (n == 1) {
+      Comm.go('report.html?postid=' + pageData.postid);
+    }
+  }
+</script>
+</body>
+</html>

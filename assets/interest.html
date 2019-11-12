@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title></title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no">
+  <meta http-equiv="Cache-Control" content="public" >
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="format-detection" content="telephone=no">
+  <meta name="apple-mobile-web-app-status-bar-style"  content="black" />
+  <meta name="renderer" content="webkit">
+  <meta name="description" content="All About Children">
+  <meta name="keywords" content="All About Children">
+  <link rel="stylesheet" href="inc/g.css" type="text/css">
+  <link rel="stylesheet" href="css/common.css" type="text/css">
+  <link rel="stylesheet" href="css/unique.css" type="text/css">
+  <script src="js/jquery-3.1.1.min.js"></script>
+  <script type="text/javascript" src="js/common.js"></script>
+</head>
+<body>
+<header>
+  <div class="back1" onclick="Comm.close();"></div>
+  <div class="menu1"></div>
+  <div class="titlebar">Interest</div>
+</header>
+
+<section>
+  <div class="interset-ls ovf">
+    <!--<div class="interset-l mb20">-->
+      <!--<div class="interset-l-t interset-l-t-active">Learn</div>-->
+      <!--<div class="cboth"></div>-->
+      <!--<div class="interset-l2s ovf">-->
+        <!--<div class="interset-l2 interset-l2-active">Math</div>-->
+        <!--<div class="interset-l2 interset-l2-active">Math</div>-->
+      <!--</div>-->
+    <!--</div>-->
+
+    <!--<div class="interset-l mb20">-->
+      <!--<div class="interset-l-t">Learn</div>-->
+      <!--<div class="cboth"></div>-->
+      <!--<div class="interset-l2s ovf">-->
+        <!--<div class="interset-l2">Math</div>-->
+        <!--<div class="interset-l2">Math</div>-->
+        <!--<div class="interset-l2">Math</div>-->
+        <!--<div class="interset-l2">Math</div>-->
+        <!--<div class="interset-l2">Math</div>-->
+        <!--<div class="interset-l2">Math</div>-->
+      <!--</div>-->
+    <!--</div>-->
+  </div>
+</section>
+
+<footer class="footer1">
+  <div class="footer-button" onclick="save()">SAVE</div>
+</footer>
+
+<script src="inc/g.js"></script>
+<script src="js/md5.js"></script>
+<script src="inc/dict.js"></script>
+
+<script>
+  var user = Comm.db("user");
+  var pageData = {cid: Comm.query("cid")};
+  var childrenDetail = Comm.db("childrenDetail");
+  var childrenInterestArr = childrenDetail.interest.split(",");
+
+  function pageload() {
+    GDict.load(function () {
+      fillInterest();
+    });
+  }
+
+  function pageresume(){
+
+  }
+
+  //填充兴趣
+  function fillInterest() {
+    var h = '';
+    for (var i in GDict._data.Interest) {
+      h += '<div class="interset-l mb20">\
+              <div class="interset-l-t' + (childrenInterestArr.indexOf(GDict._data.Interest[i].dictid + "") >= 0 ? (' interset-l-t-active') : ('')) + '" dictid="' + GDict._data.Interest[i].dictid + '" onclick="select(' + GDict._data.Interest[i].dictid + ')">' + GDict._data.Interest[i].dictname + '</div>\
+              <div class="cboth"></div>\
+              <div class="interset-l2s ovf">' + fillInterest2(GDict._data.Interest[i].cs) + '</div>\
+              </div>';
+    }
+    $(".interset-ls").html(h);
+  }
+
+  //填充兴趣2
+  function fillInterest2(data) {
+    var h = '';
+    for (var i in data) {
+      h += '<div class="interset-l2' + (childrenInterestArr.indexOf(data[i].dictid + "") >= 0 ? (' interset-l2-active') : ('')) + '" dictid="' + data[i].dictid + '" onclick="select2(' + data[i].dictid + ')">' + data[i].dictname + '</div>';
+    }
+    return h;
+  }
+
+  function select() {
+    $(event.target).toggleClass("interset-l-t-active");
+  }
+
+  function select2() {
+    $(event.target).toggleClass("interset-l2-active");
+  }
+
+  function save() {
+    var num1 = $(".interset-l-t-active").length;
+    var arr1 = [];
+    if (num1 > 0) {
+      for (var i = 0; i < num1; i++) {
+        arr1.push($($(".interset-l-t-active")[i]).attr("dictid"));
+      }
+    }
+
+    var num2 = $(".interset-l2-active").length;
+    var arr2 = [];
+    if (num2 > 0) {
+      for (var i = 0; i < num2; i++) {
+        arr2.push($($(".interset-l2-active")[i]).attr("dictid"));
+      }
+    }
+
+    var arr3 = arr1.concat(arr2);
+
+    if (arr3 <= 0) {
+      Comm.message("Please select interset");
+      return;
+    }
+
+    childrenDetail.interest = arr3.join(",");
+
+    AJAX2.post("api/child/modify", {childid: pageData.cid, face: childrenDetail.face, name: childrenDetail.name, birthday: childrenDetail.birthday, gender: childrenDetail.gender, age: childrenDetail.age, interest: childrenDetail.interest}, function (data){
+      Comm.message("succeed");
+      Comm.db("interest", {interest: childrenDetail.interest});
+      Comm.close();
+
+    }, function(data) {
+      Comm.message(data);
+    })
+  }
+</script>
+</body>
+</html>

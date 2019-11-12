@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title></title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no">
+  <meta http-equiv="Cache-Control" content="public">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="format-detection" content="telephone=no">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  <meta name="renderer" content="webkit">
+  <meta name="description" content="All About Children">
+  <meta name="keywords" content="All About Children">
+  <link rel="stylesheet" href="inc/g.css" type="text/css">
+  <link rel="stylesheet" href="css/common.css" type="text/css">
+  <link rel="stylesheet" href="css/unique.css" type="text/css">
+  <script src="js/jquery-3.1.1.min.js"></script>
+  <script type="text/javascript" src="js/common.js"></script>
+</head>
+
+<body>
+  <header class="bb0">
+    <div class="back1" onclick="Comm.close();"></div>
+    <div class="menu1"></div>
+    <div class="titlebar"></div>
+  </header>
+  <section>
+    <div class="emailLogin-1" style="color:black;">Input activation code</div>
+    <div class="reg-1">
+      <div class="right reg-1-r"></div>
+      <div class="reg-1-c"><input id="reg-content" type="text" placeholder="Name" autocomplete="off" oninput="checkInput();"></div>
+    </div>
+    <div class="reg-2 c-666">We have sent the activation code to your email, please check it and enter the activation code</div>
+    <div class="reg-3 brp yhxy">I have read and accepted<span class="c-yellow-1" onclick="Comm.go('commonArticle.html?aid=' + 7 + '&text=' + encodeURI('Agreement'))">《Service agreement》</span></div>
+    <div class="commonButton1" style="margin-top:50px;" onclick="reg()">Join in</div>
+  </section>
+
+  <script src="inc/g.js"></script>
+  <script src="js/md5.js"></script>
+
+  <script>
+    var user = Comm.db("user");
+    var pageData = { content: "", buttonFlag: true};
+
+    function pageload() {
+      config.ifGoLogin = 0;
+    }
+
+    //登录
+    function reg() {
+      if (pageData.buttonFlag == true) {
+        pageData.buttonFlag = false;
+        setTimeout(function() {
+          pageData.buttonFlag = true;
+        }, 1000)
+      } else {
+        return;
+      }
+
+      pageData.content = $("#reg-content").val();
+
+      if (pageData.content == "") {
+        Comm.message("Please activation code");
+        return;
+      }
+
+      AJAX2.post("api/customer/activation", { content: pageData.content }, function (data) {
+        Comm.close(2);
+
+      }, function (data) {
+        console.log(data);
+        Comm.message(data);
+      })
+    }
+
+    function checkInput() {
+      if ($("#reg-content").val().length > 0) {
+        $('.commonButton1').addClass('commonButton1-active');
+      } else {
+        $('.commonButton1').removeClass('commonButton1-active');
+      }
+    }
+  </script>
+</body>
+
+</html>

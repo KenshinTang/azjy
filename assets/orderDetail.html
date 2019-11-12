@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title></title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no">
+  <meta http-equiv="Cache-Control" content="public" >
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="format-detection" content="telephone=no">
+  <meta name="apple-mobile-web-app-status-bar-style"  content="black" />
+  <meta name="renderer" content="webkit">
+  <meta name="description" content="All About Children">
+  <meta name="keywords" content="All About Children">
+  <link rel="stylesheet" href="inc/g.css" type="text/css">
+  <link rel="stylesheet" href="css/common.css" type="text/css">
+  <link rel="stylesheet" href="css/unique.css" type="text/css">
+  <script src="js/jquery-3.1.1.min.js"></script>
+  <script type="text/javascript" src="js/common.js"></script>
+</head>
+<body>
+<header>
+  <div class="back1" onclick="jsGo(1);"></div>
+  <div class="menu1"></div>
+  <div class="titlebar">Details</div>
+</header>
+
+<section>
+  <div class="OD-1"></div>
+  <div class="pad15" id="tradingName"></div>
+  <div class="order-l-2 bg-grey-1">
+    <!--<div class="order-l-2-l ovf">-->
+      <!--<div class="left order-l-2-l-l"><img src="images/test/goods3.png" alt="" onerror="this.src='images/error.png';this.onerror=null;" onload="$(this).fadeTo('slow',1);" style="opacity:0;display: block;"></div>-->
+      <!--<div class="order-l-2-l-c">-->
+        <!--<div class="order-l-2-l-c-1 mt10">-->
+          <!--<div class="home-6-l-c-1">-->
+            <!--<div class="left home-6-l-c-1-1 brp course">Math</div>-->
+            <!--<div class="home-6-l-c-1-2 row1">First-grade training math class</div>-->
+          <!--</div>-->
+        <!--</div>-->
+        <!--<div class="order-l-2-l-c-2">-->
+          <!--<div class="left">Start date：08.01-09.01</div>-->
+          <!--<div class="right">Educator：Casey</div>-->
+        <!--</div>-->
+        <!--<div class="order-l-2-l-c-3">-->
+          <!--<div class="right order-l-2-l-c-3-2 c-333 font14">A$300</div>-->
+          <!--<div class="order-l-2-l-c-3-1 row1">Child’s name：Casey</div>-->
+        <!--</div>-->
+      <!--</div>-->
+    <!--</div>-->
+  </div>
+
+  <div class="OD-2">
+    <div class="ovf OD-l bb3">
+      <div class="left OD-l-l">Class name</div>
+      <div class="right OD-l-r c-aaa" id="classesName"></div>
+    </div>
+    <div class="ovf OD-l bb3">
+      <div class="left OD-l-l">Total lessons</div>
+      <div class="right OD-l-r c-aaa"><span id="lessons"></span> Courses</div>
+    </div>
+    <!--<div class="ovf OD-l bb3">-->
+      <!--<div class="left OD-l-l">Weekly lessons</div>-->
+      <!--<div class="right OD-l-r c-aaa">5 Courses</div>-->
+    <!--</div>-->
+    <div class="ovf OD-l">
+      <div class="left OD-l-l">Class duration</div>
+      <div class="right OD-l-r c-aaa"><span id="periods">0</span> minute</div>
+    </div>
+  </div>
+
+  <div class="sp10"></div>
+
+  <div class="OD-2">
+    <div class="ovf OD-l bb3">
+      <div class="left OD-l-l">Child’s name</div>
+      <div class="right OD-l-r c-aaa" id="studentName"></div>
+    </div>
+    <div class="ovf OD-l bb3">
+      <div class="left OD-l-l">Payment method</div>
+      <div class="right OD-l-r c-aaa">Paypal</div>
+    </div>
+    <div class="ovf OD-l">
+      <div class="left OD-l-l">Total price</div>
+      <div class="right OD-l-r c-yellow-1">A$<span class="font18" id="payMoney"></span></div>
+    </div>
+  </div>
+
+  <div class="sp10"></div>
+
+  <div class="pad15">
+    <div>Order ID：<span class="c-aaa" id="orderNum"></span></div>
+    <div class="mt10">Order date：<span class="c-aaa" id="addTime"></span></div>
+  </div>
+
+  <div class="sp10"></div>
+</section>
+
+<footer class="hide">
+  <div class="order-b-ls">
+    <!--<div class="order-b-l order-b-l-active">Pay Now</div>-->
+    <!--<div class="order-b-l" onclick="Comm.go('evaluation.html')">evaluation</div>-->
+  </div>
+</footer>
+
+<script src="inc/g.js"></script>
+<script src="js/md5.js"></script>
+<script src="inc/dict.js"></script>
+
+<script>
+  var user = Comm.db("user");
+  var pageData = {oid: Comm.query("oid") || Comm.query("ordersId"), from: Comm.query("from")};
+  var orderStateObj = {1: "Not paid", 2: "Not paid", 3: "Starting soon", 4: "Started", 5: "Done", 7: "no verify", 8: "verify", 9: "cancel", 10: "Refund success", 11: "refunding"};
+  var orderDetail = {};
+  Comm.db("submitObj_l", null);
+
+  function pageload() {
+    GDict.load(function () {
+      getOrderDetail();
+    });
+  }
+
+  function pageresume(){
+
+  }
+
+  function getOrderDetail() {
+    AJAX2.get("api/order/show", {ordersid: pageData.oid}, function (data){
+      orderDetail = data;
+
+      $(".OD-1").html(orderStateObj[orderDetail.orderState]);
+      $("#tradingName").html(orderDetail.tradingName);
+      $("#classesName").html(orderDetail.classesName);
+      $("#lessons").html(orderDetail.lessons);
+      $("#periods").html(orderDetail.periods);
+      $("#studentName").html(orderDetail.studentName);
+      $("#payMoney").html(orderDetail.payMoney);
+      $("#orderNum").html(orderDetail.orderNum);
+      $("#addTime").html(orderDetail.addTime);
+
+      var h = '<div class="order-l-2-l ovf" onclick="Comm.go(\'institutionsCourseDetail.html?courseId=' + orderDetail.courseId + '\')">\
+              <div class="left order-l-2-l-l"><img src="' + config.ossroot + orderDetail.face + '" alt="" onerror="this.src=\'images/error.png\';this.onerror=null;" onload="$(this).fadeTo(\'slow\',1);" style="opacity:0;display: block;"></div>\
+              <div class="order-l-2-l-c">\
+              <div class="order-l-2-l-c-1 mt5">\
+              <div class="home-6-l-c-1">\
+              <div class="left home-6-l-c-1-1">' + GDict.getName(orderDetail.category2) + '</div>\
+              <div class="home-6-l-c-1-2 row1">' + orderDetail.courseName + '</div>\
+      </div>\
+      </div>\
+      <div class="order-l-2-l-c-2">\
+        <div class="left order-l-2-l-c-2-1">Start date：' + orderDetail.startDate + '</div>\
+        <div class="right row1 order-l-2-l-c-2-2 hide">Educator：' + orderDetail.teacher + '</div>\
+      </div>\
+      <div class="order-l-2-l-c-3">\
+        <div class="right order-l-2-l-c-3-2 c-333 font14 row1">A$' + orderDetail.payMoney + '</div>\
+        <div class="order-l-2-l-c-3-1 row1">Educator：' + orderDetail.teacher + '</div>\
+      </div>\
+      </div>\
+      </div>';
+
+      $(".order-l-2").html(h);
+
+      var h = getButton();
+      if (h != '') {
+        $("footer").removeClass("hide");
+        $(".order-b-ls").html(h);
+        Comm.resizeSection();
+      }
+
+    }, function(data) {
+      Comm.message(data);
+    })
+  }
+
+  function getButton() {
+    var data = orderDetail;
+
+    if (data.orderState == 1) {
+      return '<div class="order-b-l order-b-l-active" onclick="order_pay(' + data.ordersId + ')">Pay Now</div><div class="order-b-l" onclick="order_cancel(' + data.ordersId + ')">Cancel Order</div>';
+    } if (data.orderState == 2) {
+      return '<div class="order-b-l order-b-l-active" onclick="order_pay(' + data.ordersId + ')">Pay Now</div><div class="order-b-l" onclick="order_cancel(' + data.ordersId + ')">Cancel Order</div>';
+    } if (data.orderState == 3) {
+      if (data.isVerify == 7) {
+        return '<div class="order-b-l order-b-l-active" onclick="order_code(\'' + data.verifyCode + '\')">Check verification code</div><div class="order-b-l order_refund" onclick="order_refund(' + data.ordersId + ')">refund</div>';
+      } else if (data.isVerify == 8) {
+        return '';
+      }
+    } if (data.orderState == 4) {
+      if (data.isVerify == 7) {
+        return '<div class="order-b-l order-b-l-active" onclick="order_code(\'' + data.verifyCode + '\')">Check verification code</div>';
+      } else if (data.isVerify == 8) {
+        return '';
+      }
+    } if (data.orderState == 5) {
+      if (data.isCommet == 1) {
+        return '<div class="order-b-l" onclick="order_delete(' + data.ordersId + ')">Delete Order</div>';
+      } else {
+        return '<div class="order-b-l" onclick="order_eva(' + data.ordersId + ')">Review</div><div class="order-b-l" onclick="order_delete(' + data.ordersId + ')">Delete Order</div>';
+      }
+    } if (data.orderState == 7) {
+      return '';
+    } if (data.orderState == 8) {
+      return '';
+    } if (data.orderState == 9) {
+      return '<div class="order-b-l" onclick="order_delete(' + data.ordersId + ')">Delete Order</div>';
+    } if (data.orderState == 10) {
+      return '';
+    } if (data.orderState == 11) {
+      return '';
+    }
+  }
+
+  //订单支付
+  function order_pay(oid) {
+    Comm.go("pay.html?oid=" + oid);
+  }
+
+  //取消订单
+  function order_cancel(oid) {
+    Comm.confirm('Confirm cancel the order?', function(a) {
+      if (a == 1) {
+        AJAX2.post("api/order/cancel", {ordersId: oid}, function(data) {
+          Comm.message("Canceled");
+
+          var o = Comm.db("order-l");
+          if (!o) {
+            o = {ordersid: oid, change: 1, remove: 0, status: 9, iscomment: 0};
+          }
+          o.change = 1;
+          o.status = 9;
+          Comm.db("order-l", o);
+          jsGo(1);
+
+        }, function(data) {
+          Comm.message(data);
+        })
+      }
+    })
+  }
+
+  //订单支付
+  function order_code(o) {
+    Comm.alert("code:" + o, function(a) {
+
+    })
+  }
+
+  //订单删除
+  function order_delete(oid) {
+    Comm.confirm('Confirm delete the order?', function(a) {
+      if (a == 1) {
+        AJAX2.post("api/order/del", {ordersId: oid}, function(data) {
+          Comm.message("Deleted");
+
+          var o = Comm.db("order-l");
+          if (!o) {
+            o = {ordersid: oid, change: 1, remove: 1, status: 0, iscomment: 0};
+          }
+          o.change = 1;
+          o.remove = 1;
+          Comm.db("order-l", o);
+          jsGo(1);
+
+        }, function(data) {
+          Comm.message(data);
+        })
+      }
+    })
+  }
+
+  //退款
+  function order_refund(oid) {
+    Comm.confirm('Confirm application for refund?', function(a) {
+      if (a == 1) {
+        AJAX2.post("api/order/refund", {ordersid: oid}, function(data) {
+//          Comm.message("applied");
+
+          Comm.alert("Please contact customer service refund", function(a) {
+            var o = Comm.db("order-l");
+            if (!o) {
+              o = {ordersid: oid, change: 1, remove: 0, status: 11, iscomment: 0};
+            }
+            o.change = 1;
+            o.remove = 1;
+            Comm.db("order-l", o);
+            jsGo(1);
+          })
+
+        }, function(data) {
+          Comm.message(data);
+        })
+      }
+    })
+  }
+
+  //评论
+  function order_eva(oid) {
+    Comm.db("orderDetail", orderDetail);
+    Comm.db("order-l", {ordersId: oid, change: 0, remove: 0, status: 0, iscomment: 0});
+    Comm.go('evaluation.html?oid=' + oid);
+  }
+
+  function jsGo(n, x, y) {
+    if (n == 1) {
+      if (pageData.from) {
+        Comm.gotop('mine.html');
+      } else {
+        Comm.close();
+      }
+    }
+  }
+
+  /*响应android返回键,程序可重写此事件，不可重写，则执行默认事件：关闭*/
+  function androidback() {
+    jsGo(1);
+  }
+</script>
+</body>
+</html>

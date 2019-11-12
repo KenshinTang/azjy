@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title></title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no">
+  <meta http-equiv="Cache-Control" content="public" >
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="format-detection" content="telephone=no">
+  <meta name="apple-mobile-web-app-status-bar-style"  content="black" />
+  <meta name="renderer" content="webkit">
+  <meta name="description" content="All About Children">
+  <meta name="keywords" content="All About Children">
+  <link rel="stylesheet" href="mui/css/mui.min.css">
+  <link rel="stylesheet" href="inc/g.css" type="text/css">
+  <link rel="stylesheet" href="css/common.css" type="text/css">
+  <link rel="stylesheet" href="css/unique.css" type="text/css">
+  <script src="js/jquery-3.1.1.min.js"></script>
+  <script type="text/javascript" src="js/common.js"></script>
+  <style>
+    .mui-popup-button {
+      color: black !important;
+    }
+    .mui-popup-button-bold{
+      color: #68AF47 !important;
+    }
+    .mui-popup-text{
+      font-size:18px !important;
+    }
+  </style>
+</head>
+<body>
+<header>
+  <div class="back1" onclick="Comm.close();"></div>
+  <div class="menu1"></div>
+  <div class="titlebar">Confirm order</div>
+</header>
+
+<section>
+  <div class="pad15" id="tradingName"></div>
+  <div class="order-l-2 bg-grey-1">
+    <!--<div class="order-l-2-l ovf">-->
+      <!--<div class="left order-l-2-l-l"><img src="images/test/goods2.jpg" alt="" onerror="this.src='images/error.png';this.onerror=null;" onload="$(this).fadeTo('slow',1);" style="opacity:0;display: block;"></div>-->
+      <!--<div class="order-l-2-l-c">-->
+        <!--<div class="order-l-2-l-c-1 mt10">-->
+          <!--<div class="home-6-l-c-1">-->
+            <!--<div class="left home-6-l-c-1-1 brp course">Math</div>-->
+            <!--<div class="home-6-l-c-1-2 row1">First-grade training math class</div>-->
+          <!--</div>-->
+        <!--</div>-->
+        <!--<div class="order-l-2-l-c-2">-->
+          <!--<div class="left">Start date：08.01-09.01</div>-->
+          <!--<div class="right">Educator：Casey</div>-->
+        <!--</div>-->
+        <!--<div class="order-l-2-l-c-3">-->
+          <!--<div class="right order-l-2-l-c-3-2 c-333 font14">A$300</div>-->
+          <!--<div class="order-l-2-l-c-3-1 row1">Child’s name：Casey</div>-->
+        <!--</div>-->
+      <!--</div>-->
+    <!--</div>-->
+  </div>
+
+  <div class="OD-2">
+    <div class="ovf OD-l bb3">
+      <div class="left OD-l-l">Class name</div>
+      <div class="right OD-l-r c-aaa" id="className"></div>
+    </div>
+    <div class="ovf OD-l bb3">
+      <div class="left OD-l-l">Total lessons</div>
+      <div class="right OD-l-r c-aaa"><span id="lessons">0</span> Courses</div>
+    </div>
+    <div class="ovf OD-l bb3 hide">
+      <div class="left OD-l-l">Weekly lessons</div>
+      <div class="right OD-l-r c-aaa">5 Courses</div>
+    </div>
+    <div class="ovf OD-l">
+      <div class="left OD-l-l">Class duration</div>
+      <div class="right OD-l-r c-aaa"><span id="periods">0</span> minute</div>
+    </div>
+  </div>
+
+  <div class="sp10"></div>
+
+  <div class="OD-2">
+    <div class="ovf OD-l bb3">
+      <div class="left OD-l-l">Child’s name</div>
+      <div class="right brp arrowRight" style="width: 20px;height: 100%;background-size: 8px;" onclick="jsGo(1)"></div>
+      <div class="right OD-l-r c-aaa" id="childrenName" onclick="jsGo(1)"></div>
+    </div>
+    <div class="ovf OD-l bb3" onclick="jsGo(3)">
+      <div class="left OD-l-l">Coupon code</div>
+      <div class="right brp arrowRight" style="width: 20px;height: 100%;background-size: 8px;"></div>
+      <div class="right OD-l-r c-aaa" id="coupon_code"></div>
+    </div>
+    <div class="ovf OD-l">
+      <div class="left OD-l-l">Order total price</div>
+      <div class="right OD-l-r c-yellow-1">A$<span class="font18 price">0</span></div>
+    </div>
+  </div>
+
+  <div class="sp10"></div>
+</section>
+
+<footer class="message-f">
+  <div class="left message-f-2 c-yellow-1 pl15 font16">Payment: A$<span class="price">0</span></div>
+  <div class="right message-f-3" onclick="jsGo(2)">Place order</div>
+</footer>
+
+<script src="inc/g.js"></script>
+<script src="js/md5.js"></script>
+<script src="inc/dict.js"></script>
+<script src="mui/js/mui.min.js"></script>
+
+<script>
+  var user = Comm.db("user");
+  var pageData = {courseId: "", ageLimitArr: []};
+  var user2;
+  var selectChildren = Comm.db("children");
+  var courseDetail = {};
+  var submitObj_l = Comm.db("submitObj_l");
+  pageData.ageLimitArr = submitObj_l.ageLimitArr;
+  var selectClass = Comm.db("selectClass");
+
+  function pageload() {
+    GDict.load(function () {
+      pageData.courseId = submitObj_l.courseId;
+      $("#childrenName").html(selectChildren.name);
+
+      getCourseDetail();
+      getUser();
+    });
+  }
+
+  function pageresume(){
+    selectChildren = Comm.db("children");
+    $("#childrenName").html(selectChildren.name);
+    getUser();
+
+    if (Comm.db("coupon_code")) {
+      var coupon_code = Comm.db("coupon_code");
+      $("#coupon_code").html(coupon_code.num);
+      submitObj_l.discountcode = coupon_code.num;
+    }
+  }
+
+  //课程详情
+  function getCourseDetail() {
+    AJAX2.get("api/course/show", {courseId: pageData.courseId}, function (data) {
+      courseDetail = data;
+
+      var h = '<div class="order-l-2-l ovf">\
+              <div class="left order-l-2-l-l"><img src="' + config.ossroot + courseDetail.face + '" alt="" onerror="this.src=\'images/error.png\';this.onerror=null;" onload="$(this).fadeTo(\'slow\',1);" style="opacity:0;display: block;"></div>\
+              <div class="order-l-2-l-c">\
+              <div class="order-l-2-l-c-1 mt5">\
+              <div class="home-6-l-c-1">\
+              <div class="left home-6-l-c-1-1">' + GDict.getItem(courseDetail.category2).dictname + '</div>\
+              <div class="home-6-l-c-1-2 row1">' + courseDetail.courseName + '</div>\
+      </div>\
+      </div>\
+      <div class="order-l-2-l-c-2">\
+        <div class="left order-l-2-l-c-2-1">Start date：' + CommonFunction.timeFormat(selectClass.startDate, "MM.dd") + '-' + CommonFunction.timeFormat(selectClass.endDate, "MM.dd") + '</div>\
+        <div class="right row1 order-l-2-l-c-2-2">Teacher：' + selectClass.teacher + '</div>\
+      </div>\
+      <div class="order-l-2-l-c-3">\
+        <div class="right order-l-2-l-c-3-2 c-333 font14">A$' + courseDetail.price + '</div>\
+        <div class="order-l-2-l-c-3-1 row1">Child’s name：' + selectChildren.name + '</div>\
+      </div>\
+      </div>\
+      </div>';
+      $(".order-l-2").html(h);
+
+      $("#tradingName").html(courseDetail.tradingName);
+      $("#className").html(selectClass.name);
+      $("#lessons").html(courseDetail.lessons);
+      $("#periods").html(courseDetail.periods);
+      $(".price").html(courseDetail.price);
+      submitObj_l.price = courseDetail.price;
+
+    }, function (data) {
+      Comm.message(data);
+    })
+  }
+
+  //得到用户信息
+  function getUser() {
+    AJAX2.post("api/customer/show", {}, function (data){
+      user2 = data;
+
+    }, function(data) {
+      Comm.message(data);
+    })
+  }
+
+  //下单
+  function submit() {
+
+  }
+
+  function jsGo(n) {
+    if (n == 1) {
+      Comm.close();
+    } else if (n == 2) {
+      if (!user2.address || user2.address == "" || user2.address == "null") {
+        mui.confirm('Please fill in the address before ordering',' ',['Cancel','To perfect'], function() {
+          Comm.go("userAddress.html");
+        })
+      } else if (selectChildren.age < pageData.ageLimitArr[0] || selectChildren.age > pageData.ageLimitArr[1]) {
+        Comm.confirm('The age of child is not match the course', function(a) {
+          if (a == 1) {
+            Comm.db("submitObj_l", submitObj_l);
+            Comm.go('pay.html');
+          }
+        })
+      } else {
+        Comm.db("submitObj_l", submitObj_l);
+        Comm.go('pay.html');
+      }
+    } else if (n == 3) {
+      Comm.go("couponCode.html?businessId=" + courseDetail.businessId);
+    }
+  }
+</script>
+</body>
+</html>

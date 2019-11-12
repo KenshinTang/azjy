@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title></title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no">
+  <meta http-equiv="Cache-Control" content="public" >
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="format-detection" content="telephone=no">
+  <meta name="apple-mobile-web-app-status-bar-style"  content="black" />
+  <meta name="renderer" content="webkit">
+  <meta name="description" content="All About Children">
+  <meta name="keywords" content="All About Children">
+  <link rel="stylesheet" href="inc/g.css" type="text/css">
+  <link rel="stylesheet" href="css/common.css" type="text/css">
+  <link rel="stylesheet" href="css/unique.css" type="text/css">
+  <link rel="stylesheet" href="layui-v2.2.5/css/layui.css" type="text/css">
+  <script src="js/jquery-3.1.1.min.js"></script>
+  <script type="text/javascript" src="js/common.js"></script>
+  <style>
+    body > footer {
+      overflow: initial;
+    }
+    .layui-laydate .layui-this {
+      background-color: #68AF47 !important;
+      color: #fff !important;
+    }
+    .layui-this div{
+      color:white;
+    }
+    .layui-laydate-main{
+      width:100% !important;
+    }
+    .layui-laydate-header i.laydate-next-y {
+      display: none !important;
+    }
+    .layui-laydate-header i.laydate-next-m {
+      right: 15px !important;
+    }
+    .layui-laydate-header i.laydate-prev-y {
+      display: none !important;
+    }
+    .layui-laydate-header i.laydate-prev-m {
+      left: 15px !important;
+    }
+    .layui-laydate-content td{
+      position: relative;
+      border: 1px solid #ccc;
+      width: calc((100vw - 40px) / 7) !important;
+      height: calc((100vw - 80px) / 7) !important;
+    }
+    .layui-laydate-content table {
+      border-collapse: separate !important;
+      border-spacing: 5px !important;
+    }
+    .layui-laydate-header {
+       border-bottom: 0px !important;
+    }
+    .layui-laydate, .layui-laydate-hint {
+      border: 0px !important;
+      box-shadow: 0 0 0 !important;
+    }
+    .noDataS2{
+      background-color: white;
+    }
+    .noDataS2-1{
+      width: 100px;
+      height: 100px;
+      background-image: url(./images/noData3.png);
+      margin: auto;
+      margin-top: 150px;
+      background-size: 70%;
+    }
+    .index-search {
+      position: absolute;
+      top: -16px;
+      z-index: 99;
+      width: 100%;
+    }
+  </style>
+</head>
+<body>
+<header class="bb0">
+  <div class="menu1"></div>
+  <div class="titlebar">My courses</div>
+</header>
+
+<section>
+  <div class="home-2 pre" onclick="openChildren()">
+    <div class="left fwb font16">Course progress</div>
+    <div class="home-2-1 ovf" id="selectChildren">
+      <div class="home-2-1-c-1 row1">No screening</div>
+      <div class="home-2-1-c-2 tran brp"></div>
+    </div>
+
+    <!--<div class="children-lss mui-scroll hide">-->
+      <!--<div class="children-ls">-->
+        <!--&lt;!&ndash;<div class="children-l row1">111</div>&ndash;&gt;-->
+        <!--&lt;!&ndash;<div class="children-l row1">222</div>&ndash;&gt;-->
+      <!--</div>-->
+    <!--</div>-->
+  </div>
+  <div class="home-3" style="height:30vw;">
+    <!--<img src="images/test/goods3.png" alt="" onerror="this.src='images/error.png';this.onerror=null;" onload="$(this).fadeTo('slow',1);" style="opacity:0;display: block;">-->
+  </div>
+
+  <div class="noDataS2 hide">
+    <div class="noDataS2-1 brpscn" style="margin-top: 50px;"></div>
+    <div class="noDataS-2" style="margin-bottom: 50px;">Courses have not been enrolled</div>
+    <div class="noDataS-3" onclick="window.location.href='searchCourse.html'">Filter Courses</div>
+  </div>
+
+  <div class="ovf home-2 calendar hide">
+    <div class="left fwb font16">My calendar</div>
+    <!--<div class="right font16" id="selectChildren" onclick="Comm.go('selectChildren2.html')">select children</div>-->
+  </div>
+
+  <div class="calendar hide" id="createTime" style="padding: 0px 10px;"></div>
+
+  <div class="ovf myCourse-1 calendar hide">
+    <div class="myCourse-2 mr20">
+      <div class="bg-blue-1 myCourse-3"></div>
+      <div class="myCourse-4">HOLIDAY</div>
+    </div>
+    <div class="myCourse-2">
+      <div class="bg-pink-1 myCourse-3"></div>
+      <div class="myCourse-4">STATUTORY</div>
+    </div>
+  </div>
+
+  <div class="courseDetail hide">
+    <div class="pad15 bg-grey-1 font16 c-333" id="daily"></div>
+
+    <div class="myCourse-ls">
+      <!--<div class="myCourse-l">-->
+        <!--<div class="font16 mt20">First grade math class in primary school</div>-->
+        <!--<div class="brp myCourse-l-1 myCourse1">Class time: <span class="c-333">AM 09:00-10:00</span></div>-->
+        <!--<div class="brp myCourse-l-1 myCourse2">Class Address: <span class="c-333">Australia class Address</span></div>-->
+        <!--<div class="brp myCourse-l-1 myCourse3">Remaining Classes: <span class="c-333">2/20</span></div>-->
+      <!--</div>-->
+      <!--<div class="sp5"></div>-->
+    </div>
+
+    <div class="noDataS hide">
+      <div class="noDataS-1 brpscn" style="margin-top: 50px;"></div>
+      <div class="noDataS-2" style="margin-bottom: 50px;">Sorry, there is no relevant data</div>
+    </div>
+  </div>
+
+  <div style="height:50px;"></div>
+</section>
+
+<div class="app-window1 hide" onclick="openWindow(0)"></div>
+
+<div class="children-window hide">
+  <div class="children-lss">
+    <div class="children-ls">
+      <!--<div class="children-l row1">111</div>-->
+      <!--<div class="children-l row1">222</div>-->
+    </div>
+  </div>
+</div>
+
+<footer>
+  <ul>
+    <li class="index1-0" onclick="window.location.href='home.html'">Home</li>
+    <li class="index2-0" onclick="window.location.href='searchCourse.html'">Search</li>
+    <li class="index3-1 pre">My course<div class="index-search brp"><div class="index-search2 brp"></div></div></li>
+    <li class="index4-0" onclick="window.location.href='forum.html'">Forum</li>
+    <li class="index5-0" onclick="window.location.href='mine.html'">My</li>
+  </ul>
+</footer>
+
+<script src="inc/g.js"></script>
+<script src="js/md5.js"></script>
+<script src="layui-v2.2.5/layui.all.js"></script>
+
+<script>
+  var user = Comm.db("user");
+  var pageData = {time: CommonFunction.timeFormat(new Date().getTime(), "yy-MM-dd")};
+  var childrenArr = [];
+  var children = {};
+  var myClassesArr = [];
+
+  var laydate1 = null;
+  layui.use('laydate', function(){
+    laydate1 = layui.laydate;
+  });
+
+  function pageload() {
+    setTimeout(function() {
+      getAd();
+      getChildren();
+    }, 100);
+  }
+
+  function pageresume(){
+//    if (!Comm.db("children2")) {
+//      return;
+//    }
+//    children = Comm.db("children2");
+//    $("#selectChildren").html(children.name);
+//    getChildrenCourse();
+  }
+
+  //得到小孩信息
+  function getChildrenCourse() {
+    AJAX2.get("api/course/myClasses", {childid: children.childid}, function (data){
+      myClassesArr = data;
+
+      for (var i in data) {
+        var arr1 = data[i].classesDate.split("-");
+        arr1[1] = parseInt(arr1[1]);
+        arr1[2] = parseInt(arr1[2]);
+
+        data[i].classesDate2 = arr1.join("/");
+      }
+
+      $("#daily").html(pageData.time);
+      getChildrenDailyCourse();
+
+    }, function(data) {
+      Comm.message(data);
+    })
+  }
+
+  //得到小孩当天课程
+  function getChildrenDailyCourse() {
+    $(".courseDetail").removeClass("hide");
+    var data = [];
+    var idsArr = [];
+    var cousrseArr_obj = {};
+
+//    for (var i in myClassesArr) {
+//      if (!cousrseArr_obj[myClassesArr[i].classesId]) {
+//        cousrseArr_obj[myClassesArr[i].classesId] = {arr: [], readynum: 0};
+//      }
+//      cousrseArr_obj[myClassesArr[i].classesId].arr.push(myClassesArr[i]);
+//      if (new Date(myClassesArr[i].classesDate).getTime() < new Date(pageData.time).getTime()) {
+//        cousrseArr_obj[myClassesArr[i].classesId].readynum++;
+//      }
+//    }
+//    console.log(cousrseArr_obj);
+
+    //查询当天的课程
+    for (var i in myClassesArr) {
+      if (myClassesArr[i].classesDate == pageData.time) {
+        idsArr.push(myClassesArr[i].classesId);
+        data.push(myClassesArr[i]);
+      }
+    }
+
+    data = data.sort(CommonFunction.compare('periodType'));
+
+    console.log(data);
+
+    if (data.length > 0) {
+      AJAX2.get("api/class/myClass", {ids: idsArr.join(",")}, function (data2){
+        data2 = Tool.getDict(data2, "classesId");
+
+//        console.log(data2);
+
+        for (var i in data) {
+          data[i].classes = data2[data[i].classesId];
+        }
+
+        for (var i in myClassesArr) {
+          if (!cousrseArr_obj[myClassesArr[i].classesId]) {
+            cousrseArr_obj[myClassesArr[i].classesId] = {arr: [], readynum: 0};
+          }
+
+//          console.log(cousrseArr_obj);
+
+          if (myClassesArr[i].periodType == 1) {
+            console.log(data2, myClassesArr[i]);
+
+            if (data2[myClassesArr[i].classesId]) {
+              myClassesArr[i].classesDate3 = myClassesArr[i].classesDate.replace(/-/g, '/') + " " + data2[myClassesArr[i].classesId].amTime.split(" - ")[1];
+            }
+          } else {
+            if (data2[myClassesArr[i].classesId]) {
+              var arr2 = data2[myClassesArr[i].classesId].pmTime.split(" - ")[1].split(":");
+              arr2[0] = parseInt(arr2[0]) + 12 + "";
+              myClassesArr[i].classesDate3 = myClassesArr[i].classesDate.replace(/-/g, '/') + " " + arr2.join(":");
+            }
+          }
+          cousrseArr_obj[myClassesArr[i].classesId].arr.push(myClassesArr[i]);
+
+          if (new Date(myClassesArr[i].classesDate3).getTime() < new Date().getTime()) {
+            cousrseArr_obj[myClassesArr[i].classesId].readynum++;
+          }
+        }
+        console.log(cousrseArr_obj);
+
+//        console.log(data);
+//
+//        console.log(cousrseArr_obj);
+//
+//        for (var i in cousrseArr_obj) {
+//          for (var ii in cousrseArr_obj[i].arr) {
+//            var str1 = "";
+//            if (cousrseArr_obj[i].arr[ii].periodType == 1) {
+//              console.log(cousrseArr_obj[i].arr[ii]);
+//
+//              str1 = cousrseArr_obj[i].arr[ii].classesDate.replace(/-/g, '/') + " " + cousrseArr_obj[i].arr[ii].classes.amTime.split(" - ")[1];
+//            } else {
+//              var arr2 = cousrseArr_obj[i].arr[ii].classes.pmTime.split(" - ")[1].split(":");
+//              arr2[0] = parseInt(arr2[0]) + 12 + "";
+//              str1 = cousrseArr_obj[i].arr[ii].classesDate.replace(/-/g, '/') + " " + arr2.join(":");
+//            }
+//
+////            console.log(str1);
+//
+//            if (new Date(str1).getTime() < new Date().getTime()) {
+//              cousrseArr_obj[i].readynum++;
+//            }
+//          }
+//        }
+
+        console.log(data);
+
+        $(".noDataS").addClass("hide");
+        var h = '';
+        for (var i in data) {
+          h += '<div class="myCourse-l">\
+              <div class="font16 mt20 word">' + data[i].classes.courseName + '(' + data[i].classes.classesName + ')' + '</div>\
+      <div class="brp myCourse-l-1 myCourse1">Class time: <span class="c-333">' + (data[i].periodType == 1 ? ('AM ' + data[i].classes.amTime) : ('PM ' + data[i].classes.pmTime)) + '</span></div>\
+      <div class="brp myCourse-l-1 myCourse2" onclick="gonavigation(' + data[i].classes.addrLat + ', ' + data[i].classes.addrLnt + ', \'' + data[i].classes.addrOne + '\', \'' + data[i].classes.addrTwo + '\')">Class Address: <span class="c-333">' + (data[i].classes.addrOne + data[i].classes.addrTwo) + '</span></div>\
+      <div class="brp myCourse-l-1 myCourse3">Remaining Classes: <span class="c-333">' + (cousrseArr_obj[data[i].classesId].readynum + '/' + cousrseArr_obj[data[i].classesId].arr.length) + '</span></div>\
+      </div>\
+      <div class="sp5"></div>';
+        }
+        $(".myCourse-ls").html(h);
+
+      }, function(data) {
+        Comm.message(data);
+      })
+    } else {
+      $(".myCourse-ls").html("");
+      $(".noDataS").removeClass("hide");
+    }
+
+    for (var i in myClassesArr) {
+      var d1 = myClassesArr[i].classesDate.split("-");
+      var d2 = parseInt(d1[0]) + "-" + parseInt(d1[1]) + "-" + parseInt(d1[2]);
+      var d3 = $("td[lay-ymd='" + d2 + "']");
+
+      if (new Date(myClassesArr[i].classesDate2).getTime() >= new Date().getTime()) {
+        d3.append('<div class="youke youke-active"></div>');
+      } else {
+        d3.append('<div class="youke"></div>');
+      }
+    }
+  }
+
+  function addThisDate() {
+    $("td").attr({"style": ""});
+    var d1 = CommonFunction.timeFormat(new Date().getTime(), "yy-MM-dd").split("-");
+    var d2 = parseInt(d1[0]) + "-" + parseInt(d1[1]) + "-" + parseInt(d1[2]);
+    var d3 = $("td[lay-ymd='" + d2 + "']");
+    if (d3.length > 0) {
+      $(d3).attr({"style": "background-color: #68AF47 !important;color: white !important;"});
+    }
+    getCalendarList(d2);
+  }
+
+  function gonavigation(addrLat, addrLnt, addrOne, addrTwo) {
+    Comm.navigation({lat: addrLat, lng: addrLnt, addr: addrOne + addrTwo});
+  }
+
+  //得到小孩
+  function getChildren() {
+    if (!user) {
+      getSelectOpen();
+      return;
+    }
+
+    AJAX2.get("api/child/list", {customerid: user.customerId}, function (data){
+      childrenArr = data;
+
+      var h = '<div class="children-l row1" onclick="select(\'\')">No screening</div>';
+      for (var i in data) {
+        h += '<div class="children-l row1" onclick="select(' + data[i].childid + ')">' + data[i].name + '</div>';
+      }
+      $(".children-ls").html(h);
+
+      getSelectOpen();
+
+    }, function(data) {
+      Comm.message(data);
+    })
+  }
+
+  //选择小孩
+  function select(childid) {
+    openWindow(0);
+
+    if ($(event.target).html() == "No screening") {
+      $(".home-2-1-c-1").html("No screening");
+      $(".calendar").addClass("hide");
+      $(".noDataS2").removeClass("hide");
+      $(".courseDetail").addClass("hide");
+      return;
+    }
+
+    var children_l;
+
+    for (var i in childrenArr) {
+      if (childrenArr[i].childid == childid) {
+        children_l = childrenArr[i];
+      }
+
+      for (var ii in childrenArr_signup) {
+        if (childrenArr[i].childid == childid && childrenArr_signup[ii].studentId == childid) {
+          if ($(".home-2-1-c-1").html() == "No screening" || $(".home-2-1-c-1").html() != children.name) {
+            children = childrenArr[i];
+            $(".home-2-1-c-1").html(children.name);
+            $(".calendar").removeClass("hide");
+            $(".noDataS2").addClass("hide");
+            timeDate();
+            getChildrenCourse();
+            return;
+          }
+        }
+      }
+    }
+
+    children = {};
+    myClassesArr = [];
+    $(".calendar").addClass("hide");
+    $(".noDataS2").removeClass("hide");
+    $(".home-2-1-c-1").html(children_l.name);
+    $(".courseDetail").addClass("hide");
+  }
+
+  function timeDate() {
+    $("#createTime").html("");
+    laydate1.render({
+      elem: '#createTime', //指定元素
+      type: "date",
+      position: "static",
+      value: pageData.time,
+      showBottom: false,
+      lang: "en",
+      change: function(value, date, endDate){
+        console.log(value); //得到日期生成的值，如：2017-08-18
+        console.log(date); //得到日期时间对象：{year: 2017, month: 8, date: 18, hours: 0, minutes: 0, seconds: 0}
+        console.log(endDate); //得结束的日期时间对象，开启范围选择（range: true）才会返回。对象成员同上。
+
+        pageData.time = value;
+
+        if (JSON.stringify(children) != "{}") {
+          $("#daily").html(value);
+          getChildrenDailyCourse(value);
+        }
+
+        addThisDate();
+      }
+    });
+
+    setTimeout(function() {
+      addThisDate();
+    }, 100);
+  }
+
+  function openChildren() {
+    if (!checkIsLogin2()) {
+      return;
+    }
+
+    if (childrenArr.length <= 0) {
+      Comm.message("Please add children");
+      return;
+    }
+
+    $(".children-window").toggleClass("hide");
+    $(".app-window1").toggleClass("hide");
+  }
+
+  //得到小孩
+  function getSelectOpen() {
+    if (!user) {
+      $(".noDataS2").removeClass("hide");
+      return;
+    }
+
+    AJAX2.get("api/child/selectOpen", {}, function (data){
+      childrenArr_signup = data;
+
+      for (var i in childrenArr) {
+        for (var ii in data) {
+          if (childrenArr[i].childid == data[ii].studentId) {
+            children = childrenArr[i];
+            $(".calendar").removeClass("hide");
+            $(".noDataS2").addClass("hide");
+            $(".home-2-1-c-1").html(children.name);
+            timeDate();
+            getChildrenCourse();
+            return;
+          }
+        }
+      }
+
+      $(".noDataS2").removeClass("hide");
+
+    }, function(data) {
+      Comm.message(data);
+    })
+  }
+
+  //广告
+  function getAd() {
+    AJAX2.get("api/advert/list", {postion: 69, pageno: 1, pagesize: 10}, function (data){
+      $(".home-3").html('<img src="' + config.ossroot + data[0].face + '" alt="" onerror="this.src=\'images/error.png\';this.onerror=null;" onload="$(this).fadeTo(\'slow\',1);" style="opacity:0;display: block;" onclick="goAd(' + data[0].adType + ', ' + data[0].itemID + ')">');
+
+    }, function(data) {
+      Comm.message(data);
+    })
+  }
+
+  //节假日
+  function getCalendarList(today) {
+    AJAX2.get("api/calendar/list", {year: new Date(pageData.time).getFullYear(), areaId: Comm.db("district").dictid}, function (data){
+      for (var i in data) {
+        var d1 = (data[i].year + "-" + data[i].monthDay.slice(0, 2) + "-" + data[i].monthDay.slice(2, 4)).split("-");
+        var d2 = parseInt(d1[0]) + "-" + parseInt(d1[1]) + "-" + parseInt(d1[2]);
+        var d3 = $("td[lay-ymd='" + d2 + "']");
+        if (d3.length > 0 && d2 != today) {
+          if (data[i].isSummerVacation == 0) {
+            $(d3).attr({"style": "background-color: #ebf9ff !important;"});
+          } else {
+            $(d3).attr({"style": "background-color: #ffebeb !important;"});
+          }
+        }
+      }
+
+    }, function(data) {
+      Comm.message(data);
+    })
+  }
+
+  //打开窗口
+  function openWindow(n) {
+    if (!checkIsLogin2()) {
+      return;
+    }
+
+    $(".app-window1").toggleClass("hide");
+
+    if (n == 0) {
+      $(".children-window").addClass("hide");
+    } else if (n == 1) {
+      $(".children-window").toggleClass("hide");
+    }
+  }
+
+  function goAd(adtype, itemID) {
+    if (adtype == 1) {
+      Comm.go("institutionsDetail.html?businessId=" + itemID);
+    } else if (adtype == 2) {
+      Comm.go("institutionsCourseDetail.html?courseId=" + itemID);
+    } else if (adtype == 3) {
+      Comm.go("articleDetail.html?aid=" + itemID);
+    }
+  }
+</script>
+</body>
+</html>

@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title></title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no">
+  <meta http-equiv="Cache-Control" content="public" >
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="format-detection" content="telephone=no">
+  <meta name="apple-mobile-web-app-status-bar-style"  content="black" />
+  <meta name="renderer" content="webkit">
+  <meta name="description" content="All About Children">
+  <meta name="keywords" content="All About Children">
+  <link rel="stylesheet" href="inc/g.css" type="text/css">
+  <link rel="stylesheet" href="css/common.css" type="text/css">
+  <link rel="stylesheet" href="css/unique.css" type="text/css">
+  <script src="js/jquery-3.1.1.min.js"></script>
+  <script type="text/javascript" src="js/common.js"></script>
+</head>
+<body>
+<header class="bb0">
+  <div class="back1" onclick="Comm.close();"></div>
+  <div class="menu1"></div>
+  <div class="titlebar"></div>
+</header>
+
+<section>
+  <div class="AC-1">Personal Info</div>
+  <div class="font16 c-999 tac mt20">Setup children's grow up files</div>
+  <div class="ovf AC-2">
+    <div class="left AC-2-1 brp boy2 AC-2-1-active" onclick="selectSex(2)">Boy</div>
+    <div class="left AC-2-2 brp girl2" onclick="selectSex(3)">Girl</div>
+  </div>
+
+  <div class="AC-3">
+    <div class="right brp delete5 AC-3-r"></div>
+    <div class="AC-3-c"><input id="name" type="text" placeholder="Name" autocomplete="off"></div>
+  </div>
+
+  <div class="AC-3" onclick="datePicker.show()">
+    <div class="right brp arrowBottom2 AC-3-r" style="background-size: 12px;"></div>
+    <div class="AC-3-c"><input id="birthday" type="text" placeholder="Child’s birthday" autocomplete="off" readonly></div>
+  </div>
+
+  <div class="AC-3" onclick="intersetPicker.show()">
+    <div class="right brp arrowBottom2 AC-3-r" style="background-size: 12px;"></div>
+    <div class="AC-3-c"><input id="interest" type="text" placeholder="Interest" autocomplete="off" readonly></div>
+  </div>
+
+  <div class="commonButton2" style="margin-top: 60px;margin-bottom: 20px;" onclick="submit()">Confirm</div>
+</section>
+
+<script src="inc/g.js"></script>
+<script src="js/md5.js"></script>
+<script src="inc/dict.js"></script>
+<script src="js/picker.min.js"></script>
+
+<script>
+  var user = Comm.db("user");
+  var pageData = {sex: 2, name: "", birthday: "", interest: ""};
+  var datePicker = null;
+  var intersetPicker = null;
+
+  function pageload() {
+    datePicker = new Datepicker("select time", function (a, b, c) {
+      console.log(a, b, c);
+      $('#birthday').val(b);
+      pageData.birthday = b;
+    })
+
+    GDict.load(function () {
+      var arr1 = [];
+      for (var i in GDict._data.Interest) {
+        arr1.push({text: GDict._data.Interest[i].dictname, i: GDict._data.Interest[i].dictid});
+      }
+
+      intersetPicker = new Commpicker("select interset",[arr1],function (a, b, c) {
+        console.log(a, b, c);
+        $('#interest').val(b);
+        pageData.interest = c;
+      });
+    });
+  }
+
+  function pageresume(){
+
+  }
+
+  //选择性别
+  function selectSex(n) {
+    $(".AC-2-1").removeClass("AC-2-1-active");
+    $(".AC-2-2").removeClass("AC-2-1-active");
+    $(event.target).addClass("AC-2-1-active");
+    pageData.sex = n;
+  }
+
+  //添加孩子
+  function submit() {
+    pageData.name = $("#name").val();
+
+    if (pageData.name == "") {
+      Comm.message("Please enter a name");
+      return;
+    }
+
+    if (pageData.birthday == "") {
+      Comm.message("Please select children birthday");
+      return;
+    }
+
+    if (pageData.interest == "") {
+      Comm.message("Please select children Interest");
+      return;
+    }
+
+    AJAX2.post("api/child/add", {customerid: user.customerId, name: pageData.name, birthday: pageData.birthday, gender: pageData.sex, interest: pageData.interest}, function (data){
+      Comm.message("added");
+      Comm.close();
+
+    }, function(data) {
+      Comm.message(data);
+    })
+  }
+</script>
+</body>
+</html>

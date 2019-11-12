@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title></title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no">
+  <meta http-equiv="Cache-Control" content="public" >
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="format-detection" content="telephone=no">
+  <meta name="apple-mobile-web-app-status-bar-style"  content="black" />
+  <meta name="renderer" content="webkit">
+  <meta name="description" content="All About Children">
+  <meta name="keywords" content="All About Children">
+  <link rel="stylesheet" href="inc/g.css" type="text/css">
+  <link rel="stylesheet" href="css/common.css" type="text/css">
+  <link rel="stylesheet" href="css/unique.css" type="text/css">
+  <script src="js/jquery-3.1.1.min.js"></script>
+  <script type="text/javascript" src="js/common.js"></script>
+</head>
+<body>
+<header>
+  <div class="back1" onclick="Comm.close();"></div>
+  <div class="menu1"></div>
+  <div class="titlebar">Report</div>
+</header>
+
+<section>
+  <div class="report-1">Please choose the reason</div>
+  <div class="pad15 report-ls">
+    <!--<div class="ovf report-l">-->
+      <!--<div class="left report-l-l brp select2-n select2-y"></div>-->
+      <!--<div class="report-l-c">Vulgar</div>-->
+    <!--</div>-->
+    <!--<div class="ovf report-l">-->
+      <!--<div class="left report-l-l brp select2-n"></div>-->
+      <!--<div class="report-l-c">Advertisement</div>-->
+    <!--</div>-->
+    <!--<div class="ovf report-l">-->
+      <!--<div class="left report-l-l brp select2-n"></div>-->
+      <!--<div class="report-l-c">Old repetitive content</div>-->
+    <!--</div>-->
+    <!--<div class="ovf report-l">-->
+      <!--<div class="left report-l-l brp select2-n"></div>-->
+      <!--<div class="report-l-c">others</div>-->
+    <!--</div>-->
+  </div>
+  <div class="pad15">
+    <textarea class="report-2" id="remark" name="" cols="30" rows="5" maxlength="500" placeholder="Please input what you want to report" oninput="CommonFunction.removeEmoji(event);"></textarea>
+  </div>
+</section>
+
+<footer class="footer1">
+  <div class="footer-button" onclick="submit()">Submit</div>
+</footer>
+
+<script src="inc/g.js"></script>
+<script src="js/md5.js"></script>
+<script src="inc/dict.js"></script>
+
+<script>
+  var user = Comm.db("user");
+  var pageData = { postid: Comm.query("postid") };
+
+  function pageload() {
+    GDict.load(function () {
+      var h = '';
+      for (var i in GDict._data.reasons) {
+        h += '<div class="ovf report-l" dictid="' + GDict._data.reasons[i].dictid + '">\
+                <div class="left report-l-l brp select2-n" onclick="select()"></div>\
+                <div class="report-l-c">' + GDict._data.reasons[i].dictname + '</div>\
+                </div>';
+      }
+      $(".report-ls").html(h);
+    });
+  }
+
+  function pageresume(){
+
+  }
+
+  function submit() {
+    var remark = $("#remark").val();
+    var reasonsArr = [];
+
+    var num1 = $(".report-l-l").filter(".select2-y").length;
+    if (num1 <= 0) {
+      Comm.message("Please select reasons");
+      return;
+    }
+
+    for (var i = 0; i < num1; i++) {
+      reasonsArr.push($($(".report-l-l").filter(".select2-y")[i]).parent().attr("dictid"));
+    }
+
+    if (remark == "") {
+      Comm.message("Please input what you want to report");
+      return;
+    }
+
+    AJAX2.get("api/post/reportPost", { postId: pageData.postid, reasons: reasonsArr.join(","), remark: remark }, function (data) {
+      Comm.message("succeed");
+      setTimeout(function() {
+        Comm.close();
+      }, 500);
+
+    }, function (data) {
+      Comm.message(data);
+    })
+  }
+
+  function select() {
+    $(event.target).toggleClass("select2-y");
+  }
+</script>
+</body>
+</html>

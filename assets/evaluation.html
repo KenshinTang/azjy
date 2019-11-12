@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title></title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no">
+  <meta http-equiv="Cache-Control" content="public" >
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="format-detection" content="telephone=no">
+  <meta name="apple-mobile-web-app-status-bar-style"  content="black" />
+  <meta name="renderer" content="webkit">
+  <meta name="description" content="All About Children">
+  <meta name="keywords" content="All About Children">
+  <link rel="stylesheet" href="inc/g.css" type="text/css">
+  <link rel="stylesheet" href="css/common.css" type="text/css">
+  <link rel="stylesheet" href="css/unique.css" type="text/css">
+  <script src="js/jquery-3.1.1.min.js"></script>
+  <script type="text/javascript" src="js/common.js"></script>
+  <style>
+    .newAddImgs .box{
+      width: calc((100vw - 60px) / 4);
+      height: calc((100vw - 60px) / 4);
+      float: left;
+      margin: 10px 10px 0px 0px;
+      border: 1px solid #eee;
+    }
+    .newAddImgs .box:nth-child(4n){
+      margin-right: 0px;
+    }
+    .newAddImgs .box img{
+      width:100%;
+      height:100%;
+    }
+    .post-l3{
+      width: calc((100vw - 60px) / 4);
+      height: calc((100vw - 60px) / 4);
+      float: left;
+      margin: 10px 10px 0px 0px;
+      border: 1px solid #ddd;
+      background-size: 30px;
+      background-position: center 17px;
+      line-height: calc((100vw - 60px) / 4 * 1.5);
+      text-align: center;
+      color: #aaa;
+      font-size: 12px;
+    }
+  </style>
+</head>
+<body>
+<header>
+  <div class="back1" onclick="Comm.close();"></div>
+  <div class="menu1"></div>
+  <div class="titlebar">Review</div>
+</header>
+
+<section class="bg-grey-1">
+  <div class="ovf eva-1 bg-white">
+    <div class="eva-1-1">
+      <div class="left eva-1-1-1" id="courseFace"></div>
+      <div class="eva-1-1-2">Course Review</div>
+    </div>
+    <div class="eva-1-2 bb3 pb20">
+      <div class="eva-1-2-l ovf">
+        <div class="right eva-1-2-l-r ovf">
+          <div class="brpscn star4-n eva-1-2-l-r-d" onclick="click_star(1, 'courseSer')"></div>
+          <div class="brpscn star4-n eva-1-2-l-r-d" onclick="click_star(2, 'courseSer')"></div>
+          <div class="brpscn star4-n eva-1-2-l-r-d" onclick="click_star(3, 'courseSer')"></div>
+          <div class="brpscn star4-n eva-1-2-l-r-d" onclick="click_star(4, 'courseSer')"></div>
+          <div class="brpscn star4-n eva-1-2-l-r-d" onclick="click_star(5, 'courseSer')"></div>
+        </div>
+        <div class="eva-1-2-l-l">Program/service</div>
+      </div>
+
+      <div class="eva-1-2-l ovf">
+        <div class="right eva-1-2-l-r ovf">
+          <div class="brpscn star4-n eva-1-2-l-r-d" onclick="click_star(1, 'courseHea')"></div>
+          <div class="brpscn star4-n eva-1-2-l-r-d" onclick="click_star(2, 'courseHea')"></div>
+          <div class="brpscn star4-n eva-1-2-l-r-d" onclick="click_star(3, 'courseHea')"></div>
+          <div class="brpscn star4-n eva-1-2-l-r-d" onclick="click_star(4, 'courseHea')"></div>
+          <div class="brpscn star4-n eva-1-2-l-r-d" onclick="click_star(5, 'courseHea')"></div>
+        </div>
+        <div class="eva-1-2-l-l">Children's health and safety</div>
+      </div>
+    </div>
+    <div class="eva-3 pad15">
+      <textarea class="feedback-1" name="" id="message" cols="30" rows="5" maxlength="500" placeholder="Please input Comments" oninput="CommonFunction.removeEmoji(event);"></textarea>
+    </div>
+    <div>
+      <div class="post-l2s newAddImgs" id="evaImg_0">
+        <!--<div class="post-l2"><img src="images/test/goods2.jpg" alt="" onerror="this.src='images/error.png';this.onerror=null;" onload="$(this).fadeTo('slow',1);" style="opacity:0;display: block;"></div>-->
+        <!--<div class="post-l2"><img src="images/test/goods2.jpg" alt="" onerror="this.src='images/error.png';this.onerror=null;" onload="$(this).fadeTo('slow',1);" style="opacity:0;display: block;"></div>-->
+        <!--<div class="post-l2"><img src="images/test/goods2.jpg" alt="" onerror="this.src='images/error.png';this.onerror=null;" onload="$(this).fadeTo('slow',1);" style="opacity:0;display: block;"></div>-->
+        <!--<div class="post-l2"><img src="images/test/goods2.jpg" alt="" onerror="this.src='images/error.png';this.onerror=null;" onload="$(this).fadeTo('slow',1);" style="opacity:0;display: block;"></div>-->
+        <!--<div class="post-l2"><img src="images/test/goods2.jpg" alt="" onerror="this.src='images/error.png';this.onerror=null;" onload="$(this).fadeTo('slow',1);" style="opacity:0;display: block;"></div>-->
+
+        <div class="left brp camera post-l3" id="sub_0">Add picture</div>
+        <div style="clear:left;"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ovf eva-1 bg-white mt15">
+    <div class="eva-1-1">
+      <div class="left eva-1-1-1" id="inFace"></div>
+      <div class="eva-1-1-2">Institution Review</div>
+    </div>
+    <div class="eva-1-2 bb3 pb20">
+      <div class="eva-1-2-l ovf">
+        <div class="right eva-1-2-l-r ovf">
+          <div class="brpscn star4-n eva-1-2-l-r-d" onclick="click_star(1, 'insEnv')"></div>
+          <div class="brpscn star4-n eva-1-2-l-r-d" onclick="click_star(2, 'insEnv')"></div>
+          <div class="brpscn star4-n eva-1-2-l-r-d" onclick="click_star(3, 'insEnv')"></div>
+          <div class="brpscn star4-n eva-1-2-l-r-d" onclick="click_star(4, 'insEnv')"></div>
+          <div class="brpscn star4-n eva-1-2-l-r-d" onclick="click_star(5, 'insEnv')"></div>
+        </div>
+        <div class="eva-1-2-l-l">Physical environment</div>
+      </div>
+
+      <div class="eva-1-2-l ovf">
+        <div class="right eva-1-2-l-r ovf">
+          <div class="brpscn star4-n eva-1-2-l-r-d" onclick="click_star(1, 'insRel')"></div>
+          <div class="brpscn star4-n eva-1-2-l-r-d" onclick="click_star(2, 'insRel')"></div>
+          <div class="brpscn star4-n eva-1-2-l-r-d" onclick="click_star(3, 'insRel')"></div>
+          <div class="brpscn star4-n eva-1-2-l-r-d" onclick="click_star(4, 'insRel')"></div>
+          <div class="brpscn star4-n eva-1-2-l-r-d" onclick="click_star(5, 'insRel')"></div>
+        </div>
+        <div class="eva-1-2-l-l">Relationships with children</div>
+      </div>
+
+      <div class="eva-1-2-l ovf">
+        <div class="right eva-1-2-l-r ovf">
+          <div class="brpscn star4-n eva-1-2-l-r-d" onclick="click_star(1, 'insSta')"></div>
+          <div class="brpscn star4-n eva-1-2-l-r-d" onclick="click_star(2, 'insSta')"></div>
+          <div class="brpscn star4-n eva-1-2-l-r-d" onclick="click_star(3, 'insSta')"></div>
+          <div class="brpscn star4-n eva-1-2-l-r-d" onclick="click_star(4, 'insSta')"></div>
+          <div class="brpscn star4-n eva-1-2-l-r-d" onclick="click_star(5, 'insSta')"></div>
+        </div>
+        <div class="eva-1-2-l-l">Staffing arrangements</div>
+      </div>
+
+      <div class="eva-1-2-l ovf">
+        <div class="right eva-1-2-l-r ovf">
+          <div class="brpscn star4-n eva-1-2-l-r-d" onclick="click_star(1, 'insLea')"></div>
+          <div class="brpscn star4-n eva-1-2-l-r-d" onclick="click_star(2, 'insLea')"></div>
+          <div class="brpscn star4-n eva-1-2-l-r-d" onclick="click_star(3, 'insLea')"></div>
+          <div class="brpscn star4-n eva-1-2-l-r-d" onclick="click_star(4, 'insLea')"></div>
+          <div class="brpscn star4-n eva-1-2-l-r-d" onclick="click_star(5, 'insLea')"></div>
+        </div>
+        <div class="eva-1-2-l-l">Leadership/service management</div>
+      </div>
+    </div>
+    <div class="eva-3 pad15">
+      <textarea class="feedback-1" name="" id="insReply" cols="30" rows="5" maxlength="500" placeholder="Please input Comments" oninput="CommonFunction.removeEmoji(event);"></textarea>
+    </div>
+    <div>
+      <div class="post-l2s newAddImgs" id="evaImg_1">
+        <!--<div class="post-l2"><img src="images/test/goods2.jpg" alt="" onerror="this.src='images/error.png';this.onerror=null;" onload="$(this).fadeTo('slow',1);" style="opacity:0;display: block;"></div>-->
+        <!--<div class="post-l2"><img src="images/test/goods2.jpg" alt="" onerror="this.src='images/error.png';this.onerror=null;" onload="$(this).fadeTo('slow',1);" style="opacity:0;display: block;"></div>-->
+        <!--<div class="post-l2"><img src="images/test/goods2.jpg" alt="" onerror="this.src='images/error.png';this.onerror=null;" onload="$(this).fadeTo('slow',1);" style="opacity:0;display: block;"></div>-->
+        <!--<div class="post-l2"><img src="images/test/goods2.jpg" alt="" onerror="this.src='images/error.png';this.onerror=null;" onload="$(this).fadeTo('slow',1);" style="opacity:0;display: block;"></div>-->
+        <!--<div class="post-l2"><img src="images/test/goods2.jpg" alt="" onerror="this.src='images/error.png';this.onerror=null;" onload="$(this).fadeTo('slow',1);" style="opacity:0;display: block;"></div>-->
+
+        <div class="left brp camera post-l3" id="sub_1">Add picture</div>
+        <div style="clear:left;"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="brp eva-2 select-n bt3" id="anonymous" onclick="anonymous()">Anonymous</div>
+</section>
+
+<footer class="footer1 bg-grey-1 bt0">
+  <div class="footer-button" onclick="submit()">COMMENT</div>
+</footer>
+
+<script src="inc/g.js"></script>
+<script src="js/md5.js"></script>
+<script src="inc/upimg/upload.js"></script>
+
+<script>
+  var user = Comm.db("user");
+  var orderDetail = Comm.db("orderDetail");
+  Comm.db("orderDetail", null);
+  var pageData = {oid: Comm.query("oid")};
+  var submit_obj = {
+    courseid: orderDetail.courseId,
+    courseSer: "",
+    courseHea: "",
+    message: "",
+    courseimgurls: "",
+    insEnv: "",
+    insRel: "",
+    insSta: "",
+    insLea: "",
+    insReply: "",
+    busId: orderDetail.busId,
+    ordersId: pageData.oid,
+    busimgurls: "",
+    isAnonymous: "",
+  };
+  var upHeader0 = null;
+  var upHeader1 = null;
+
+  function pageload() {
+    getInDetail();
+    upHeader0 = new imgUploader(("evaImg_" + 0), 4, ("sub_" + 0));
+    upHeader1 = new imgUploader(("evaImg_" + 1), 4, ("sub_" + 1));
+  }
+
+  function pageresume(){
+
+  }
+
+  //点击星星
+  function click_star(n, x) {
+    event.stopPropagation();
+    submit_obj[x] = n;
+
+    $($(event.target).parent()).find(".star4-n").removeClass("star4-y");
+
+    for (var i = 0; i < n; i++) {
+      $($(event.target).parent().children()[i]).addClass("star4-y");
+    }
+  }
+
+  function getInDetail() {
+    AJAX2.get("api/business/show", {businessid: orderDetail.busId}, function (data) {
+      $("#courseFace").html('<img src="' + config.ossroot + orderDetail.face + '" alt="" onerror="this.src=\'images/error.png\';this.onerror=null;" onload="$(this).fadeTo(\'slow\',1);" style="opacity:0;display: block;">');
+      $("#inFace").html('<img src="' + config.ossroot + data.ins.logo + '" alt="" onerror="this.src=\'images/error.png\';this.onerror=null;" onload="$(this).fadeTo(\'slow\',1);" style="opacity:0;display: block;">');
+
+    }, function(data) {
+      Comm.message(data);
+    })
+  }
+
+  //提交评论
+  function submit() {
+    submit_obj.message = $("#message").val();
+    submit_obj.insReply = $("#insReply").val();
+    submit_obj.isAnonymous = $("#anonymous").hasClass("select-y") ? 1 : 0;
+
+    if (submit_obj.courseSer == "" || submit_obj.courseHea == "" || submit_obj.insEnv == "" || submit_obj.insRel == "" || submit_obj.insSta == "" || submit_obj.insLea == "") {
+      Comm.message("Please select grading");
+      return;
+    }
+
+    if (submit_obj.message == "") {
+      Comm.message("Please enter course message");
+      return;
+    }
+
+    if (submit_obj.insReply == "") {
+      Comm.message("Please enter institution message");
+      return;
+    }
+
+    submit_obj.courseimgurls = upHeader0.imgList.join(",");
+    submit_obj.busimgurls = upHeader1.imgList.join(",");
+
+    AJAX2.post("api/evaluate/OrderEvaluation", submit_obj, function(data) {
+      var o = Comm.db("order-l");
+      if (!o) {
+        o = {ordersId: pageData.oid, change: 1, remove: 0, status: 0, iscomment: 1};
+      }
+      o.change = 1;
+      o.iscomment = 1;
+      Comm.db("order-l", o);
+      Comm.message("submitted");
+      setTimeout(function() {
+        Comm.close();
+      }, 500);
+
+    }, function(data) {
+      Comm.message(data);
+    })
+  }
+
+  //删除图片
+  function delete_img(e, upid) {
+    var i = $(e.target).parent().index();
+    $(e.target).parent().remove();
+
+    if (upHeader0.subbutton == upid) {
+      upHeader0.imgList.splice(i, 1);
+    } else if (upHeader1.subbutton == upid) {
+      upHeader1.imgList.splice(i, 1);
+    }
+
+    $("#" + upid).removeClass("hide");
+    $(".moxie-shim").css({"top": ($(".camera").position().top + 10) + "px", "left": $(".camera").position().left + "px", "width": "calc((100vw - 60px) / 4)", "height": "calc((100vw - 60px) / 4)"});
+  }
+
+  function anonymous() {
+    $(event.target).toggleClass("select-y");
+  }
+</script>
+</body>
+</html>

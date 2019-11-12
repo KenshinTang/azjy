@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>图片DEMO</title>
+		<link rel="stylesheet" href="side.css" />
+		<meta content="width=device-width,initial-scale=1.0,user-scalable=no" name="viewport">
+		<script src="side.js"></script>
+		<style>
+			body{margin: 0;}
+			#size{
+				position: relative;
+				width: 100%;
+				height: 0;
+				padding-top: 70%;/*长 / 宽*/
+			}
+			#content{
+				position: absolute;
+				top: 0;
+				left:0;
+				width: 100%;
+				height: 100%;
+			}
+			#box{
+				width: 100%;
+				height: 100%;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="size">
+			<div id="content">
+				<div id="box">
+					<ul>
+						<li><img src="../../img/1.jpg"></li>
+						<li><img src="../../img/2.jpg"></li>
+						<li><img src="../../img/3.jpg"></li>
+						<li><img src="../../img/4.jpg"></li>
+						<li><img src="../../img/5.jpg"></li>
+						<li><img src="../../img/2.jpg"></li>
+						<li><img src="../../img/3.jpg"></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</body>
+	<script>
+		new Side('box');
+	</script>
+</html>

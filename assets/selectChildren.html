@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title></title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no">
+  <meta http-equiv="Cache-Control" content="public" >
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="format-detection" content="telephone=no">
+  <meta name="apple-mobile-web-app-status-bar-style"  content="black" />
+  <meta name="renderer" content="webkit">
+  <meta name="description" content="All About Children">
+  <meta name="keywords" content="All About Children">
+  <link rel="stylesheet" href="inc/g.css" type="text/css">
+  <link rel="stylesheet" href="css/common.css" type="text/css">
+  <link rel="stylesheet" href="css/unique.css" type="text/css">
+  <script src="js/jquery-3.1.1.min.js"></script>
+  <script type="text/javascript" src="js/common.js"></script>
+</head>
+<body>
+<header class="bb0">
+  <div class="back1" onclick="Comm.close();"></div>
+  <div class="menu1"></div>
+  <div class="titlebar"></div>
+</header>
+
+<section>
+  <div class="selectChildren-1">Select child</div>
+  <div class="selectChildren-2">Which child is the course for？</div>
+  <div class="ovf tac selectChildren-ls">
+    <!--<div class="selectChildren-l">-->
+      <!--<div class="brp boy3 selectChildren-l-1"></div>-->
+      <!--<div class="mt10 c-666">Heath Ledger</div>-->
+    <!--</div>-->
+    <!--<div class="selectChildren-l">-->
+      <!--<div class="brp boy3 selectChildren-l-1"></div>-->
+      <!--<div class="mt10 c-666">Heath Ledger</div>-->
+    <!--</div>-->
+    <!--<div class="selectChildren-l">-->
+      <!--<div class="brp boy3 selectChildren-l-1"></div>-->
+      <!--<div class="mt10 c-666">Heath Ledger</div>-->
+    <!--</div>-->
+    <!--<div class="selectChildren-l">-->
+      <!--<div class="brp boy3 selectChildren-l-1"></div>-->
+      <!--<div class="mt10 c-666">Heath Ledger</div>-->
+    <!--</div>-->
+  </div>
+  <div class="commonButton1" style="margin-top:50px;margin-bottom:50px;" onclick="submit()">Confirm</div>
+</section>
+
+<script src="inc/g.js"></script>
+<script src="js/md5.js"></script>
+<script src="inc/dict.js"></script>
+
+<script>
+  var user = Comm.db("user");
+  var pageData = {sex: Comm.query("sex"), ageDict: Comm.query("ageLimit"), ageLimitArr: [], classesId: Comm.query("classesId"), courseId: Comm.query("courseId")};
+  var childrenArr = [];
+  var childrenArr_signup = [];
+  var selectChildren = {};
+  var submitObj_l = {
+    classesid: pageData.classesId,
+    childid: "",
+    courseId: pageData.courseId,
+    ageLimitArr: []
+  };
+
+  function pageload() {
+    GDict.load(function () {
+      pageData.ageLimitArr = GDict.getName(pageData.ageDict).split("-");
+      for (var i in pageData.ageLimitArr) {
+        pageData.ageLimitArr[i] = parseInt(pageData.ageLimitArr[i]);
+      }
+      submitObj_l.ageLimitArr = pageData.ageLimitArr;
+      getIsSignup();
+    });
+  }
+
+  function pageresume(){
+
+  }
+
+  //得到小孩
+  function getIsSignup() {
+    AJAX2.get("api/class/isSignup", {classesid: pageData.classesId}, function (data){
+      childrenArr_signup = data;
+      getChildren();
+
+    }, function(data) {
+      Comm.message(data);
+    })
+  }
+
+  //得到小孩
+  function getChildren() {
+    AJAX2.get("api/child/list", {customerid: user.customerId}, function (data){
+      childrenArr = data;
+
+      var h = '';
+      for (var i in data) {
+        h += '<div class="selectChildren-l" onclick="select(' + data[i].childid + ', event)">\
+                <div class="brp selectChildren-l-1 pre"><img class="selectChildren-l-1-img" src="' + config.ossroot + data[i].face + '" alt="" onerror="this.src=\'images/' + (data[i].gender == 2 ? 'boy3' : 'girl3') + '.png\';this.onerror=null;" onload="' + addSuitableChildren(data[i]) + '" style="opacity:0;display: block;"><div class="selectChildren-l-1-div brp select-y hide"></div></div>\
+                <div class="mt10 c-666 selectChildren-l-2 row1">' + data[i].name + '</div>\
+        </div>';
+      }
+      $(".selectChildren-ls").html(h);
+
+    }, function(data) {
+      Comm.message(data);
+    })
+  }
+
+  function addSuitableChildren(data) {
+    var h = '$(this).fadeTo(\'slow\', 1)';
+
+    var num1 = 0;
+    for (var i in childrenArr_signup) {
+      if (childrenArr_signup[i].studentId != data.childid) {
+        num1++;
+      }
+    }
+    if (childrenArr_signup.length != num1) {
+      h = '$(this).fadeTo(\'slow\', 0.3)';
+    }
+
+    if (pageData.sex != 4 && data.gender != pageData.sex) {
+      h = '$(this).fadeTo(\'slow\', 0.3)';
+    }
+
+    if (data.age < pageData.ageLimitArr[0] || data.age > pageData.ageLimitArr[1]) {
+      h = '$(this).fadeTo(\'slow\', 0.3)';
+    }
+
+    return h;
+  }
+
+  //选择小孩
+  function select(childid, e) {
+    var selectChildren_l = {};
+
+    for (var i in childrenArr) {
+      if (childrenArr[i].childid == childid) {
+        selectChildren_l = childrenArr[i];
+      }
+    }
+
+    for (var i in childrenArr_signup) {
+      if (childrenArr_signup[i].studentId == childid) {
+        Comm.message("The child signed up for the class");
+        return;
+      }
+    }
+
+    if (pageData.sex != 4 && selectChildren_l.gender != pageData.sex) {
+      Comm.message("The sex of child is not match the course");
+      return;
+    }
+
+    if (selectChildren_l.age < pageData.ageLimitArr[0] || selectChildren_l.age > pageData.ageLimitArr[1]) {
+      Comm.confirm('The age of child is not match the course', function(a) {
+        if (a == 1) {
+          var d1;
+          if ($(e.target).hasClass("selectChildren-l")) {
+            d1 = $(e.target);
+          } else {
+            d1 = $(e.target).parents().filter(".selectChildren-l");
+          }
+          $(".selectChildren-l-1").removeClass("selectChildren-l-1-active");
+          $(d1).find(".selectChildren-l-1").addClass("selectChildren-l-1-active");
+          $(".selectChildren-l-1-div").addClass("hide");
+          $(d1).find(".selectChildren-l-1-div").removeClass("hide");
+          $(".commonButton1").addClass("commonButton1-active");
+
+          selectChildren = selectChildren_l;
+        }
+      })
+      return;
+    }
+
+    var d1;
+    if ($(e.target).hasClass("selectChildren-l")) {
+      d1 = $(e.target);
+    } else {
+      d1 = $(e.target).parents().filter(".selectChildren-l");
+    }
+    $(".selectChildren-l-1").removeClass("selectChildren-l-1-active");
+    $(d1).find(".selectChildren-l-1").addClass("selectChildren-l-1-active");
+    $(".selectChildren-l-1-div").addClass("hide");
+    $(d1).find(".selectChildren-l-1-div").removeClass("hide");
+    $(".commonButton1").addClass("commonButton1-active");
+
+    selectChildren = selectChildren_l;
+  }
+
+  function submit() {
+    if (JSON.stringify(selectChildren) == "{}") {
+      Comm.message("Please select children");
+      return;
+    }
+
+    submitObj_l.childid = selectChildren.childid;
+
+    Comm.db("children", selectChildren);
+    Comm.db("submitObj_l", submitObj_l);
+    Comm.go("orderOrder.html");
+  }
+</script>
+</body>
+</html>

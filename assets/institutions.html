@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title></title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no">
+  <meta http-equiv="Cache-Control" content="public">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="format-detection" content="telephone=no">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  <meta name="renderer" content="webkit">
+  <meta name="description" content="女鞋之都">
+  <meta name="keywords" content="女鞋之都">
+  <link rel="stylesheet" href="mui/css/mui.min.css">
+  <link rel="stylesheet" href="inc/g.css" type="text/css">
+  <link rel="stylesheet" href="css/common.css" type="text/css">
+  <link rel="stylesheet" href="css/unique.css" type="text/css">
+  <script src="js/jquery-3.1.1.min.js"></script>
+  <script type="text/javascript" src="js/common.js"></script>
+</head>
+
+<body>
+<header class="bb0">
+  <div class="back1" onclick="Comm.close();"></div>
+  <div class="menu1" style="width:90px;">
+    <div class="menu1-c brp location3" onclick="Comm.goMap('a')"></div>
+    <div class="menu1-c brp search2" onclick="Comm.go('search.html')"></div>
+  </div>
+  <div class="titlebar" style="margin: 0px 100px;">Institutions</div>
+  <div class="home-3" style="height: 30vw;">
+    <!--<img src="images/test/goods3.png" alt="" onerror="this.src='images/error.png';this.onerror=null;" onload="$(this).fadeTo('slow',1);" style="opacity:0;display: block;">-->
+  </div>
+  <div class="institutions-1 bb3">
+    <div class="institutions-1-c institutions-1-c-active" onclick="changeTheme(1)">General</div>
+    <div class="institutions-1-c" onclick="changeTheme(2)"><span class="institutions-1-c-1">Course Sales</span><span class="institutions-1-c-2 brp arrow1"></span></div>
+  </div>
+</header>
+
+<section class="pre">
+  <div id="refreshContainer" class="mui-content mui-scroll-wrapper">
+    <div class="mui-scroll">
+      <!--数据列表-->
+      <ul class="mui-table-view mui-table-view-chevron" id="listView">
+
+        <div class="noDataS hide">
+          <div class="noDataS-1 brpscn"></div>
+          <div class="noDataS-2">Sorry, there is no relevant data</div>
+        </div>
+
+        <div class="institutions-ls"></div>
+
+      </ul>
+    </div>
+  </div>
+
+  <!--<div class="institutions-ls">-->
+    <!--<div class="institutions-l" onclick="Comm.go('institutionsDetail.html')">-->
+      <!--<div class="institutions-l-1 pre">-->
+        <!--<img src="images/test/goods2.jpg" alt="" onerror="this.src='images/error.png';this.onerror=null;" onload="$(this).fadeTo('slow',1);" style="opacity:0;display: block;">-->
+        <!--<div class="institutions-l-1-1">Here</div>-->
+      <!--</div>-->
+      <!--<div class="institutions-l-2">Here is the name of the organization</div>-->
+      <!--<div class="institutions-l-3 row2">We have not reviewed, and cannot review, all of the material, including computer software including computer</div>-->
+      <!--<div class="institutions-l-4 ovf">-->
+        <!--<div class="left institutions-l-4-1 c-violet-1 brp bbmm">10 x</div>-->
+        <!--<div class="left home-6-l-c-4-4">-->
+          <!--<div class="left search-goods-l-c-2-1 pre brp starl-n"><div class="search-goods-l-c-2-2 brp starl-y"></div></div>-->
+          <!--<div class="left ml5 c-aaa">5.0</div>-->
+        <!--</div>-->
+        <!--<div class="right institutions-l-4-2 brp location">Wentworth Point</div>-->
+      <!--</div>-->
+    <!--</div>-->
+  <!--</div>-->
+</section>
+
+<div class="app-window1 hide" onclick="share_open()"></div>
+<div class="share-window hide">
+  <div class="ovf share-window-2">
+    <div class="brp share-window-2-c share-wx" onclick="share('1')">微信好友</div>
+    <div class="brp share-window-2-c share-wxfriend" onclick="share('2')">朋友圈</div>
+    <div class="brp share-window-2-c share-qq" onclick="share('4')">QQ好友</div>
+    <div class="brp share-window-2-c share-qqkong" onclick="share('5')">QQ空间</div>
+    <div class="brp share-window-2-c share-weibo" onclick="share('6')">微博</div>
+    <div class="brp share-window-2-c share-lianjie" onclick="shareCopy()">复制链接</div>
+  </div>
+  <div class="sp5"></div>
+  <div class="share-window-1" onclick="share_open()">取消</div>
+</div>
+
+<script src="inc/g.js"></script>
+<script src="js/md5.js"></script>
+<script src="mui/js/mui.min.js"></script>
+
+<script>
+  var user = Comm.db("user");
+  var pageData = {pageno: 1, totalPage: 1, ifFirst: true, sort: 1};
+
+  function pageload() {
+    mui.init({
+      pullRefresh: {
+        container: "#refreshContainer",//下拉刷新容器标识，querySelector能定位的css选择器均可，比如：id、.class等
+        up: {
+          height: 50,//可选.默认50.触发上拉加载拖动距离
+          auto: false,//可选,默认false.自动上拉加载一次
+          contentrefresh: "loading...",//可选，正在加载状态时，上拉加载控件上显示的标题内容
+          contentnomore: "There's no more data",//可选，请求完毕若没有更多数据时显示的提醒内容；
+          contentinit: "Pull up shows more",
+          contentdown: "Pull up shows more",
+          callback: upData //必选，刷新函数，根据具体业务来编写，比如通过ajax从服务器获取新数据；
+        }
+      }
+    });
+    Comm.calcSection();
+
+    mui("#listView").off('tap');
+
+    mui("#listView").on('tap', '.institutions-l', function (e) {
+      e.stopPropagation();
+      Comm.go('institutionsDetail.html?businessId=' + $(this).attr("businessId"));
+    })
+
+    getAd();
+    upData();
+  }
+
+  function pageresume() {
+
+  }
+
+  function upData() {
+    getInstitutionList(function (flag) {
+      mui('#refreshContainer').pullRefresh().endPullupToRefresh(flag);
+    });
+  }
+
+  //初始化
+  function changeTheme(sort) {
+    if (pageData.sort == 1 && pageData.sort == sort) {
+      return;
+    } else if (sort == 1) {
+      pageData.sort = sort;
+    }
+
+    if (pageData.sort == 1 && sort == 2) {
+      pageData.sort = 2;
+    } else if (pageData.sort == 2 && sort == 2) {
+      pageData.sort = 3;
+    } else if (pageData.sort == 3 && sort == 2) {
+      pageData.sort = 2;
+    }
+
+    pageData.pageno = 1;
+    pageData.totalPage = 1;
+    pageData.ifFirst = true;
+
+    $(".institutions-ls").html("");
+    $(".institutions-1-c").removeClass("institutions-1-c-active");
+    if ($(event.target).hasClass("institutions-1-c")) {
+      $(event.target).addClass("institutions-1-c-active");
+    } else {
+      $(event.target).parent().addClass("institutions-1-c-active");
+    }
+
+    if (pageData.sort == 2) {
+      $(".arrow1").removeClass("arrow3");
+      $(".arrow1").addClass("arrow2");
+    } else if (pageData.sort == 3) {
+      $(".arrow1").removeClass("arrow2");
+      $(".arrow1").addClass("arrow3");
+    } else if (pageData.sort == 1) {
+      $(".arrow1").removeClass("arrow2").removeClass("arrow3");
+    }
+
+
+    mui('#refreshContainer').scroll().scrollTo(0, 0);
+    getInstitutionList();
+  }
+
+  //机构
+  function getInstitutionList(cb) {
+    AJAX2.get("api/business/list", {sort: pageData.sort, pageno: pageData.pageno, pagesize: config.pagesize}, function (a) {
+      if (pageData.ifFirst == true) {
+        pageData.ifFirst = false;
+        pageData.totalPage = Math.ceil(a.totalCount / config.pagesize);
+      }
+
+      var data = a.data;
+      var noLoadFlag;
+      if (pageData.totalPage > pageData.pageno) {
+        noLoadFlag = false;
+        pageData.pageno++;
+      } else {
+        noLoadFlag = true;
+      }
+      data = data.splice(0, config.pagesize);
+
+      if (data && data.length > 0) {
+        $(".noDataS").addClass("hide");
+        mui('#refreshContainer').pullRefresh().enablePullupToRefresh();
+      } else {
+        $(".noDataS").removeClass("hide");
+        mui('#refreshContainer').pullRefresh().disablePullupToRefresh();
+        return;
+      }
+
+      var idsArr = [];
+      for (var i in data) {
+        idsArr.push(data[i].businessId);
+      }
+
+      AJAX2.get("api/business/enrolmentClasses", {ids: idsArr.join(",")}, function (data2) {
+        var obj1 = Tool.getDict(data2, "businessId");
+        for (var i in data) {
+          if (obj1[data[i].businessId]) {
+            data[i].count_obj = obj1[data[i].businessId];
+          } else {
+            data[i].count_obj = {count: 0};
+          }
+        }
+        console.log(data);
+
+        var h = '';
+        for (var i in data) {
+          h += '<div class="institutions-l" businessId="' + data[i].businessId + '">\
+          <div class="institutions-l-1 pre">\
+                  <img src="' + config.ossroot + data[i].logo + '" alt="" onerror="this.src=\'images/error.png\';this.onerror=null;" onload="$(this).fadeTo(\'slow\',1);" style="opacity:0;display: block;">\
+                  <div class="institutions-l-1-1">Verified</div>\
+                  </div>\
+                  <div class="institutions-l-2 row1">' + data[i].tradingName + '</div>\
+          <div class="institutions-l-3 row2">' + data[i].introduce + '</div>\
+          <div class="institutions-l-4 ovf">\
+                  <div class="left institutions-l-4-1 c-violet-1 brp bbmm">' + data[i].count_obj.count + '</div>\
+          <div class="left home-6-l-c-4-4">\
+                  <div class="left search-goods-l-c-2-1 pre brp starl-n"><div class="search-goods-l-c-2-2 brp starl-y" style="width:' + (parseFloat(data[i].evaluateValue) / 5) * 100 + '%"></div></div>\
+                  <div class="left ml5 c-aaa">' + data[i].evaluateValue + '</div>\
+                  </div>\
+                  <div class="right institutions-l-4-2 brp location row1">' + data[i].addrRegSuburb + '</div>\
+          </div>\
+          </div>';
+        }
+        $(".institutions-ls").append(h);
+
+        cb && cb(noLoadFlag);
+
+      }, function(data) {
+        Comm.message(data);
+      })
+
+    }, function(data) {
+      Comm.message(data);
+    })
+  }
+
+  //广告
+  function getAd() {
+    AJAX2.get("api/advert/list", {postion: 50, pageno: 1, pagesize: 10}, function (data){
+      $(".home-3").html('<img src="' + config.ossroot + data[0].face + '" alt="" onerror="this.src=\'images/error.png\';this.onerror=null;" onload="$(this).fadeTo(\'slow\',1);" style="opacity:0;display: block;" onclick="goAd(' + data[0].adType + ', ' + data[0].itemID + ')">');
+
+    }, function(data) {
+      Comm.message(data);
+    })
+  }
+
+  function goAd(adtype, itemID) {
+    if (adtype == 1) {
+      Comm.go("institutionsDetail.html?businessId=" + itemID);
+    } else if (adtype == 2) {
+      Comm.go("institutionsCourseDetail.html?courseId=" + itemID);
+    } else if (adtype == 3) {
+      Comm.go("articleDetail.html?aid=" + itemID);
+    }
+  }
+</script>
+</body>
+</html>

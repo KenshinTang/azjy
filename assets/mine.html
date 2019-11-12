@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title></title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no">
+  <meta http-equiv="Cache-Control" content="public" >
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="format-detection" content="telephone=no">
+  <meta name="apple-mobile-web-app-status-bar-style"  content="black" />
+  <meta name="renderer" content="webkit">
+  <meta name="description" content="All About Children">
+  <meta name="keywords" content="All About Children">
+  <link rel="stylesheet" href="mui/css/mui.min.css">
+  <link rel="stylesheet" href="inc/g.css" type="text/css">
+  <link rel="stylesheet" href="css/common.css" type="text/css">
+  <link rel="stylesheet" href="css/unique.css" type="text/css">
+  <script src="js/jquery-3.1.1.min.js"></script>
+  <script type="text/javascript" src="js/common.js"></script>
+  <style>
+    body > footer {
+      overflow: initial;
+    }
+    .mui-popover.mui-popover-action .mui-table-view {
+      margin: 8px;
+      text-align: center;
+      color: #007aff;
+      border-radius: 10px;
+    }
+
+    .mui-popover.mui-popover-action .mui-table-view {
+      width: calc(100% - 16px);
+    }
+
+    .mui-table-view-cell {
+      width: calc(100% - 30px);
+    }
+
+    .mui-table-view-cell a {
+      width: calc(100%);
+    }
+
+    .mui-table-view-cell {
+      color: #F7A531;
+    }
+
+    .mui-popover ul:last-child .mui-table-view-cell {
+      color: #aaa;
+    }
+  </style>
+</head>
+<body>
+
+<section>
+  <div class="brp mine-t-img ming-t">
+    <div class="brp arrowRight2 ming-t-1" id="name" onclick="if(!checkIsLogin2()){return;};Comm.go('personal.html')"></div>
+    <div class="cboth"></div>
+    <!--<div class="ming-t-2 ovf">-->
+      <!--<div class="left ming-t-2-1">LV.1</div>-->
+      <!--<div class="left ming-t-2-2"><div class="ming-t-2-2-c"></div></div>-->
+      <!--<div class="left ming-t-2-3 font12">50/100</div>-->
+      <!--<div class="left ming-t-2-4 brp arrowRight3">Parents</div>-->
+    <!--</div>-->
+  </div>
+  <div class="mine-t2 pre">
+    <div class="mine-t2-c hide">
+      <div class="mine-t2-c-1">
+        <div>You have not registered your children yet, </div>
+        <div>please update children’s information to get more deals.</div>
+      </div>
+      <div class="mine-t2-c-2" onclick="if(!checkIsLogin2()){return;};Comm.go('addChildren.html')">Register your children</div>
+    </div>
+
+    <div class="mine-t2-c2 hide">
+      <div class="mine-t2-c2-1">
+        <div class="right mine-t2-c2-1-r brp add1" onclick="Comm.go('addChildren.html')">Add</div>
+        <div class="mine-t2-c2-1-c">
+          <div class="mine-t2-c2-1-c2">
+            <!--<div class="mine-t2-c2-1-c-c pre mine-t2-c2-1-c-c-active">LiLiLiLiLiLiLiLiLiLiLiLi<div class="mine-t2-c2-1-c-c-x"><div class="mine-t2-c2-1-c-c-x2"></div></div></div>-->
+            <!--<div class="mine-t2-c2-1-c-c pre">LiLiLiLiLiLiLiLiLiLiLiLi<div class="mine-t2-c2-1-c-c-x"><div class="mine-t2-c2-1-c-c-x2 hide"></div></div></div>-->
+            <!--<div class="mine-t2-c2-1-c-c pre">LiLiLiLiLiLiLiLiLiLiLiLi<div class="mine-t2-c2-1-c-c-x"><div class="mine-t2-c2-1-c-c-x2 hide"></div></div></div>-->
+          </div>
+        </div>
+      </div>
+
+      <div class="ovf mine-t2-c2-2">
+        <div class="left mine-t2-c2-2-l" onclick="jsGo(1)">
+          <div class="mine-t2-c2-2-l-1"></div>
+          <div class="mine-t2-c2-2-l-2 row1">Child’s information</div>
+        </div>
+        <div class="mine-t2-c2-2-c ovf tac c-aaa">
+          <div class="mine-t2-c2-2-c-1" style="border-right: 1px solid #ddd;">
+            <div class="font24" id="age"></div>
+            <div class="font16 c-ccc mt10">age</div>
+          </div>
+          <div class="mine-t2-c2-2-c-1">
+            <div class="font24" id="gender"></div>
+            <div class="font16 c-ccc mt10">Gender</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sp10"></div>
+
+  <div class="mine-ls">
+    <div class="ovf mine-l" onclick="if(!checkIsLogin2()){return;};Comm.go('order.html')">
+      <div class="left mine-l-l brp mine-img1"></div>
+      <div class="right mine-l-r brp arrowRight bb3"></div>
+      <div class="mine-l-c bb3">My orders</div>
+    </div>
+
+    <!--<div class="ovf mine-l">-->
+      <!--<div class="left mine-l-l brp mine-img2"></div>-->
+      <!--<div class="right mine-l-r brp arrowRight bb3"></div>-->
+      <!--<div class="mine-l-c bb3">My appointment</div>-->
+    <!--</div>-->
+
+    <div class="ovf mine-l" onclick="if(!checkIsLogin2()){return;};Comm.go('collect.html')">
+      <div class="left mine-l-l brp mine-img3"></div>
+      <div class="right mine-l-r brp arrowRight bb3"></div>
+      <div class="mine-l-c bb3">My watchlist</div>
+    </div>
+
+    <div class="ovf mine-l" onclick="if(!checkIsLogin2()){return;};Comm.go('community.html')">
+      <div class="left mine-l-l brp mine-img4"></div>
+      <div class="right mine-l-r brp arrowRight bb3"></div>
+      <div class="mine-l-c bb3">My community</div>
+    </div>
+
+    <div class="ovf mine-l" onclick="Comm.go('commonArticle.html?aid=' + 37 + '&text=' + encodeURI('Institutional Join in'));">
+      <div class="left mine-l-l brp mine-img5"></div>
+      <div class="right mine-l-r brp arrowRight bb3"></div>
+      <div class="mine-l-c bb3">Update my institution</div>
+    </div>
+
+    <div class="ovf mine-l" onclick="share_open()">
+      <div class="left mine-l-l brp mine-img6"></div>
+      <div class="right mine-l-r brp arrowRight bb3"></div>
+      <div class="mine-l-c bb3">Share APP</div>
+    </div>
+
+    <div class="ovf mine-l" onclick="mui('#sheet1').popover('toggle');">
+      <div class="left mine-l-l brp mine-img7"></div>
+      <div class="right mine-l-r brp arrowRight bb3"></div>
+      <div class="mine-l-c bb3 ovf">
+        <div class="left">Service Hotline</div>
+        <div class="right c-aaa" id="phone"></div>
+      </div>
+    </div>
+
+    <div class="ovf mine-l" onclick="Comm.go('setting.html')">
+      <div class="left mine-l-l brp mine-img8"></div>
+      <div class="right mine-l-r brp arrowRight"></div>
+      <div class="mine-l-c">Settings</div>
+    </div>
+  </div>
+</section>
+
+<div class="app-window1 hide" onclick="share_open()"></div>
+<div class="option-window hide">
+  <div class="ovf option-window-2 bg-grey-1">
+    <div class="brp option-window-2-c" onclick="share('1')">
+      <div class="brp Facebook2 option-window-2-c-1"></div>
+      <div>FACEBOOK</div>
+    </div>
+    <div class="brp option-window-2-c" onclick="share('2')">
+      <div class="brp Instagram2 option-window-2-c-1"></div>
+      <div>INSTAGRAM</div>
+    </div>
+    <div class="brp option-window-2-c" onclick="share('3')">
+      <div class="brp Twitter2 option-window-2-c-1"></div>
+      <div>TWITTER</div>
+    </div>
+  </div>
+  <div class="option-window-1" onclick="share_open()">Cancel</div>
+</div>
+
+<footer>
+  <ul>
+    <li class="index1-0" onclick="window.location.href='home.html'">Home</li>
+    <li class="index2-0" onclick="window.location.href='searchCourse.html'">Search</li>
+    <li class="index3-0 pre" onclick="window.location.href='myCourse.html'"><div class="index-search brp"><div class="index-search2 brp"></div></div></li>
+    <li class="index4-0" onclick="window.location.href='forum.html'">Forum</li>
+    <li class="index5-1">My</li>
+  </ul>
+</footer>
+
+<div id="sheet1" class="mui-popover mui-popover-bottom mui-popover-action">
+  <!-- 可选择菜单 -->
+  <ul class="mui-table-view" id="sheet1-1">
+    <li class="mui-table-view-cell">
+      <a id="phone_sys" href="tel:"></a>
+    </li>
+  </ul>
+  <!-- 取消菜单 -->
+  <ul class="mui-table-view">
+    <li class="mui-table-view-cell">
+      <a href="#sheet1">
+        <b>Cancel</b>
+      </a>
+    </li>
+  </ul>
+</div>
+
+<script src="inc/g.js"></script>
+<script src="js/md5.js"></script>
+<script src="mui/js/mui.min.js"></script>
+
+<script>
+  var user = Comm.db("user");
+  var pageData = {isFirstLoadChildren: true};
+  var user2;
+  var childrenArr = [];
+  var selectedChildren = {};
+  var configArr = [];
+
+  function pageload() {
+    if (!user) {
+      $(".mine-t2-c").removeClass("hide");
+      $("#name").html("tourist");
+      return;
+    }
+    getUser();
+    getChildren();
+    getConfig();
+  }
+
+  function pageresume() {
+    if (!user) {
+      return;
+    }
+    pageData.isFirstLoadChildren = true;
+    getUser();
+    getChildren();
+  }
+
+  //得到用户信息
+  function getUser() {
+    if (!user) {
+      return;
+    }
+
+    AJAX2.get("api/customer/show", {}, function (data) {
+      user2 = data;
+      $("#name").html(user2.customerName);
+
+    }, function (data) {
+      Comm.message(data);
+    })
+  }
+
+  //得到小孩
+  function getChildren() {
+    AJAX2.get("api/child/list", {customerid: user.customerId}, function (data){
+      childrenArr = data;
+      if (childrenArr.length <= 0) {
+        $(".mine-t2-c").removeClass("hide");
+      } else {
+        $(".mine-t2-c2").removeClass("hide");
+        var h = '';
+        for (var i in childrenArr) {
+          if (parseInt(i) == 0) {
+            h += '<div class="mine-t2-c2-1-c-c pre mine-t2-c2-1-c-c-active" onclick="childrenIn(' + childrenArr[i].childid + ')">' + childrenArr[i].name + '<div class="mine-t2-c2-1-c-c-x"><div class="mine-t2-c2-1-c-c-x2"></div></div></div>';
+          } else {
+            h += '<div class="mine-t2-c2-1-c-c pre" onclick="childrenIn(' + childrenArr[i].childid + ')">' + childrenArr[i].name + '<div class="mine-t2-c2-1-c-c-x"><div class="mine-t2-c2-1-c-c-x2 hide"></div></div></div>';
+          }
+        }
+        $(".mine-t2-c2-1-c2").html(h);
+        childrenIn(childrenArr[0].childid);
+        pageData.isFirstLoadChildren = false;
+      }
+
+    }, function(data) {
+      Comm.message(data);
+    })
+  }
+
+  //填充小孩数据
+  function childrenIn(childid) {
+    if (!pageData.isFirstLoadChildren) {
+      var d1;
+      if ($(event.target).hasClass("mine-t2-c2-1-c-c")) {
+        d1 = $(event.target);
+      } else {
+        d1 = $(event.target).parents().filter(".mine-t2-c2-1-c-c");
+      }
+
+      $(".mine-t2-c2-1-c-c").removeClass("mine-t2-c2-1-c-c-active");
+      $(d1).addClass("mine-t2-c2-1-c-c-active");
+      $(".mine-t2-c2-1-c-c-x2").addClass("hide");
+      $(d1).find(".mine-t2-c2-1-c-c-x2").removeClass("hide");
+    }
+
+    for (var i in childrenArr) {
+      if (childrenArr[i].childid == childid) {
+        selectedChildren = childrenArr[i];
+        break;
+      }
+    }
+
+    $(".mine-t2-c2-2-l-1").html('<img src="' + config.ossroot + selectedChildren.face + '" alt="" onerror="this.src=\'images/personal.png\';this.onerror=null;" onload="$(this).fadeTo(\'slow\',1);" style="opacity:0;display: block;">');
+    $("#age").html(selectedChildren.age);
+    $("#gender").html(selectedChildren.gender == 2 ? "Boy" : "Girl");
+  }
+
+  function jsGo(n) {
+    if (n == 1) {
+      Comm.go('childrenInformation.html?cid=' + selectedChildren.childid);
+    }
+  }
+
+  function share_open() {
+    $(".option-window").toggleClass("hide");
+    $(".app-window1").toggleClass("hide");
+  }
+
+  //得到系统配置
+  function getConfig() {
+    AJAX2.get("api/config/all", {}, function (data){
+      configArr = data;
+      var obj = {};
+      for (var i in configArr) {
+        if (configArr[i].sysConfigId == 27) {
+          obj = configArr[i];
+        }
+      }
+      $("#phone").html(obj.sysValue);
+      $("#phone_sys").html(obj.sysValue);
+      $("#phone_sys").attr({"href": "tel:" + obj.sysValue});
+
+    }, function(data) {
+      Comm.message(data);
+    })
+  }
+
+  //分享
+  function share(t) {
+    if (!checkIsLogin2()) {
+      return;
+    }
+
+    Comm.shareUrl({ title: "All About Children", desc: "All About Children", pic: config.ip + 'images/logo.png', url: "https://fir.im/azjy", platform: t}, function (d) {
+      share_open();
+      if (d == 1) {
+        Comm.message("Share succeed");
+      } else {
+        Comm.message("Share fail");
+      }
+    });
+  }
+</script>
+</body>
+</html>

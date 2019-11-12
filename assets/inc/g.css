@@ -1,0 +1,119 @@
+html,body{ height:100%;text-size-adjust: 100%; background:#FFF; font-size:12px;}
+@viewport,@-webkit-viewport{width: device-width;max-zoom:1;min-zoom:1;user-zoom: fixed; }
+body{ margin:0px; border:0px; font-size:14px; overflow: hidden;}
+*{outline:none;-webkit-tap-highlight-color:transparent;-webkit-touch-callout:none;-webkit-user-select:none;}
+input,textarea,.havemenu{-webkit-touch-callout:default !important;-webkit-user-select:text !important;}
+img{ border:none;}a{ text-decoration:none; color:#000;}
+header,section,footer,aside,nav,h1,h2,h3,h4,h5,h6,ul,li,dl,dd,dt{ display:block; margin:0px; padding:0px; width:100%;}
+table{border-collapse:collapse;border-spacing:0;width:100%}td{padding:0px}textarea{resize:none;}
+li,dl,dt,dd{ list-style:none;}
+.cls{ clear:both !important; height:0px !important; line-height:0px !important; margin:0px !important; padding:0px !important;}
+.bottom{border-bottom:1px solid #E9E9E9;}
+.center{ text-align:center;}
+.tleft{ text-align:left;}
+.left{ float:left;}
+.tright{ text-align:right;}
+.right{ float:right;}
+.top{border-top:1px solid #E9E9E9;}
+.white{ background-color:#fff !important;}
+.show{ display:block !important;}
+.hide{ display:none !important;}
+.nowrap{ white-space:nowrap; word-break:break-all; overflow:hidden;}
+.ellipsis{ text-overflow:ellipsis;}
+.template{ display:none;}
+.transparent{background-color:transparent;}
+.sidex{overflow-x:auto; overflow-y: hidden;-webkit-overflow-scrolling:touch;}
+.sidey{overflow-x:hidden; overflow-y: auto;-webkit-overflow-scrolling:touch;}
+.f12{font-size:12px;}
+.f14{font-size:14px;}
+.f16{font-size:16px;}
+.f18{font-size:18px;}
+.h20{ height:20px;}
+.h30{ height:30px;}
+.h50{ height:50px;}
+.lh20{line-height:20px;}
+.lh30{line-height:30px;}
+.lh50{line-height:50px;}
+.imgCover{width: 100%;height: 100%;object-fit: cover;}
+.imgContain{width: 100%;height: 100%;object-fit:contain;}
+.imgFull{width:100%; vertical-align: top;}
+/*template*/
+*[wtp],*[wtd]{display:none;display:none !important;}
+#WTDBOX{display:none;position:fixed;z-index:1200;width:100%;height:100%;top:0px; left:0px;}
+#WTDBOX>div{display:table-cell; text-align:center; vertical-align:middle;width:100%;height:100%;}
+#WTDBOXTD{ display:inline-block;}
+/*header*/
+body > header{width:100%;}
+/*section*/
+body > section{overflow-x:hidden;overflow-y: auto;}
+body > section.body{-webkit-overflow-scrolling:touch;}
+body > section.block{overflow:hidden;}
+/*footer*/
+body > footer{width:100%;overflow: hidden; bottom: 0px;}
+body > footer >ul{margin:0px;padding:0px;display:-webkit-box;display:box;height:50px;}
+body > footer >ul >li{height: 50px;width: 0px;margin: 0px;padding: 0px;-webkit-box-flex:1;box-flex:1;text-align: center;}
+/*loading*/
+#loadingbox{ top:50%; left:0px;position:fixed; height:40px; text-align:center; margin-top:-20px; width:100%; overflow:hidden; display:none;}
+#loadingbox>span{ display:inline-block; height:40px; line-height:40px; background:url(../inc/loading.gif) no-repeat left center; color:#333; font-size:16px; padding-left:35px; background-size: 20px;}
+/*top nav*/
+#TopNav{ background:#FFFFFF; line-height:50px; height:50px; overflow:hidden;}
+#TopNavBack,#TopNavMenu{ width:35px; height:50px; background-position:center center; background-repeat:no-repeat;}
+#TopNavBack{background-image:url(../img/back.png); float:left;background-size:auto 20px;}
+#TopNavMenu{background-image:url(../img/menu.png); float:right;background-size:20px auto;}
+#TopNavTitle{ margin:0px 40px;text-overflow:ellipsis; white-space:nowrap; overflow:hidden; height:50px; color:#222222; font-size:16px; text-align:center;}
+/*manbg*/
+#MainBg{ position:absolute; z-index:999; background-color:rgba(0,0,0,0.1); top:0px; left:0px; width:100%; height:100%;}
+/*message*/
+#MessgeBoxT{ position:absolute; top:5px; text-align:center;display:none; width:100%; left:0px; z-index:10000;}
+#MessgeBoxT>span{ background:#000000;box-shadow: #000 0px 0px 5px; line-height:30px;text-align:center; border-radius:5px;
+ display:inline-block; padding:0px 15px; color:#FFFFFF; font-size:12px; max-width:95%; overflow:hidden; min-width:30%;}
+/*MessgeBox*/
+#MessgeBox{ width:300px; margin:auto;height:auto;background:#fff; z-index:1000; display:none;
+position:absolute; top:50%; margin-top:-80px; border-radius:10px;box-shadow: #000 0px 0px 10px; left:50%; margin-left:-150px;}
+#MessgeBoxContent{ height:90px;word-break:break-all; padding:10px; overflow:hidden; display:table-cell; vertical-align:middle; font-size:16px; line-height:20px;}
+#MessgeBoxButton{ height:50px; overflow:hidden;border-top: 1px solid #eee;}
+#MessgeBoxButton>span{ height:50px; line-height:50px; display:inline-block;font-size:18px; text-align:center; white-space:20px;}
+#MessgeBox .mbuttonfull{ background:white; color:#68AF47; border-bottom-left-radius:10px; border-bottom-right-radius:10px; width:100%;}
+#MessgeBox .mbuttonl{ background:white; color:black; border-bottom-left-radius:10px; width:50%; border-right: 1px solid #eee;}
+#MessgeBox .mbuttonr{ background:white; color:#68AF47; border-bottom-right-radius:10px; width:50%; font-weight: bold;}
+/*UpImage*/
+#UpImageBox{ position:absolute; top:0px; left:0px; width:100%; height:100%; z-index:1000; text-align:center; overflow:hidden; display:none;}
+#UpImageBox .nav{ background:#393A3F; height:50px; overflow:hidden;}
+#UpImageBox .nav >span{ display:inline-block; margin:10px; height:30px; text-align:center;}
+#UpImageBox .back{ float:left; background:url(../img/back_w.png) no-repeat center center;width:30px; }
+#UpImageBox .select{ color:#fff; background:#1AAD19; border-radius:5px; float:right;line-height:30px;width:50px;}
+#UpImageBox .content{ height:300px; width:300px; overflow:hidden; margin:20px auto 0px auto; background-size:cover; border:1px solid #fff; 
+	background-repeat:no-repeat; background-position:center center;}
+#UpImageBox .mask{ height:100%; width:100%; float:right; background:#AAA; opacity:.9; font-size:0px; overflow:hidden;}
+#UpImageBox .upmess{ line-height:50px; text-align:center; color:#000;}
+
+.up-Img {overflow: hidden;padding-bottom: 5px;}
+.up-Img .box { width: 90px;  height: 90px;  float: left;  margin: 5px 10px 5px 0px;  position: relative; }
+.up-upBtn { width: 90px;  height: 40px;  border: 1px solid #ababab; float: left;  text-align: center;  padding-top: 50px;  color: #ababab;  background: center 15px no-repeat url("upimg/upimg.png");  background-size: 35px 35px; }
+.up-upBtn:active { background-color: #eaeaea; }
+.upimg-del { width: 20px;  height: 20px;  position: absolute;  right: -10px;  top: -10px;  background: center center no-repeat url("upimg/imgdel.png");  background-size: 20px 20px}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

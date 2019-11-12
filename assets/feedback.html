@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title></title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no">
+  <meta http-equiv="Cache-Control" content="public" >
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="format-detection" content="telephone=no">
+  <meta name="apple-mobile-web-app-status-bar-style"  content="black" />
+  <meta name="renderer" content="webkit">
+  <meta name="description" content="All About Children">
+  <meta name="keywords" content="All About Children">
+  <link rel="stylesheet" href="inc/g.css" type="text/css">
+  <link rel="stylesheet" href="css/common.css" type="text/css">
+  <link rel="stylesheet" href="css/unique.css" type="text/css">
+  <script src="js/jquery-3.1.1.min.js"></script>
+  <script type="text/javascript" src="js/common.js"></script>
+  <style>
+    .feedback-1-c:nth-child(3n){
+      margin-right:0px;
+    }
+  </style>
+</head>
+<body>
+<header>
+  <div class="back1" onclick="Comm.close();"></div>
+  <div class="menu1"></div>
+  <div class="titlebar">Contact us</div>
+</header>
+
+<section class="bg-grey-1">
+  <div class="pad15">
+    <div class="font16 c-333">Topic</div>
+    <div class="ovf feedback-1 mt10">
+      <!--<div class="left feedback-1-c feedback-1-c-active">Optimization</div>-->
+      <!--<div class="left feedback-1-c">Report bugs</div>-->
+      <!--<div class="left feedback-1-c">User experience</div>-->
+    </div>
+
+    <div class="mt20"><textarea class="pad15" id="message" name="" cols="30" rows="10" maxlength="500" placeholder="FEEDBACK DESCRIPTION" oninput="CommonFunction.removeEmoji(event);"></textarea></div>
+
+    <div class="mt20"><input class="pad15" id="phone" type="text" placeholder="Please leave your contact phone number"></div>
+    <div class="mt20"><input class="pad15" id="email" type="text" placeholder="Please leave your contact email"></div>
+  </div>
+
+  <div class="footer-button" style="margin-top:20px;" onclick="feedback()">SUBMIT</div>
+</section>
+
+<script src="inc/g.js"></script>
+<script src="js/md5.js"></script>
+<script src="inc/dict.js"></script>
+
+<script>
+  var user = Comm.db("user");
+  var pageData = {dictid: ""};
+
+  function pageload() {
+    GDict.load(function () {
+      var h = '';
+      for (var i in GDict._data.feedBackType) {
+        h += '<div class="feedback-1-c" onclick="select(' + GDict._data.feedBackType[i].dictid + ')">' + GDict._data.feedBackType[i].dictname + '</div>';
+      }
+      $(".feedback-1").html(h);
+    });
+  }
+
+  function pageresume(){
+
+  }
+
+  function feedback() {
+    if (!checkIsLogin2()) {
+      return;
+    }
+
+    var message = $("#message").val();
+    var phone = $("#phone").val();
+    var email = $("#email").val();
+
+    if (pageData.dictid == "") {
+      Comm.message("Please select categories");
+      return;
+    }
+
+    if (message == "") {
+      Comm.message("Fill in feedback description");
+      return;
+    }
+
+    if (phone == "" && email == "") {
+      Comm.message("ill in your phone number or email");
+      return;
+    }
+
+    phone == "" && (phone = " ");
+    email == "" && (email = " ");
+
+    AJAX2.post("api/feedback/save", { message: message, email: email, phone: phone, feedBackType: pageData.dictid }, function (data) {
+      Comm.message("succeed");
+      setTimeout(function() {
+        Comm.close();
+      }, 500);
+
+    }, function (data) {
+      Comm.message(data);
+    })
+  }
+
+  function select(dictid) {
+    pageData.dictid = dictid;
+    $(".feedback-1-c").removeClass("feedback-1-c-active");
+    $(event.target).toggleClass("feedback-1-c-active");
+  }
+</script>
+</body>
+</html>

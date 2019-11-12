@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title></title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no">
+  <meta http-equiv="Cache-Control" content="public" >
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="format-detection" content="telephone=no">
+  <meta name="apple-mobile-web-app-status-bar-style"  content="black" />
+  <meta name="renderer" content="webkit">
+  <meta name="description" content="All About Children">
+  <meta name="keywords" content="All About Children">
+  <link rel="stylesheet" href="inc/g.css" type="text/css">
+  <link rel="stylesheet" href="css/common.css" type="text/css">
+  <link rel="stylesheet" href="css/unique.css" type="text/css">
+  <script src="js/jquery-3.1.1.min.js"></script>
+  <script type="text/javascript" src="js/common.js"></script>
+</head>
+<body>
+<header>
+  <div class="back1" onclick="Comm.close();"></div>
+  <div class="menu1"></div>
+  <div class="titlebar">Coupon code</div>
+</header>
+
+<section>
+  <div class="pad15">
+    <textarea class="pad15" id="coupon_code" name="" cols="30" rows="10" maxlength="50" placeholder="Please fill in the discount code" oninput="CommonFunction.removeEmoji(event);"></textarea>
+  </div>
+</section>
+
+<footer class="footer1">
+  <div class="footer-button" onclick="confirm()">Confirm</div>
+</footer>
+
+<script src="inc/g.js"></script>
+<script src="js/md5.js"></script>
+
+<script>
+  var user = Comm.db("user");
+  var pageData = {businessId: Comm.query("businessId")};
+
+  function pageload() {
+
+  }
+
+  function pageresume(){
+
+  }
+
+  function confirm() {
+    var coupon_code = $("#coupon_code").val();
+
+    if (coupon_code == "") {
+      Comm.message("Please enter coupon code");
+      return;
+    }
+
+    AJAX2.post("api/order/checkdiscountcode", {code: coupon_code, busid: pageData.businessId}, function (data){
+      Comm.db("coupon_code", {num: coupon_code});
+      Comm.close();
+
+    }, function(data) {
+      Comm.message(data);
+    })
+  }
+</script>
+</body>
+</html>

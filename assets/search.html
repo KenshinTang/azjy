@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title></title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no">
+  <meta http-equiv="Cache-Control" content="public" >
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="format-detection" content="telephone=no">
+  <meta name="apple-mobile-web-app-status-bar-style"  content="black" />
+  <meta name="renderer" content="webkit">
+  <meta name="description" content="All About Children">
+  <meta name="keywords" content="All About Children">
+  <link rel="stylesheet" href="mui/css/mui.min.css">
+  <link rel="stylesheet" href="inc/g.css" type="text/css">
+  <link rel="stylesheet" href="css/common.css" type="text/css">
+  <link rel="stylesheet" href="css/unique.css" type="text/css">
+  <script src="js/jquery-3.1.1.min.js"></script>
+  <script type="text/javascript" src="js/common.js"></script>
+  <style>
+    .message-1-c-red{
+      min-width: 16px;
+      height: 16px;
+      background-color: red;
+      position: absolute;
+      top: 11px;
+      left: 34vw;
+      border-radius: 10px;
+      line-height: 16px;
+      font-size: 12px;
+      color: white;
+      text-align: center;
+      padding: 0px 4px;
+    }
+    .back1{
+      width:40px;
+      background-position: 20px center;
+    }
+    .menu1{
+      width:70px;
+    }
+  </style>
+</head>
+<body>
+<header>
+  <div class="back1" onclick="Comm.close();"></div>
+  <div class="menu1 c-green-1 tac" onclick="search2()">Search</div>
+  <div class="titlebar bt4" style="margin: 0px 70px 0px 40px;">
+    <div class="bg-white search-1"><input class="brp search search-2" id="search-input" type="search" placeholder="KEYWORD" onkeyup="search()"></div>
+  </div>
+  <div class="ovf message-1 bt3 font16">
+    <div class="message-1-c brp pre message-1-c-active" onclick="changeTheme(1)">institutions<div class="message-1-c-red hide" style="left: 37vw;">0</div></div>
+    <div class="message-1-c brp pre" onclick="changeTheme(2)">Courses<div class="message-1-c-red hide">0</div></div>
+  </div>
+</header>
+<section class="pre">
+  <div id="refreshContainer" class="mui-content mui-scroll-wrapper">
+    <div class="mui-scroll">
+      <!--数据列表-->
+      <ul class="mui-table-view mui-table-view-chevron" id="listView">
+
+        <div class="noDataS hide">
+          <div class="noDataS-1 brpscn"></div>
+          <div class="noDataS-2"></div>
+          <div class="noDataS-3">Back home</div>
+        </div>
+
+        <div class="home-1-ls bg-grey-1 ovf">
+          <!--<div class="home-1-l">Activities</div>-->
+        </div>
+
+        <div class="search-3">
+          <div class="search-3-1">Hot Search</div>
+          <div class="search-3-ls ovf" id="search-hot">
+            <!--<div class="search-3-l">Math</div>-->
+          </div>
+        </div>
+
+        <div class="search-3 hide" id="history">
+          <div class="search-3-1 ovf">
+            <div class="left">History Search</div>
+            <div class="right brp delete search-3-1-1"></div>
+          </div>
+          <div class="search-3-ls ovf" id="search-history">
+            <!--<div class="search-3-l">Math</div>-->
+          </div>
+        </div>
+
+        <div class="institutions-ls"></div>
+        <div class="home-6-ls"></div>
+
+      </ul>
+    </div>
+  </div>
+
+
+
+  <!--<div class="search-4"><img src="images/test/goods2.jpg" alt="" onerror="this.src='images/error.png';this.onerror=null;" onload="$(this).fadeTo('slow',1);" style="opacity:0;display: block;"></div>-->
+
+  <!--<div class="home-6-ls">-->
+    <!--<div class="home-6-l bb3">-->
+      <!--<div class="left home-6-l-l"><img src="images/test/goods2.jpg" alt="" onerror="this.src='images/error.png';this.onerror=null;" onload="$(this).fadeTo('slow',1);" style="opacity:0;display: block;"></div>-->
+      <!--<div class="home-6-l-c">-->
+        <!--<div class="home-6-l-c-1">-->
+          <!--<div class="left home-6-l-c-1-1 brp course">Math</div>-->
+          <!--<div class="home-6-l-c-1-2 row1">First-grade training math class</div>-->
+        <!--</div>-->
+        <!--<div class="home-6-l-c-2 c-aaa font12">20 Courses 45min for each <span class="c-violet-1">4 Classes(1 Fulled)</span></div>-->
+        <!--<div class="home-6-l-c-3 c-aaa font12 brp location2">HEIDELBERG WEST,VIC3081</div>-->
+        <!--<div class="home-6-l-c-4 c-aaa font12">-->
+          <!--<div class="left home-6-l-c-4-1 brp age">Age:3-6</div>-->
+          <!--<div class="left home-6-l-c-4-2 brp sex"></div>-->
+          <!--<div class="right c-yellow-1">A$<span class="font18">300</span></div>-->
+          <!--<div class="home-6-l-c-4-4">-->
+            <!--<div class="left search-goods-l-c-2-1 pre brp starl-n"><div class="search-goods-l-c-2-2 brp starl-y"></div></div>-->
+            <!--<div class="left ml5">5.0</div>-->
+          <!--</div>-->
+        <!--</div>-->
+      <!--</div>-->
+    <!--</div>-->
+  <!--</div>-->
+
+
+</section>
+
+<script src="inc/g.js"></script>
+<script src="js/md5.js"></script>
+<script src="inc/dict.js"></script>
+<script src="mui/js/mui.min.js"></script>
+
+<script>
+  var user = Comm.db("user");
+  var pageData = {pageno: 1, totalPage: 1, ifFirst: true, messagetype: 1, kid: "", keywordId: Comm.query("keywordId") ? Comm.query("keywordId") : "", keyword: Comm.query("keyword") ? decodeURI(Comm.query("keyword")) : ""};
+  var institutions_arr = [];
+  var courses_arr = [];
+
+
+  function pageload() {
+    GDict.load(function () {
+      mui.init({
+        pullRefresh: {
+          container: "#refreshContainer",//下拉刷新容器标识，querySelector能定位的css选择器均可，比如：id、.class等
+          up: {
+            height: 50,//可选.默认50.触发上拉加载拖动距离
+            auto: false,//可选,默认false.自动上拉加载一次
+            contentrefresh: "loading...",//可选，正在加载状态时，上拉加载控件上显示的标题内容
+            contentnomore: "There's no more data",//可选，请求完毕若没有更多数据时显示的提醒内容；
+            contentinit: "Pull up shows more",
+            contentdown: "Pull up shows more",
+            callback: upData //必选，刷新函数，根据具体业务来编写，比如通过ajax从服务器获取新数据；
+          }
+        }
+      });
+      Comm.calcSection();
+
+      mui('#refreshContainer').pullRefresh().disablePullupToRefresh();
+
+      mui("#listView").off('tap');
+
+      mui("#listView").on('tap', '.search-3-l', function (e) {
+        e.stopPropagation();
+        keySearch($(this).attr("keyword"));
+      })
+
+      mui("#listView").on('tap', '.home-1-l', function (e) {
+        e.stopPropagation();
+        keySearchLabel($(this).attr("keyword"), $(this).attr("keywordId"));
+      })
+
+      mui("#listView").on('tap', '.delete', function (e) {
+        e.stopPropagation();
+        clearHistory();
+      })
+
+      mui("#listView").on('tap', '.institutions-l', function (e) {
+        e.stopPropagation();
+        Comm.go('institutionsDetail.html?businessId=' + $(this).attr("businessId"));
+      })
+
+      mui("#listView").on('tap', '.home-6-l', function (e) {
+        e.stopPropagation();
+        Comm.go('institutionsCourseDetail.html?courseId=' + $(this).attr("courseId"));
+      })
+
+      mui("#listView").on('tap', '.noDataS-3', function (e) {
+        e.stopPropagation();
+        Comm.gotop('home.html');
+      })
+
+      if (user) {
+        $("#history").removeClass("hide");
+      }
+
+      getLabel();
+      getHot();
+      getHistory();
+
+      if (pageData.keyword) {
+        $("#search-input").val(pageData.keyword);
+        pageData.kid = pageData.keywordId;
+        upData();
+      }
+    })
+  }
+
+  function pageresume(){
+
+  }
+
+  function upData() {
+    goSearch(function(flag) {
+      mui('#refreshContainer').pullRefresh().endPullupToRefresh(flag);
+    });
+  }
+
+  //切换标题
+  function changeTheme(n) {
+    if (pageData.messagetype == n) {
+      return;
+    }
+
+    pageData.pageno = 1;
+    pageData.totalPage = 1;
+    pageData.ifFirst = true;
+    pageData.messagetype = n;
+    $(".message-1-c").removeClass("message-1-c-active");
+    $($(".message-1-c")[n - 1]).addClass("message-1-c-active");
+    institutions_arr = [];
+    courses_arr = [];
+    $(".noDataS").addClass("hide");
+    $(".institutions-ls").html("");
+    $(".home-6-ls").html("");
+    $(".message-1-c").find("div").addClass("hide");
+    mui('#refreshContainer').scroll().scrollTo(0, 0);
+
+    if (pageData.messagetype == 1) {
+      $(".institutions-ls").removeClass("hide");
+      $(".home-6-ls").addClass("hide");
+    } else if (pageData.messagetype == 2) {
+      $(".institutions-ls").addClass("hide");
+      $(".home-6-ls").removeClass("hide");
+    }
+
+    var keyword = $("#search-input").val();
+
+    if (keyword) {
+      upData();
+    }
+  }
+
+  function init() {
+    pageData.pageno = 1;
+    institutions_arr = [];
+    courses_arr = [];
+    $(".noDataS").addClass("hide");
+    $(".institutions-ls").html("");
+    $(".home-6-ls").html("");
+    $(".message-1-c").find("div").addClass("hide");
+    mui('#refreshContainer').scroll().scrollTo(0,0);
+    mui('#refreshContainer').pullRefresh().enablePullupToRefresh();
+    upData();
+  }
+
+  //标签
+  function getLabel() {
+    AJAX2.get("api/keyword/keywordList", {types: 1, curpage: 1, pagesize: 100}, function(data) {
+      data = data.sort(CommonFunction.compare('sort'));
+
+      var h = '';
+      for (var i in data) {
+        h += '<div class="home-1-l" keywordId="' + data[i].keywordId + '" keyword="' + data[i].value + '">' + data[i].value + '</div>';
+      }
+      $(".home-1-ls").html(h);
+
+    }, function(data) {
+      Comm.message(data);
+    })
+  }
+
+  //热门关键字
+  function getHot() {
+    AJAX2.get("api/keyword/keywordList", {types: 2, curpage: 1, pagesize: 100}, function(data) {
+      data = data.sort(CommonFunction.compare('sort'));
+
+      var h = '';
+      for (var i in data) {
+        h += '<div class="search-3-l" keyword="' + data[i].value + '">' + data[i].value + '</div>';
+      }
+      $("#search-hot").html(h);
+
+    }, function(data) {
+      Comm.message(data);
+    })
+  }
+
+  //搜索历史
+  function getHistory() {
+    if (!user) {
+      return;
+    }
+
+    var data_h = Comm.db("search_" + user.customerId);
+    var h2 = '';
+    for (var i in data_h) {
+      h2 += '<div class="search-3-l" keyword="' + data_h[i].keyword + '">' + data_h[i].keyword + '</div>';
+    }
+    $("#search-history").html(h2);
+  }
+
+  //搜索
+  function search() {
+    CommonFunction.removeEmoji(event);
+    pageData.kid = "";
+
+    if(event.keyCode == 13){
+      var keyword = $("#search-input").val();
+
+      if (!keyword) {
+        Comm.message("Please enter the content of your search");
+        return;
+      }
+
+      init();
+    }
+  }
+
+  function search2() {
+    pageData.kid = "";
+    var keyword = $("#search-input").val();
+
+    if (!keyword) {
+      Comm.message("Please enter the content of your search");
+      return;
+    }
+
+    init();
+  }
+
+  //关键字搜索
+  function keySearch(k) {
+    $("#search-input").val(k);
+    init();
+  }
+
+  //标签搜索
+  function keySearchLabel(k, kid) {
+    $("#search-input").val(k);
+    pageData.kid = kid;
+    init();
+  }
+
+  //去搜索
+  function goSearch(cb) {
+    mui('#refreshContainer').pullRefresh().enablePullupToRefresh();
+
+    var keyword = $("#search-input").val();
+
+    if (!keyword) {
+      Comm.message("Please enter the content of your search");
+      return;
+    }
+
+    if (user) {
+      searchSave({keyword: keyword});
+    }
+    getHistory();
+
+    if (pageData.messagetype == 1) {
+      getInstitutionList(cb);
+      getCourseList();
+    } else if (pageData.messagetype == 2) {
+      getCourseList(cb);
+      getInstitutionList();
+    }
+  }
+
+  //储存本地
+  function searchSave(o) {
+    var arr1 = [];
+    var addFlag = true;
+    if(Comm.db("search_" + user.customerId) == null){
+      arr1.unshift(o);
+      Comm.db("search_" + user.customerId, arr1);
+    }else{
+      arr1 = Comm.db("search_" + user.customerId);
+      for(var index in arr1){
+        if(arr1[index].keyword == o.keyword){
+          addFlag = false;
+          break;
+        }
+      }
+      if(arr1.length < 10 && addFlag == true){
+        arr1.unshift(o);
+        Comm.db("search_" + user.customerId, arr1);
+      }else if(arr1.length >= 10 && addFlag == true){
+        arr1.unshift(o);
+        arr1.pop();
+        Comm.db("search_" + user.customerId, arr1);
+      }
+    }
+  }
+
+  //清空历史记录
+  function clearHistory() {
+    Comm.db("search_" + user.customerId, null);
+    $("#search-history").html("");
+    getHistory();
+  }
+
+  //得到数据
+  function getInstitutionList(cb) {
+    var keyword = $("#search-input").val();
+
+    if (pageData.kid) {
+      keyword = '';
+    }
+
+    AJAX2.get("api/business/list", { name: keyword, label: pageData.kid, pageno: pageData.pageno, pagesize: config.pagesize }, function (a) {
+      if (!cb) {
+        if (a.totalCount > 0) {
+          $($(".message-1-c")[0]).find("div").html(a.totalCount).removeClass("hide");
+        }
+        return;
+      }
+
+      if (pageData.ifFirst == true) {
+        pageData.ifFirst = false;
+        pageData.totalPage = Math.ceil(a.totalCount / config.pagesize);
+
+        if (a.totalCount > 0) {
+          $($(".message-1-c")[0]).find("div").html(a.totalCount).removeClass("hide");
+        }
+      }
+
+      var data = a.data;
+      var noLoadFlag;
+      if (pageData.totalPage > pageData.pageno) {
+        noLoadFlag = false;
+        pageData.pageno++;
+      } else {
+        noLoadFlag = true;
+      }
+      data = data.splice(0, config.pagesize);
+
+      if (data && data.length > 0) {
+        $(".noDataS").addClass("hide");
+        $(".home-1-ls").addClass("hide");
+        $(".search-3").addClass("hide");
+        mui('#refreshContainer').pullRefresh().enablePullupToRefresh();
+      } else {
+        if (pageData.messagetype == 1) {
+          $(".noDataS-2").html("Sorry, no found the institutions you searched.");
+        } else if (pageData.messagetype == 2) {
+          $(".noDataS-2").html("Sorry, no found the courses you searched.");
+        }
+
+        $(".noDataS").removeClass("hide");
+        $(".home-1-ls").addClass("hide");
+        $(".search-3").addClass("hide");
+        mui('#refreshContainer').pullRefresh().disablePullupToRefresh();
+        return;
+      }
+
+      var idsArr = [];
+      for (var i in data) {
+        idsArr.push(data[i].businessId);
+      }
+
+      AJAX2.get("api/business/enrolmentClasses", {ids: idsArr.join(",")}, function (data2) {
+        var obj1 = Tool.getDict(data2, "businessId");
+        for (var i in data) {
+          if (obj1[data[i].businessId]) {
+            data[i].count_obj = obj1[data[i].businessId];
+          } else {
+            data[i].count_obj = {count: 0};
+          }
+        }
+        console.log(data);
+
+        var h = '';
+        for (var i in data) {
+          h += '<div class="institutions-l" businessId="' + data[i].businessId + '">\
+          <div class="institutions-l-1 pre">\
+                  <img src="' + config.ossroot + data[i].logo + '" alt="" onerror="this.src=\'images/error.png\';this.onerror=null;" onload="$(this).fadeTo(\'slow\',1);" style="opacity:0;display: block;">\
+                  <div class="institutions-l-1-1">Verified</div>\
+                  </div>\
+                  <div class="institutions-l-2 row1">' + data[i].tradingName + '</div>\
+          <div class="institutions-l-3 row2">' + data[i].introduce + '</div>\
+          <div class="institutions-l-4 ovf">\
+                  <div class="left institutions-l-4-1 c-violet-1 brp bbmm">' + data[i].count_obj.count + '</div>\
+          <div class="left home-6-l-c-4-4">\
+                  <div class="left search-goods-l-c-2-1 pre brp starl-n"><div class="search-goods-l-c-2-2 brp starl-y" style="width:' + (parseFloat(data[i].evaluateValue) / 5) * 100 + '%"></div></div>\
+                  <div class="left ml5 c-aaa">' + data[i].evaluateValue + '</div>\
+                  </div>\
+                  <div class="right institutions-l-4-2 brp location row1">' + data[i].addrRegSuburb + '</div>\
+          </div>\
+          </div>';
+        }
+        $(".institutions-ls").append(h);
+
+        institutions_arr = institutions_arr.concat(data);
+
+        cb && cb(noLoadFlag);
+
+      }, function(data) {
+        Comm.message(data);
+      })
+
+    }, function(data) {
+      Comm.message(data);
+    })
+  }
+
+  //课程
+  function getCourseList(cb) {
+    var keyword = $("#search-input").val();
+
+    if (pageData.kid) {
+      keyword = '';
+    }
+
+    AJAX2.get("api/course/list", { courseName: keyword, label: pageData.kid, time: pageData.time, price: pageData.priceDictname, ageLimit: pageData.ageDict, sex: pageData.genderDict, category1: pageData.category1, category2: pageData.category2, isHistory: 0, pageno: pageData.pageno, pagesize: config.pagesize }, function (a){
+      if (!cb) {
+        if (a.totalCount > 0) {
+          $($(".message-1-c")[1]).find("div").html(a.totalCount).removeClass("hide");
+        }
+        return;
+      }
+
+      if (pageData.ifFirst == true) {
+        pageData.ifFirst = false;
+        pageData.totalPage = Math.ceil(a.totalCount / config.pagesize);
+
+        if (a.totalCount > 0) {
+          $($(".message-1-c")[1]).find("div").html(a.totalCount).removeClass("hide");
+        }
+      }
+
+      var data = a.data;
+      var noLoadFlag;
+      if (pageData.totalPage > pageData.pageno) {
+        noLoadFlag = false;
+        pageData.pageno++;
+      } else {
+        noLoadFlag = true;
+      }
+      data = data.splice(0, config.pagesize);
+
+      if (data && data.length > 0) {
+        $(".noDataS").addClass("hide");
+        $(".home-1-ls").addClass("hide");
+        $(".search-3").addClass("hide");
+        mui('#refreshContainer').pullRefresh().enablePullupToRefresh();
+      } else {
+        $(".noDataS").removeClass("hide");
+        $(".home-1-ls").addClass("hide");
+        $(".search-3").addClass("hide");
+        mui('#refreshContainer').pullRefresh().disablePullupToRefresh();
+      }
+
+      var courseIdsArr = [];
+      for (var i in data) {
+        courseIdsArr.push(data[i].courseId);
+      }
+
+      if (courseIdsArr.length > 0) {
+        AJAX2.get("api/class/openAndstart", {courseId: courseIdsArr.join(",")}, function (data2){
+          var obj1 = {};
+          obj1 = Tool.getDict(data2, "courseId");
+
+          for (var i in data) {
+            data[i].full_obj = obj1[data[i].courseId];
+          }
+
+          addCourse(data, cb, noLoadFlag);
+
+        }, function(data) {
+          Comm.message(data);
+        })
+      } else {
+        addCourse(data, cb, noLoadFlag);
+      }
+
+    }, function(data) {
+      Comm.message(data);
+    })
+  }
+
+  function addCourse(data, cb, noLoadFlag) {
+    var h = '';
+    for (var i in data) {
+      h += '<div class="home-6-l" courseId="' + data[i].courseId + '">\
+                  <div class="left home-6-l-l"><img src="' + config.ossroot + data[i].face + '" alt="" onerror="this.src=\'images/error.png\';this.onerror=null;" onload="$(this).fadeTo(\'slow\',1);" style="opacity:0;display: block;"></div>\
+                  <div class="home-6-l-c">\
+                  <div class="home-6-l-c-1">\
+                  <div class="left home-6-l-c-1-1">' + GDict.getItem(data[i].category2).dictname + '</div>\
+                  <div class="home-6-l-c-1-2 row1">' + data[i].courseName + '</div>\
+                  </div>\
+                    <div class="home-6-l-c-2 c-aaa font12 row1">' + data[i].lessons + ' Courses &nbsp;&nbsp;' + data[i].periods + 'min for each ' + '<span class="c-violet-1">' + (data[i].full_obj ? parseInt(data[i].full_obj.signupcount) : '0') + ' Classes' + (data[i].full_obj && data[i].full_obj.full_count != 0 ? '(' + data[i].full_obj.full_count + ' Fulled)' : '') + '</span><span class="home-6-l-c-2-hot brp hot' + (data[i].full_obj && data[i].full_obj.newestcount > 0 ? '' : ' hide') + '"></span></div>\
+                    <div class="home-6-l-c-5 ovf">\
+                        <div class="left home-6-l-c-4-4 ovf">\
+                        <div class="left search-goods-l-c-2-1 pre brp starl-n"><div class="search-goods-l-c-2-2 brp starl-y" style="width:' + (data[i].evaluateValue / 5) * 100 + '%"></div></div>\
+                        <div class="left ml5 c-aaa">' + data[i].evaluateValue + '</div>\
+                        </div>\
+                        <div class="left c-yellow-1 ml15">A$<span class="font18">' + data[i].price + '</span></div>\
+                    </div>\
+                    <div class="home-6-l-c-3 c-aaa font12 brp location2 row1">' + data[i].subur + ' ' + GDict.getName(data[i].territory) + '</div>\
+                    <div class="home-6-l-c-4 c-aaa font12 ovf bt3">\
+                      <div class="home-6-l-c-4-1 brp age mt5">Age:' + GDict.getItem(data[i].ageLimit).dictname + '</div>\
+                      <div class="home-6-l-c-4-1 brp' + (data[i].sex == 2 ? (' boy') : (data[i].sex == 3 ? (' girl') : (' sex'))) + '">Gender:' + (data[i].sex == 2 ? (' boy') : (data[i].sex == 3 ? (' girl') : (' No screening'))) + '</div>\
+                        </div>\
+                        </div>\
+                        </div>\
+                        <div class="sp5"></div>';
+    }
+    $(".home-6-ls").append(h);
+
+    courses_arr = courses_arr.concat(data);
+
+    cb && cb(noLoadFlag);
+  }
+</script>
+</body>
+</html>

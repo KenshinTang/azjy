@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title></title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no">
+  <meta http-equiv="Cache-Control" content="public" >
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="format-detection" content="telephone=no">
+  <meta name="apple-mobile-web-app-status-bar-style"  content="black" />
+  <meta name="renderer" content="webkit">
+  <meta name="description" content="All About Children">
+  <meta name="keywords" content="All About Children">
+  <link rel="stylesheet" href="inc/g.css" type="text/css">
+  <link rel="stylesheet" href="css/common.css" type="text/css">
+  <link rel="stylesheet" href="css/unique.css" type="text/css">
+  <script src="js/jquery-3.1.1.min.js"></script>
+  <script type="text/javascript" src="js/common.js"></script>
+</head>
+<body>
+<header>
+  <div class="back1" onclick="Comm.close();"></div>
+  <div class="menu1"></div>
+  <div class="titlebar">Settings</div>
+</header>
+
+<section class="bg-grey-1">
+  <div class="pl15 bg-white">
+    <div class="ovf setting-l bb3" onclick="Comm.go('about.html')">
+      <div class="left setting-l-l">ABOUT US</div>
+      <div class="right brp arrowRight setting-l-r"></div>
+    </div>
+
+    <div class="ovf setting-l bb3" onclick="Comm.go('commonArticle.html?aid=' + 42 + '&text=' + encodeURI('FAQ'));">
+      <div class="left setting-l-l">Q&A</div>
+      <div class="right brp arrowRight setting-l-r"></div>
+    </div>
+
+    <div class="ovf setting-l bb3" onclick="Comm.go('feedback.html')">
+      <div class="left setting-l-l">FEEDBACK</div>
+      <div class="right brp arrowRight setting-l-r"></div>
+    </div>
+
+    <div class="ovf setting-l" onclick="Comm.go('commonArticle.html?aid=' + 43 + '&text=' + encodeURI('LEGALS'));">
+      <div class="left setting-l-l">LEGALS</div>
+      <div class="right brp arrowRight setting-l-r"></div>
+    </div>
+  </div>
+</section>
+
+<footer class="footer1 bg-grey-1" style="border-top: 1px solid #f4f4f4;">
+  <div class="footer-button" onclick="goOut()">LOGOUT</div>
+</footer>
+
+<script src="inc/g.js"></script>
+<script src="js/md5.js"></script>
+
+<script>
+  var user = Comm.db("user");
+
+  function pageload() {
+
+  }
+
+  function pageresume(){
+
+  }
+
+  function goOut() {
+    Comm.db("user", null);
+    Comm.db("_token", null);
+    Comm.gotop("login.html");
+  }
+</script>
+</body>
+</html>

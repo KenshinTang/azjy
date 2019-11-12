@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title></title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no">
+  <meta http-equiv="Cache-Control" content="public">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="format-detection" content="telephone=no">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  <meta name="renderer" content="webkit">
+  <meta name="description" content="All About Children">
+  <meta name="keywords" content="All About Children">
+  <link rel="stylesheet" href="mui/css/mui.min.css">
+  <link rel="stylesheet" href="inc/g.css" type="text/css">
+  <link rel="stylesheet" href="css/common.css" type="text/css">
+  <link rel="stylesheet" href="css/unique.css" type="text/css">
+  <script src="js/jquery-3.1.1.min.js"></script>
+  <script type="text/javascript" src="js/common.js"></script>
+  <style>
+    .mui-table-view-cell {
+      padding: 0px;
+    }
+
+    .mui-table-view-cell>.mui-slider-left>.mui-btn:after,
+    .mui-table-view-cell>.mui-slider-right>.mui-btn:after {
+      background: none;
+      display: none;
+    }
+
+    .mui-table-view-cell>.mui-slider-left>.mui-btn,
+    .mui-table-view-cell>.mui-slider-right>.mui-btn {
+      padding: 0px;
+    }
+
+    .messageRight {
+      width: 50px;
+      height: 100%;
+      background-color: #68AF47;
+      background-size: contain;
+      border-radius: 5px !important;
+      margin: 0px 5px;
+    }
+
+    .mui-table-view-chevron .mui-table-view-cell {
+      padding-right: 0px !important;
+    }
+
+    .mui-table-view-cell {
+      width: 100%;
+    }
+
+    .mui-table-view-cell:after {
+      background: none;
+    }
+
+    .mui-table-view-cell a {
+      width:50px !important;
+    }
+    .mui-table-cell{
+      width:100vw;
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <div class="back1" onclick="Comm.close();"></div>
+    <div class="menu1" onclick="edit()">Edit</div>
+    <div class="titlebar">Message</div>
+    <div class="ovf message-1 bt3 font16">
+      <div class="message-1-c brp message-1-c-active" onclick="changeTheme(3)">Email message</div>
+      <div class="message-1-c brp" onclick="changeTheme(2)">System message</div>
+    </div>
+  </header>
+
+  <section class="pre">
+    <div id="refreshContainer" class="mui-content mui-scroll-wrapper">
+      <div class="mui-scroll">
+        <!--数据列表-->
+        <ul class="mui-table-view mui-table-view-chevron" id="listView">
+
+          <div class="message-l1s">
+            <!--<ul class="mui-table-view"></ul>-->
+          </div>
+
+          <div class="message-l2s hide">
+            <!--<ul class="mui-table-view"></ul>-->
+          </div>
+
+          <div class="noDataS hide">
+            <div class="noDataS-1 brpscn"></div>
+            <div class="noDataS-2">Sorry, there is no relevant data</div>
+          </div>
+
+        </ul>
+      </div>
+    </div>
+
+    <!--<div class="message-l1s">-->
+      <!--<div class="message-l1 bb3">-->
+        <!--<div class="message-l1-1 ovf">-->
+          <!--<div class="left brp hh1 message-l1-1-1 c-yellow-1">Unpaid</div>-->
+          <!--<div class="right font12 c-aaa">18/11/10</div>-->
+        <!--</div>-->
+        <!--<div class="message-l1-2 row1 c-333">Math lesson you attended at primary schoolMath lesson you attended at primary school</div>-->
+        <!--<div class="ml15 mt5 row1 c-777">Order price：A$300</div>-->
+      <!--</div>-->
+
+      <!--<div class="message-l1 bb3">-->
+        <!--<div class="message-l1-1 ovf">-->
+          <!--<div class="left brp hh1 message-l1-1-1 c-yellow-1">Unpaid</div>-->
+          <!--<div class="right font12 c-aaa">18/11/10</div>-->
+        <!--</div>-->
+        <!--<div class="message-l1-2 row1 c-333">Math lesson you attended at primary schoolMath lesson you attended at primary school</div>-->
+        <!--<div class="ml15 mt5 row1 c-777">Order price：A$300</div>-->
+      <!--</div>-->
+    <!--</div>-->
+
+    <!--<div class="message-l2s">-->
+      <!--<div class="message-l1 bb3">-->
+        <!--<div class="message-l1-1 ovf">-->
+          <!--<div class="left brp message-l1-1-1">Message header</div>-->
+          <!--<div class="right font12 c-aaa">18/11/10</div>-->
+        <!--</div>-->
+        <!--<div class="ml15 mt5 row1 c-777">Message Lists Message Lists Message Lists</div>-->
+      <!--</div>-->
+
+      <!--<div class="message-l1 bb3">-->
+        <!--<div class="message-l1-1 ovf">-->
+          <!--<div class="left brp message-l1-1-1">Message header</div>-->
+          <!--<div class="right font12 c-aaa">18/11/10</div>-->
+        <!--</div>-->
+        <!--<div class="ml15 mt5 row1 c-777">Message Lists Message Lists Message Lists</div>-->
+      <!--</div>-->
+    <!--</div>-->
+  </section>
+
+  <footer class="message-f hide">
+    <div class="left message-f-1 brp select-n" onclick="selectAll()"></div>
+    <div class="left message-f-2">Check all</div>
+    <div class="right message-f-3" onclick="messageids_delete()">Delete</div>
+  </footer>
+
+  <script src="inc/g.js"></script>
+  <script src="js/md5.js"></script>
+  <script src="js/sign.js"></script>
+  <script src="mui/js/mui.min.js"></script>
+
+  <script>
+    var user = Comm.db("user");
+    var pageData = { pageno: 1, totalPage: 1, ifFirst: true, messagetype: 3, editFlag: false };
+    var favorites_message1 = [];
+    var favorites_message2 = [];
+
+    function pageload() {
+      mui.init({
+        pullRefresh: {
+          container: "#refreshContainer",//下拉刷新容器标识，querySelector能定位的css选择器均可，比如：id、.class等
+          up: {
+            height: 50,//可选.默认50.触发上拉加载拖动距离
+            auto: false,//可选,默认false.自动上拉加载一次
+            contentrefresh: "loading...",//可选，正在加载状态时，上拉加载控件上显示的标题内容
+            contentnomore: "There's no more data",//可选，请求完毕若没有更多数据时显示的提醒内容；
+            contentinit: "Pull up shows more",
+            contentdown: "Pull up shows more",
+            callback: upData //必选，刷新函数，根据具体业务来编写，比如通过ajax从服务器获取新数据；
+          }
+        }
+      });
+      Comm.calcSection();
+
+      mui("#listView").off('tap');
+
+//      mui("#listView").on('tap', '.messageRight', function (e) {
+//        e.stopPropagation();
+//        message_delete($(this).attr("messageid"), this);
+//      })
+
+      mui("#listView").on('tap', '.message-l1', function (e) {
+        e.stopPropagation();
+        var _this = this;
+        var mid = $(this).attr("messageid");
+
+        var message_obj = {};
+        if (pageData.messagetype == 3) {
+          for (var i in favorites_message1) {
+            if (favorites_message1[i].messId == mid) {
+              message_obj = favorites_message1[i];
+            }
+          }
+        } else if (pageData.messagetype == 2) {
+          for (var i in favorites_message2) {
+            if (favorites_message2[i].messId == mid) {
+              message_obj = favorites_message2[i];
+            }
+          }
+        }
+
+        if (message_obj.isread != 1) {
+          AJAX2.get("api/mess/read", { messid: mid, userType: 1 }, function (data) {
+            message_obj.isread = 1;
+            if (pageData.messagetype == 3) {
+              $(_this).find(".message-l1-1-1").removeClass("hh1").removeClass("c-yellow-1");
+              Comm.go('messageDetail.html?mid=' + mid);
+            } else if (pageData.messagetype == 2) {
+              $(_this).find(".message-l1-1-1").removeClass("hh1").removeClass("c-yellow-1");
+              Comm.go('messageDetail.html?mid=' + mid);
+            }
+
+          }, function (data) {
+            Comm.message(data);
+          })
+        } else {
+          Comm.go('messageDetail.html?mid=' + mid);
+        }
+      })
+
+      mui("#listView").on('tap', '.message-left', function (e) {
+        e.stopPropagation();
+        $(this).toggleClass("select-y");
+      })
+
+      upData();
+    }
+
+    function pageresume() {
+      pageData.pageno = 1;
+      pageData.totalPage = 1;
+      pageData.ifFirst = true;
+      favorites_message1 = [];
+      favorites_message2 = [];
+      $(".noDataS").addClass("hide");
+      $(".message-l1s").html("");
+      $(".message-l2s").html("");
+      mui('#refreshContainer').scroll().scrollTo(0, 0);
+      upData();
+    }
+
+    function upData() {
+      getMessageed(function (flag) {
+        mui('#refreshContainer').pullRefresh().endPullupToRefresh(flag);
+      });
+    }
+
+    //切换标题
+    function changeTheme(n) {
+      pageData.pageno = 1;
+      pageData.totalPage = 1;
+      pageData.ifFirst = true;
+      pageData.messagetype = n;
+      $(".message-1-c").removeClass("message-1-c-active");
+      $(event.target).addClass("message-1-c-active");
+      favorites_message1 = [];
+      favorites_message2 = [];
+      $(".noDataS").addClass("hide");
+      $(".message-l1s").html("");
+      $(".message-l2s").html("");
+      mui('#refreshContainer').scroll().scrollTo(0, 0);
+
+      if (pageData.messagetype == 3) {
+        $(".message-l1s").removeClass("hide");
+        $(".message-l2s").addClass("hide");
+      } else if (pageData.messagetype == 2) {
+        $(".message-l1s").addClass("hide");
+        $(".message-l2s").removeClass("hide");
+      }
+      upData();
+    }
+
+    //消息列表
+    function getMessageed(cb) {
+      AJAX2.get("api/mess/list", { userType: 1, messType: pageData.messagetype, curpage: pageData.pageno, pagesize: config.pagesize }, function (a) {
+        if (pageData.ifFirst == true) {
+          pageData.ifFirst = false;
+          pageData.totalPage = Math.ceil(a.totalCount / config.pagesize);
+        }
+
+        var data = a.data;
+        var noLoadFlag;
+        if (pageData.totalPage > pageData.pageno) {
+          noLoadFlag = false;
+          pageData.pageno++;
+        } else {
+          noLoadFlag = true;
+        }
+        data = data.splice(0, config.pagesize);
+
+        if (data && data.length > 0) {
+          $(".noDataS").addClass("hide");
+          mui('#refreshContainer').pullRefresh().enablePullupToRefresh();
+        } else {
+          $(".noDataS").removeClass("hide");
+          mui('#refreshContainer').pullRefresh().disablePullupToRefresh();
+          return;
+        }
+
+        if (pageData.messagetype == 3) {
+          getMessage1(data);
+        } else if (pageData.messagetype == 2) {
+          getMessage2(data);
+        }
+
+        cb && cb(noLoadFlag);
+
+      }, function (data) {
+        Comm.message(data);
+      })
+    }
+
+    function getMessage1(data) {
+      var h = '';
+      for (var i in data) {
+        h += '<div class="message-l1-l message-l1 bb3 pre" messageid="' + data[i].messId + '">\
+                <div class="message-left select-n" messageid="' + data[i].messId + '"></div>\
+                <div class="message-l1-1 ovf">\
+                <div class="left brp message-l1-1-1 c-black' + (data[i].isread == 0 ? (' hh1 c-yellow-1') : ('')) + '">' + data[i].messTitle + '</div>\
+                <div class="right font12 c-aaa">' + data[i].addTime.replace(/\.0/g, '') + '</div>\
+                </div>\
+                <div class="message-l1-2 row1 c-333">' + data[i].content.split("$Order Price:$")[0] + '</div>\
+        <div class="ml15 mt5 row1 c-777">Order price：A$' + data[i].content.split("$Order Price:$")[1] + '</div>\
+        </div>';
+      }
+      $(".message-l1s").append(h);
+
+      favorites_message1 = favorites_message1.concat(data);
+    }
+
+    function getMessage2(data) {
+      var h = '';
+      for (var i in data) {
+        h += '<div class="message-l2-l message-l1 bb3" messageid="' + data[i].messId + '">\
+                <div class="message-left select-n" messageid="' + data[i].messId + '"></div>\
+                <div class="message-l1-1 ovf">\
+                <div class="left brp message-l1-1-1 c-black' + (data[i].isread == 0 ? (' hh1 c-yellow-1') : ('')) + '">' + data[i].messTitle + '</div>\
+        <div class="right font12 c-aaa">' + data[i].addTime.replace(/\.0/g, '') + '</div>\
+                </div>\
+                <div class="ml15 mt5 row1 c-777">' + data[i].content + '</div>\
+        </div>';
+      }
+      $(".message-l2s").append(h);
+
+      favorites_message2 = favorites_message2.concat(data);
+    }
+
+    //删除消息
+    function message_delete(mid, t) {
+      AJAX2.get("api/mess/del", { userType: 1, messid: mid }, function (data) {
+        Comm.message('remove succeed');
+        $(t).parents().filter(".mui-table-view-cell").remove();
+
+        if (pageData.messagetype == 3) {
+          for (var i in favorites_message1) {
+            if (favorites_message1[i].messId == mid) {
+              favorites_message1.splice(i, 1);
+            }
+          }
+
+          if ($(".message-l1s .message-l1").length <= 0) {
+            $(".noDataS").removeClass("hide");
+          }
+        } else if (pageData.messagetype == 2) {
+          for (var i in favorites_message2) {
+            if (favorites_message2[i].messId == mid) {
+              favorites_message2.splice(i, 1);
+            }
+          }
+
+          if ($(".message-l2s .message-l1").length <= 0) {
+            $(".noDataS").removeClass("hide");
+          }
+        }
+
+      }, function (data) {
+        Comm.message(data);
+      })
+    }
+
+    //删除消息
+    function messageids_delete() {
+      if (pageData.messagetype == 3) {
+        if (favorites_message1.length <= 0) {
+          Comm.message("No removable messages");
+          return;
+        }
+
+        if ($(".message-left").filter(".select-y").length <= 0) {
+          Comm.message("Please select the messages to delete");
+          return;
+        }
+      } else if (pageData.messagetype == 2) {
+        if (favorites_message2.length <= 0) {
+          Comm.message("No removable messages");
+          return;
+        }
+
+        if ($(".message-left").filter(".select-y").length <= 0) {
+          Comm.message("Please select the messages to delete");
+          return;
+        }
+      }
+
+      var idsArr = [];
+      var num1 = $(".message-left").filter(".select-y").length;
+
+      for (var i = 0; i < num1; i++) {
+        idsArr.push($($(".message-left").filter(".select-y")[i]).attr("messageid"));
+      }
+
+      AJAX2.get("api/mess/delids", { ids: idsArr.join(","), userType: 1 }, function (data) {
+        Comm.message('remove succeed');
+        pageData.pageno = 1;
+        pageData.totalPage = 1;
+        pageData.ifFirst = true;
+        favorites_message1 = [];
+        favorites_message2 = [];
+        $(".noDataS").addClass("hide");
+        $(".message-l1s").html("");
+        $(".message-l2s").html("");
+        mui('#refreshContainer').scroll().scrollTo(0, 0);
+        edit();
+        $(".message-f-1").removeClass("select-y");
+
+        upData();
+
+      }, function (data) {
+        Comm.message(data);
+      })
+    }
+
+    function selectAll() {
+      $(event.target).toggleClass("select-y");
+      if ($(event.target).hasClass("select-y")) {
+        $(".message-left").addClass("select-y");
+      } else {
+        $(".message-left").removeClass("select-y");
+      }
+    }
+
+    //编辑
+    function edit() {
+//      $(".mui-slider-handle").css({"transform": "translate(0px, 0px)"});
+      pageData.editFlag = !pageData.editFlag;
+      if ($(".menu1").html() == "Edit") {
+        $(".menu1").html("Done");
+        $("footer").removeClass("hide");
+
+        //设置可以水平滑动
+//        mui('.mui-table-view-cell').scroll({
+//          scrollY: false, //是否竖向滚动
+//          scrollX: false, //是否横向滚动
+//          startX: 0, //初始化时滚动至x
+//          startY: 0, //初始化时滚动至y
+//          indicators: false, //是否显示滚动条
+//          deceleration:0.0006, //阻尼系数,系数越小滑动越灵敏
+//          bounce: false //是否启用回弹
+//        });
+      } else {
+        $(".menu1").html("Edit");
+        $("footer").addClass("hide");
+
+        //设置可以水平滑动
+//        mui('.mui-table-view-cell').scroll({
+//          scrollY: false, //是否竖向滚动
+//          scrollX: true, //是否横向滚动
+//          startX: 0, //初始化时滚动至x
+//          startY: 0, //初始化时滚动至y
+//          indicators: false, //是否显示滚动条
+//          deceleration:0.0006, //阻尼系数,系数越小滑动越灵敏
+//          bounce: true //是否启用回弹
+//        });
+      }
+      Comm.resizeSection();
+
+      if (pageData.editFlag) {
+        if (pageData.messagetype == 3) {
+          $(".message-l1-l").animate({ left: '+50px' }, "fast");
+        } else if (pageData.messagetype == 2) {
+          $(".message-l2-l").animate({ left: '+50px' }, "fast");
+        }
+      } else {
+        if (pageData.messagetype == 3) {
+          $(".message-l1-l").animate({ left: '+0px' }, "fast");
+        } else if (pageData.messagetype == 2) {
+          $(".message-l2-l").animate({ left: '+0px' }, "fast");
+        }
+      }
+    }
+  </script>
+</body>
+</html>

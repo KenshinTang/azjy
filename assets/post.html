@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title></title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no">
+  <meta http-equiv="Cache-Control" content="public" >
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="format-detection" content="telephone=no">
+  <meta name="apple-mobile-web-app-status-bar-style"  content="black" />
+  <meta name="renderer" content="webkit">
+  <meta name="description" content="All About Children">
+  <meta name="keywords" content="All About Children">
+  <link rel="stylesheet" href="inc/g.css" type="text/css">
+  <link rel="stylesheet" href="css/common.css" type="text/css">
+  <link rel="stylesheet" href="css/unique.css" type="text/css">
+  <script src="js/jquery-3.1.1.min.js"></script>
+  <script type="text/javascript" src="js/common.js"></script>
+  <style>
+    .newAddImgs .box{
+      width: calc((100vw - 50px) / 3);
+      height: calc((100vw - 50px) / 3);
+      float: left;
+      margin: 10px 10px 0px 0px;
+      border: 1px solid #eee;
+    }
+    .newAddImgs .box:nth-child(3n){
+      margin-right: 0px;
+    }
+    .newAddImgs .box img{
+      width:100%;
+      height:100%;
+    }
+    .post-l3{
+      width: calc((100vw - 50px) / 3);
+      height: calc((100vw - 50px) / 3);
+      float: left;
+      margin: 10px 10px 0px 0px;
+      border: 1px solid #ddd;
+      background-size: 29px;
+      background-position: center 24px;
+      line-height: calc((100vw - 50px) / 3 * 1.4);
+      text-align: center;
+      color: #aaa;
+    }
+  </style>
+</head>
+<body>
+<header>
+  <div class="back1" onclick="Comm.close();"></div>
+  <div class="menu1"></div>
+  <div class="titlebar">Post</div>
+</header>
+
+<section>
+  <div class="post-1 bb3"><input id="title" type="text" placeholder="Please enter question title" oninput="CommonFunction.removeEmoji(event);"></div>
+  <div class="post-ls ovf bb3">
+    <!--<div class="post-l post-l-active">3-6 year old</div>-->
+    <!--<div class="post-l">3-6 year old</div>-->
+    <!--<div class="post-l">3-6 year old</div>-->
+    <!--<div class="post-l">3-6 year old</div>-->
+    <!--<div class="post-l">3-6 year old</div>-->
+  </div>
+  <div class="pad15">
+    <textarea id="content" name="" cols="30" rows="10" maxlength="500" placeholder="Problem description" oninput="CommonFunction.removeEmoji(event);"></textarea>
+  </div>
+  <div>
+    <div class="post-l2s newAddImgs" id="evaImg_0">
+      <!--<div class="post-l2"><img src="images/test/goods2.jpg" alt="" onerror="this.src='images/error.png';this.onerror=null;" onload="$(this).fadeTo('slow',1);" style="opacity:0;display: block;"></div>-->
+      <!--<div class="post-l2"><img src="images/test/goods2.jpg" alt="" onerror="this.src='images/error.png';this.onerror=null;" onload="$(this).fadeTo('slow',1);" style="opacity:0;display: block;"></div>-->
+      <!--<div class="post-l2"><img src="images/test/goods2.jpg" alt="" onerror="this.src='images/error.png';this.onerror=null;" onload="$(this).fadeTo('slow',1);" style="opacity:0;display: block;"></div>-->
+      <!--<div class="post-l2"><img src="images/test/goods2.jpg" alt="" onerror="this.src='images/error.png';this.onerror=null;" onload="$(this).fadeTo('slow',1);" style="opacity:0;display: block;"></div>-->
+      <!--<div class="post-l2"><img src="images/test/goods2.jpg" alt="" onerror="this.src='images/error.png';this.onerror=null;" onload="$(this).fadeTo('slow',1);" style="opacity:0;display: block;"></div>-->
+
+      <div class="left brp add1 post-l3" id="sub_0"><span>0</span>/9</div>
+      <div style="clear:left;"></div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="ovf post-f">
+    <div class="left post-f-l brp picture addClassImg"></div>
+    <div class="right post-f-r" onclick="post()">Post</div>
+    <div class="post-f-c addClassImg" onclick="$('input[type=file]').click()">Add pictures</div>
+  </div>
+</footer>
+
+<script src="inc/g.js"></script>
+<script src="js/md5.js"></script>
+<script src="inc/dict.js"></script>
+<script src="inc/upimg/upload.js"></script>
+
+<script>
+  var user = Comm.db("user");
+  var pageData = {};
+
+  function pageload() {
+    upHeader = new imgUploader(("evaImg_" + 0), 9, ("sub_" + 0), "addClassImg");
+    $("#sub_0").addClass("hide");
+    $(".moxie-shim").addClass("hide");
+
+    GDict.load(function () {
+      var h = '';
+      for (var i in GDict._data.postType) {
+        h += '<div class="post-l" dictid="' + GDict._data.postType[i].dictid + '" onclick="select()">' + GDict._data.postType[i].dictname + '</div>';
+      }
+      $(".post-ls").html(h);
+    });
+  }
+
+  function pageresume() {
+
+  }
+
+  //发帖
+  function post() {
+    var title = $("#title").val();
+    var content = $("#content").val();
+
+    if (title == "") {
+      Comm.message("Please enter question title");
+      return;
+    }
+
+    if (content == "") {
+      Comm.message("Please enter Problem description");
+      return;
+    }
+
+    if ($(".post-l-active").length <= 0) {
+      Comm.message("Please select a category");
+      return;
+    }
+
+    if (upHeader.imgList.length <= 0) {
+      Comm.message("Upload at least one image");
+      return;
+    }
+
+    var num1 = $(".post-l-active").length;
+    var classifyArr = [];
+    for (var i = 0; i < num1; i++) {
+      classifyArr.push($($(".post-l-active")[i]).attr("dictid"));
+    }
+
+    AJAX2.post("api/post/send", {title: title, classifys: classifyArr.join(","), content: content, imgs: upHeader.imgList.join(",")}, function (data){
+      Comm.message("succeed");
+      setTimeout(function() {
+        Comm.db("posted", {flag: 1});
+        Comm.close();
+      }, 500);
+
+    }, function(data) {
+      Comm.message(data);
+    })
+  }
+
+  function select() {
+    $(event.target).toggleClass("post-l-active");
+  }
+
+  //删除图片
+  function delete_img(e, upid) {
+    var i = $(e.target).parent().index();
+    $(e.target).parent().remove();
+
+    upHeader.imgList.splice(i, 1);
+    if (upHeader.imgList.length <= 0) {
+      $("#" + upid).addClass("hide");
+      $(".moxie-shim").addClass("hide");
+    } else {
+      $("#" + upid).removeClass("hide");
+      $(".moxie-shim").css({"top": ($(".add1").position().top + 10) + "px", "left": $(".add1").position().left + "px", "width": "calc((100vw - 50px) / 3)", "height": "calc((100vw - 50px) / 3)"});
+      $($("#" + upid).find("span")).html(upHeader.imgList.length);
+    }
+  }
+</script>
+</body>
+</html>

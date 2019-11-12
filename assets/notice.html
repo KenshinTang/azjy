@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title></title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no">
+  <meta http-equiv="Cache-Control" content="public">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="format-detection" content="telephone=no">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  <meta name="renderer" content="webkit">
+  <meta name="description" content="女鞋之都">
+  <meta name="keywords" content="女鞋之都">
+  <link rel="stylesheet" href="inc/g.css" type="text/css">
+  <link rel="stylesheet" href="css/common.css" type="text/css">
+  <link rel="stylesheet" href="css/unique.css" type="text/css">
+  <script src="js/jquery-3.1.1.min.js"></script>
+  <script type="text/javascript" src="js/common.js"></script>
+  <style>
+
+  </style>
+</head>
+
+<body>
+  <header>
+    <div class="back1" onclick="Comm.close();"></div>
+    <div class="menu1" style="width:90px;">
+      <div class="menu1-c brp share hide" onclick="share_open()"></div>
+      <div class="menu1-c brp star-n hide" style="background-size: 24px;" id="collect" onclick="collect()"></div>
+    </div>
+    <div class="titlebar" style="margin: 0px 100px;">Notice</div>
+  </header>
+  <section>
+    <div class="article">
+      <div class="font16" id="a-articlename">aaa</div>
+      <div class="ovf font12 c-888 mt10">
+        <div class="left" id="a-subdate">2018-01-01</div>
+        <div class="right">Read:<span id="a-readcount">1</span></div>
+      </div>
+      <div class="mt15" id="a-section"></div>
+    </div>
+  </section>
+
+  <div class="app-window1 hide" onclick="share_open()"></div>
+  <div class="share-window hide">
+    <div class="ovf share-window-2">
+      <div class="brp share-window-2-c share-wx" onclick="share('1')">微信好友</div>
+      <div class="brp share-window-2-c share-wxfriend" onclick="share('2')">朋友圈</div>
+      <div class="brp share-window-2-c share-qq" onclick="share('4')">QQ好友</div>
+      <div class="brp share-window-2-c share-qqkong" onclick="share('5')">QQ空间</div>
+      <div class="brp share-window-2-c share-weibo" onclick="share('6')">微博</div>
+      <div class="brp share-window-2-c share-lianjie" onclick="shareCopy()">复制链接</div>
+    </div>
+    <div class="sp5"></div>
+    <div class="share-window-1" onclick="share_open()">取消</div>
+  </div>
+  <div id="sinbox" wtd="sinboxTemp">
+    <div class="mui-content" id="box"></div>
+  </div>
+  <script src="inc/g.js"></script>
+  <script src="js/md5.js"></script>
+  <script>
+    var user = Comm.db("user"), _ind = 0;
+    var pageData = { aid: Comm.query("aid") };
+    var articleDetail = {};
+
+    function pageload() {
+//      getArticleDetail();
+    }
+
+    function pageresume() {
+        //Comm.db("imgView", '')
+    }
+
+    //文章详情
+    function getArticleDetail() {
+      AJAX2.get("api/article/show", { articleid: pageData.aid }, function (data) {
+        articleDetail = data;
+
+        $("#a-articlename").html(data.articlename);
+        $("#a-subdate").html(CommonFunction.timeFormat(data.subdate, "yy-MM-dd"));
+        $("#a-readcount").html(data.readcount);
+        $("#a-section").html(data.section);
+
+        getGoods(data.itemid);
+        ifCollect();
+
+        _ind = $("#a-section img").length
+        var s = [];
+        $("#a-section img").each(function (i, e) {
+          $(e).attr("i",i);
+          s.push($(e).attr("src"))
+        })
+        Comm.db("imgView", s)
+
+        $("#a-section img").click(function () {
+          Comm.go("imgView.html?ind=" + $(this).attr("i"));
+        })
+
+      }, function (data) {
+        Comm.message(data);
+      })
+    }
+
+    //关联商品
+    function getGoods(gid) {
+      if (!gid) {
+        return;
+      }
+
+      AJAX2.get("api/goods/ids", { ids: gid }, function (data) {
+        var h = '';
+        for (var i in data) {
+          h += '<div class="ovf findingD-1 mt20" onclick="jsGo(1, ' + data[i].goodsid + ')">\
+                <div class="left findingD-1-l"><img src="' + (config.ossroot + data[i].face) + '" alt="" onerror="this.src=\'images/error.png\';this.onerror=null;" onload="$(this).fadeTo(\'slow\',1);" style="opacity:0;"></div>\
+                <div class="right findingD-1-r bg-grey-1 brp arrowRight3"></div>\
+                <div class="findingD-1-c bg-grey-1 font16">\
+                <div class="row1 mt20">' + data[i].goodsname + '</div>\
+                <div class="c-yellow-1 mt10">¥<span>' + CommonFunction.getSumPrice(data[i].price) + '</span></div>\
+                </div>\
+                </div>';
+        }
+        $(".findingD-gs").html(h);
+
+      }, function (data) {
+        Comm.message(data);
+      })
+    }
+
+    //是否收藏
+    function ifCollect() {
+      if (!user) {
+        return;
+      }
+
+      AJAX2.get("api/favorites/getIsFavorites", { itemid: articleDetail.articleid, favtype: 2, customerid: user.customerid }, function (data) {
+        if (data.length > 0) {
+          $("#collect").addClass("star2-y");
+          pageData.favoritesid = data[0].favoritesid;
+        } else {
+          $("#collect").removeClass("star2-y");
+          pageData.favoritesid = 0;
+        }
+
+      }, function (data) {
+        Comm.message(data);
+      })
+    }
+
+    //收藏
+    function collect() {
+      var isLogin = checkIsLogin(2);
+      if (!isLogin) {
+        return;
+      }
+
+      if (pageData.favoritesid) {
+        AJAX2.post("api/favorites/remove", { customerid: user.customerid, favoritesid: pageData.favoritesid }, function (data) {
+          pageData.favoritesid = 0;
+          Comm.message("已取消收藏");
+          $("#collect").removeClass("star2-y");
+
+        }, function (data) {
+          Comm.message(data);
+        })
+      } else {
+        AJAX2.post("api/favorites/save", { customerid: user.customerid, favtype: 2, itemid: articleDetail.articleid }, function (data) {
+          pageData.favoritesid = data;
+          Comm.message("已收藏");
+          $("#collect").addClass("star2-y");
+
+        }, function (data) {
+          Comm.message(data);
+        })
+      }
+    }
+
+    function share_open() {
+      $(".share-window").toggleClass("hide");
+      $(".app-window1").toggleClass("hide");
+    }
+
+    function jsGo(n, x) {
+      if (n == 1) {
+        checkIsLogin(2, 'goodsDetail.html?gid=' + x);
+      }
+    }
+  </script>
+</body>
+</html>

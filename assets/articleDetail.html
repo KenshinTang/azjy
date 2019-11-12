@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title></title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no">
+  <meta http-equiv="Cache-Control" content="public">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="format-detection" content="telephone=no">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  <meta name="renderer" content="webkit">
+  <meta name="description" content="女鞋之都">
+  <meta name="keywords" content="女鞋之都">
+  <link rel="stylesheet" href="inc/g.css" type="text/css">
+  <link rel="stylesheet" href="css/common.css" type="text/css">
+  <link rel="stylesheet" href="css/unique.css" type="text/css">
+  <script src="js/jquery-3.1.1.min.js"></script>
+  <script type="text/javascript" src="js/common.js"></script>
+  <style>
+    #a-section{
+      width:100%;
+      text-align: justify;
+      letter-spacing: 1px;
+      word-break: break-all;
+    }
+    #a-section img{
+      width:100%;
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <div class="back1" onclick="Comm.close();"></div>
+    <div class="menu1 hide" style="width:90px;">
+      <div class="menu1-c brp share" onclick="share_open()"></div>
+      <div class="menu1-c brp star-n" style="background-size: 24px;" id="collect" onclick="collect()"></div>
+    </div>
+    <div class="titlebar hide" style="margin: 0px 100px;">Details</div>
+  </header>
+  <section>
+    <div class="article hide">
+      <div class="font16" id="a-articlename"></div>
+      <div class="ovf font12 c-888 mt10">
+        <div class="left" id="a-subdate"></div>
+        <div class="right">Read:<span id="a-readcount">0</span></div>
+      </div>
+      <div class="mt15" id="a-section"></div>
+    </div>
+
+    <div class="home-6-ls"></div>
+
+    <div class="noDataS2 hide">
+      <div class="noDataS-1 brpscn"></div>
+      <div class="noDataS-2">Sorry, The article has been disabled.</div>
+      <div class="noDataS-3" onclick="Comm.close();">Back</div>
+    </div>
+  </section>
+
+  <div class="app-window1 hide" onclick="share_open()"></div>
+  <div class="option-window hide">
+    <div class="ovf option-window-2 bg-grey-1">
+      <div class="brp option-window-2-c" onclick="share('1')">
+        <div class="brp Facebook2 option-window-2-c-1"></div>
+        <div>FACEBOOK</div>
+      </div>
+      <div class="brp option-window-2-c" onclick="share('2')">
+        <div class="brp Instagram2 option-window-2-c-1"></div>
+        <div>INSTAGRAM</div>
+      </div>
+      <div class="brp option-window-2-c" onclick="share('3')">
+        <div class="brp Twitter2 option-window-2-c-1"></div>
+        <div>TWITTER</div>
+      </div>
+    </div>
+    <div class="option-window-1" onclick="share_open()">Cancel</div>
+  </div>
+
+  <script src="inc/g.js"></script>
+  <script src="js/md5.js"></script>
+  <script src="inc/dict.js"></script>
+  <script>
+    var user = Comm.db("user");
+    var pageData = { aid: Comm.query("aid"), collectids: 0, collect: Comm.query("collect") };
+    var articleDetail = {};
+
+    function pageload() {
+      Comm.db("obj_article", {aid: pageData.aid});
+      GDict.load(function () {
+        getArticleDetail();
+      })
+    }
+
+    function pageresume() {
+
+    }
+
+    //文章详情
+    function getArticleDetail() {
+      AJAX2.get("api/article/detail", { articleID: pageData.aid }, function (data) {
+        articleDetail = data;
+
+        if (articleDetail.enable == 0) {
+          $(".noDataS2").removeClass("hide");
+          return;
+        } else {
+          $(".menu1").removeClass("hide");
+          $(".titlebar").removeClass("hide");
+          $("#refreshContainer").removeClass("hide");
+          $(".article").removeClass("hide");
+        }
+
+        ifCollect();
+        Comm.resizeSection();
+
+        $("#a-articlename").html(data.articlename);
+        $("#a-subdate").html(data.subdate.replace(/\.0/g, ''));
+        $("#a-readcount").html(data.readcount);
+        $("#a-section").html(data.section);
+
+        if (data.classId && data.classId != "null" && data.classId > 0) {
+          getCourseDetail(data.classId);
+        }
+
+      }, function (data) {
+        Comm.message(data);
+      })
+    }
+
+    //课程
+    function getCourseDetail(classId) {
+      AJAX2.get("api/course/show", {courseId: classId}, function (data){
+        var data = [data];
+
+        AJAX2.get("api/class/openAndstart", {courseId: classId}, function (data2){
+          var obj1 = {};
+          obj1 = Tool.getDict(data2, "courseId");
+
+          for (var i in data) {
+            data[i].full_obj = obj1[data[i].courseId];
+          }
+
+          addCourse(data);
+
+        }, function(data) {
+          Comm.message(data);
+        })
+
+      }, function(data) {
+        Comm.message(data);
+      })
+    }
+
+    function addCourse(data) {
+      console.log(data);
+
+      var h = '';
+      for (var i in data) {
+        h += '<div class="home-6-l" courseId="' + data[i].courseId + '">\
+                  <div class="left home-6-l-l"><img src="' + config.ossroot + data[i].face + '" alt="" onerror="this.src=\'images/error.png\';this.onerror=null;" onload="$(this).fadeTo(\'slow\',1);" style="opacity:0;display: block;"></div>\
+                  <div class="home-6-l-c">\
+                  <div class="home-6-l-c-1">\
+                  <div class="left home-6-l-c-1-1">' + GDict.getItem(data[i].category2).dictname + '</div>\
+                  <div class="home-6-l-c-1-2 row1">' + data[i].courseName + '</div>\
+                  </div>\
+                    <div class="home-6-l-c-2 c-aaa font12 row1">' + data[i].lessons + ' Courses &nbsp;&nbsp;' + data[i].periods + 'min for each ' + '<span class="c-violet-1">' + (data[i].full_obj ? parseInt(data[i].full_obj.signupcount) : '0') + ' Classes' + (data[i].full_obj && data[i].full_obj.full_count != 0 ? '(' + data[i].full_obj.full_count + ' Fulled)' : '') + '</span><span class="home-6-l-c-2-hot brp hot' + (data[i].full_obj && data[i].full_obj.newestcount > 0 ? '' : ' hide') + '"></span></div>\
+                    <div class="home-6-l-c-5 ovf">\
+                        <div class="left home-6-l-c-4-4 ovf">\
+                        <div class="left search-goods-l-c-2-1 pre brp starl-n"><div class="search-goods-l-c-2-2 brp starl-y" style="width:' + (data[i].evaluateValue / 5) * 100 + '%"></div></div>\
+                        <div class="left ml5 c-aaa">' + data[i].evaluateValue + '</div>\
+                        </div>\
+                        <div class="left c-yellow-1 ml15">A$<span class="font18">' + data[i].price + '</span></div>\
+                    </div>\
+                    <div class="home-6-l-c-3 c-aaa font12 brp location2 row1">' + data[i].subur + ' ' + GDict.getName(data[i].territory) + '</div>\
+                    <div class="home-6-l-c-4 c-aaa font12 ovf bt3">\
+                      <div class="home-6-l-c-4-1 brp age mt5">Age:' + GDict.getItem(data[i].ageLimit).dictname + '</div>\
+                      <div class="home-6-l-c-4-1 brp' + (data[i].sex == 2 ? (' boy') : (data[i].sex == 3 ? (' girl') : (' sex'))) + '">Gender:' + (data[i].sex == 2 ? (' boy') : (data[i].sex == 3 ? (' girl') : (' No screening'))) + '</div>\
+                        </div>\
+                        </div>\
+                        </div>';
+      }
+      $(".home-6-ls").append(h);
+    }
+
+    //是否收藏
+    function ifCollect() {
+      if (!user) {
+        return;
+      }
+
+      AJAX2.get("api/collect/iscollect", { itemId: pageData.aid, itemType: 3 }, function (data) {
+        if (data> 0) {
+          $("#collect").addClass("star-y");
+          pageData.collectids = data;
+        } else {
+          $("#collect").removeClass("star-y");
+          pageData.collectids = 0;
+        }
+
+      }, function (data) {
+        Comm.message(data);
+      })
+    }
+
+    //收藏
+    function collect() {
+      if (!checkIsLogin2()) {
+        return;
+      }
+
+      if (pageData.collectids) {
+        AJAX2.post("api/collect/remove", { collectids: pageData.collectids }, function (data) {
+          pageData.collectids = 0;
+          Comm.message("uncollectible");
+          $("#collect").removeClass("star-y");
+
+          if (pageData.collect == 1 && pageData.collectids == 0) {
+            Comm.db("collect", { itemid: articleDetail.articleid });
+          }
+
+        }, function (data) {
+          Comm.message(data);
+        })
+      } else {
+        AJAX2.post("api/collect/save", { itemId: pageData.aid, itemType: 3 }, function (data) {
+          pageData.collectids = data.collectid;
+          Comm.message("collected");
+          $("#collect").addClass("star-y");
+
+          if (pageData.collect == 1 && pageData.collectids == 0) {
+            Comm.db("collect", null);
+          }
+
+        }, function (data) {
+          Comm.message(data);
+        })
+      }
+    }
+
+    function share_open() {
+      $(".option-window").toggleClass("hide");
+      $(".app-window1").toggleClass("hide");
+    }
+
+    //分享
+    function share(t) {
+      if (!checkIsLogin2()) {
+        return;
+      }
+
+      Comm.shareUrl({ title: articleDetail.articlename, desc: articleDetail.summary, pic: config.ossroot + articleDetail.face, url: config.ip + 'articleDetail.html?aid=' + pageData.aid, platform: t}, function (d) {
+        share_open();
+        if (d == 1) {
+          Comm.message("Share succeed");
+        } else {
+          Comm.message("Share fail");
+        }
+      });
+    }
+
+    //复制链接
+    function shareCopy() {
+      Comm.copyText(config.shareroot + 'findingDetail.html?aid=' + articleDetail.articleid);
+      Comm.message("已复制链接");
+      share_open();
+    }
+  </script>
+</body>
+</html>

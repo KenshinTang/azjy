@@ -1,0 +1,808 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title></title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no">
+  <meta http-equiv="Cache-Control" content="public" >
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="format-detection" content="telephone=no">
+  <meta name="apple-mobile-web-app-status-bar-style"  content="black" />
+  <meta name="renderer" content="webkit">
+  <meta name="description" content="All About Children">
+  <meta name="keywords" content="All About Children">
+  <link rel="stylesheet" href="mui/css/mui.min.css">
+  <link rel="stylesheet" href="inc/g.css" type="text/css">
+  <link rel="stylesheet" href="css/common.css" type="text/css">
+  <link rel="stylesheet" href="css/unique.css" type="text/css">
+  <script src="js/jquery-3.1.1.min.js"></script>
+  <script type="text/javascript" src="js/common.js"></script>
+  <style>
+    .collect1{
+      width: 33% !important;
+    }
+    .collect-cutMoney{
+      border: 1px solid red;
+      font-size: 12px;
+      float: right;
+      height: 18px !important;
+      line-height: 16px !important;
+      padding: 0px 5px;
+    }
+    .collect-l1s{
+
+    }
+    .collect-l2s{
+      /*padding: 0px 15px;*/
+    }
+    .collect-l3s{
+      padding: 0px 15px;
+    }
+    .opacity_5{
+      opacity: 0.3;
+    }
+  </style>
+</head>
+<body>
+<header>
+  <div class="back1" onclick="Comm.close();"></div>
+  <div class="menu1 c-green-1" onclick="edit()">Edit</div>
+  <div class="titlebar">My watchlist</div>
+  <div class="ovf order-t bt3">
+    <div class="order-t-c brp collect1 order-t-c-active" onclick="changeTheme(1)">Institutions</div>
+    <div class="order-t-c brp collect1" onclick="changeTheme(2)">Courses</div>
+    <div class="order-t-c brp collect1" onclick="changeTheme(3)">Hot topics</div>
+  </div>
+</header>
+
+<section class="pre">
+  <div id="refreshContainer" class="mui-content mui-scroll-wrapper">
+    <div class="mui-scroll">
+      <!--数据列表-->
+      <ul class="mui-table-view mui-table-view-chevron" id="listView">
+
+        <div class="noDataS hide">
+          <div class="noDataS-1 brpscn"></div>
+          <div class="noDataS-2">Sorry, there is no relevant data</div>
+        </div>
+
+        <div class="collect-l1s"></div>
+        <div class="collect-l2s hide"></div>
+        <div class="collect-l3s hide"></div>
+
+      </ul>
+    </div>
+  </div>
+
+  <!--<div class="institutions-ls">-->
+    <!--<div class="institutions-l" onclick="Comm.go('institutionsDetail.html')">-->
+      <!--<div class="institutions-l-1 pre">-->
+        <!--<img src="images/test/goods3.png" alt="" onerror="this.src='images/error.png';this.onerror=null;" onload="$(this).fadeTo('slow',1);" style="opacity:0;display: block;">-->
+        <!--<div class="institutions-l-1-1">Here</div>-->
+      <!--</div>-->
+      <!--<div class="institutions-l-2">Here is the name of the organization</div>-->
+      <!--<div class="institutions-l-3 row2">We have not reviewed, and cannot review, all of the material, including computer software including computer</div>-->
+      <!--<div class="institutions-l-4 ovf">-->
+        <!--<div class="left institutions-l-4-1 c-violet-1 brp bbmm">10 x</div>-->
+        <!--<div class="left home-6-l-c-4-4">-->
+          <!--<div class="left search-goods-l-c-2-1 pre brp starl-n"><div class="search-goods-l-c-2-2 brp starl-y"></div></div>-->
+          <!--<div class="left ml5 c-aaa">5.0</div>-->
+        <!--</div>-->
+        <!--<div class="right institutions-l-4-2 brp location">Wentworth Point</div>-->
+      <!--</div>-->
+      <!--<div class="c-red-1 mt10 font12">The institution has new course, see now</div>-->
+    <!--</div>-->
+
+    <!--<div class="institutions-l">-->
+      <!--<div class="institutions-l-1 pre">-->
+        <!--<img src="images/test/goods3.png" alt="" onerror="this.src='images/error.png';this.onerror=null;" onload="$(this).fadeTo('slow',1);" style="opacity:0;display: block;">-->
+        <!--<div class="institutions-l-1-1">Here</div>-->
+      <!--</div>-->
+      <!--<div class="institutions-l-2">Here is the name of the organization</div>-->
+      <!--<div class="institutions-l-3 row2">We have not reviewed, and cannot review, all of the material, including computer software including computer</div>-->
+      <!--<div class="institutions-l-4 ovf">-->
+        <!--<div class="left institutions-l-4-1 c-violet-1 brp bbmm">10 x</div>-->
+        <!--<div class="left home-6-l-c-4-4">-->
+          <!--<div class="left search-goods-l-c-2-1 pre brp starl-n"><div class="search-goods-l-c-2-2 brp starl-y"></div></div>-->
+          <!--<div class="left ml5 c-aaa">5.0</div>-->
+        <!--</div>-->
+        <!--<div class="right institutions-l-4-2 brp location">Wentworth Point</div>-->
+      <!--</div>-->
+    <!--</div>-->
+  <!--</div>-->
+
+  <!--<div class="home-6-ls">-->
+    <!--<div class="home-6-l bb3 ovf">-->
+      <!--<div class="left home-6-l-l"><img src="images/test/goods3.png" alt="" onerror="this.src='images/error.png';this.onerror=null;" onload="$(this).fadeTo('slow',1);" style="opacity:0;display: block;"></div>-->
+      <!--<div class="home-6-l-c">-->
+        <!--<div class="home-6-l-c-1">-->
+          <!--<div class="left home-6-l-c-1-1 brp course">Math</div>-->
+          <!--<div class="home-6-l-c-1-2 row1">First-grade training math class</div>-->
+        <!--</div>-->
+        <!--<div class="home-6-l-c-2 c-aaa font12">20 Courses 45min for each <span class="c-violet-1">4 Classes(1 Fulled)</span></div>-->
+        <!--<div class="home-6-l-c-3 c-aaa font12 brp location2">HEIDELBERG WEST,VIC3081</div>-->
+        <!--<div class="home-6-l-c-4 c-aaa font12 ovf">-->
+          <!--<div class="left home-6-l-c-4-1 brp age">Age:3-6</div>-->
+          <!--<div class="left home-6-l-c-4-2 brp sex"></div>-->
+          <!--<div class="right c-yellow-1">A$<span class="font18">300</span></div>-->
+          <!--<div class="home-6-l-c-4-4 ovf">-->
+            <!--<div class="left search-goods-l-c-2-1 pre brp starl-n"><div class="search-goods-l-c-2-2 brp starl-y"></div></div>-->
+            <!--<div class="left ml5">5.0</div>-->
+          <!--</div>-->
+        <!--</div>-->
+      <!--</div>-->
+      <!--<div class="c-red-1 collect-cutMoney">cut prices：A$300</div>-->
+    <!--</div>-->
+
+    <!--<div class="home-6-l bb3">-->
+      <!--<div class="left home-6-l-l"><img src="images/test/goods3.png" alt="" onerror="this.src='images/error.png';this.onerror=null;" onload="$(this).fadeTo('slow',1);" style="opacity:0;display: block;"></div>-->
+      <!--<div class="home-6-l-c">-->
+        <!--<div class="home-6-l-c-1">-->
+          <!--<div class="left home-6-l-c-1-1 brp course">Math</div>-->
+          <!--<div class="home-6-l-c-1-2 row1">First-grade training math class</div>-->
+        <!--</div>-->
+        <!--<div class="home-6-l-c-2 c-aaa font12">20 Courses 45min for each <span class="c-violet-1">4 Classes(1 Fulled)</span></div>-->
+        <!--<div class="home-6-l-c-3 c-aaa font12 brp location2">HEIDELBERG WEST,VIC3081</div>-->
+        <!--<div class="home-6-l-c-4 c-aaa font12">-->
+          <!--<div class="left home-6-l-c-4-1 brp test1">Age:3-6</div>-->
+          <!--<div class="left home-6-l-c-4-2 brp test1"></div>-->
+          <!--<div class="right c-yellow-1">A$<span class="font18">300</span></div>-->
+          <!--<div class="home-6-l-c-4-4">-->
+            <!--<div class="left search-goods-l-c-2-1 pre brp starl-n"><div class="search-goods-l-c-2-2 brp starl-y"></div></div>-->
+            <!--<div class="left ml5">5.0</div>-->
+          <!--</div>-->
+        <!--</div>-->
+      <!--</div>-->
+    <!--</div>-->
+  <!--</div>-->
+
+  <!--<div class="HT-ls">-->
+    <!--<div class="HT-l ovf bb3" onclick="Comm.go('articleDetail.html')">-->
+      <!--<div class="HT-l-l"><img src="images/test/goods3.png" alt="" onerror="this.src='images/error.png';this.onerror=null;" onload="$(this).fadeTo('slow',1);" style="opacity:0;display: block;"></div>-->
+      <!--<div class="HT-l-c">-->
+        <!--<div class="HT-l-c-1 row2">If you purchase any fee-based Service， you agree that our third party...</div>-->
+        <!--<div class="HT-l-c-2 ovf">-->
+          <!--<div class="HT-l-c-2-1 brp ydl">10000</div>-->
+          <!--<div class="HT-l-c-2-1 brp time">2018-10-01</div>-->
+        <!--</div>-->
+      <!--</div>-->
+    <!--</div>-->
+
+    <!--<div class="HT-l ovf bb3">-->
+      <!--<div class="HT-l-l"><img src="images/test/goods3.png" alt="" onerror="this.src='images/error.png';this.onerror=null;" onload="$(this).fadeTo('slow',1);" style="opacity:0;display: block;"></div>-->
+      <!--<div class="HT-l-c">-->
+        <!--<div class="HT-l-c-1 row2">If you purchase any fee-based Service， you agree that our third party...</div>-->
+        <!--<div class="HT-l-c-2 ovf">-->
+          <!--<div class="HT-l-c-2-1 brp ydl">10000</div>-->
+          <!--<div class="HT-l-c-2-1 brp time">2018-10-01</div>-->
+        <!--</div>-->
+      <!--</div>-->
+    <!--</div>-->
+
+    <!--<div class="HT-l ovf bb3">-->
+      <!--<div class="HT-l-l"><img src="images/test/goods3.png" alt="" onerror="this.src='images/error.png';this.onerror=null;" onload="$(this).fadeTo('slow',1);" style="opacity:0;display: block;"></div>-->
+      <!--<div class="HT-l-c">-->
+        <!--<div class="HT-l-c-1 row2">If you purchase any fee-based Service， you agree that our third party...</div>-->
+        <!--<div class="HT-l-c-2 ovf">-->
+          <!--<div class="HT-l-c-2-1 brp ydl">10000</div>-->
+          <!--<div class="HT-l-c-2-1 brp time">2018-10-01</div>-->
+        <!--</div>-->
+      <!--</div>-->
+    <!--</div>-->
+  <!--</div>-->
+</section>
+
+<footer class="message-f hide">
+  <div class="left message-f-1 brp select-n" id="selectAll" onclick="selectAll()"></div>
+  <div class="left message-f-2">Check all</div>
+  <div class="right message-f-3" onclick="collect_d()">Delete</div>
+</footer>
+
+<script src="inc/g.js"></script>
+<script src="js/md5.js"></script>
+<script src="inc/dict.js"></script>
+<script src="mui/js/mui.min.js"></script>
+
+<script>
+  var user = Comm.db("user");
+  var pageData = {pageno: 1, totalPage: 1, ifFirst: true, favType: 1, editFlag: false};
+  var favorites_institutionsArr = [];
+  var favorites_CoursesArr = [];
+  var favorites_topicsArr = [];
+
+  function pageload() {
+    GDict.load(function () {
+      mui.init({
+        pullRefresh: {
+          container: "#refreshContainer",//下拉刷新容器标识，querySelector能定位的css选择器均可，比如：id、.class等
+          up: {
+            height: 50,//可选.默认50.触发上拉加载拖动距离
+            auto: false,//可选,默认false.自动上拉加载一次
+            contentrefresh: "loading...",//可选，正在加载状态时，上拉加载控件上显示的标题内容
+            contentnomore: "There's no more data",//可选，请求完毕若没有更多数据时显示的提醒内容；
+            contentinit: "Pull up shows more",
+            contentdown: "Pull up shows more",
+            callback: upData //必选，刷新函数，根据具体业务来编写，比如通过ajax从服务器获取新数据；
+          }
+        }
+      });
+      Comm.calcSection();
+
+      mui("#listView").off('tap');
+
+      mui("#listView").on('tap', '.collect-g-1', function (e) {
+        e.stopPropagation();
+        if ($(this).attr("enable") == 0) {
+          return;
+        }
+        Comm.go('institutionsDetail.html?businessId=' + $(this).attr("businessId") + '&collect=1');
+      })
+
+      mui("#listView").on('tap', '.collect-g-2', function (e) {
+        e.stopPropagation();
+        if ($(this).attr("enable") == 0 || $(this).attr("busenable") == 0) {
+          return;
+        }
+        Comm.go('institutionsCourseDetail.html?courseId=' + $(this).attr("courseId") + '&collect=1');
+      })
+
+      mui("#listView").on('tap', '.collect-g-3', function (e) {
+        e.stopPropagation();
+        if ($(this).attr("enable") == 0) {
+          return;
+        }
+        Comm.go('articleDetail.html?aid=' + $(this).attr("articleid") + '&collect=1');
+      })
+
+      mui("#listView").on('tap', '.message-left', function (e) {
+        e.stopPropagation();
+        $(e.target).toggleClass("select-y");
+        ifselectAll();
+      })
+
+      mui("#listView").on('tap', '.message-left2', function (e) {
+        e.stopPropagation();
+        $(e.target).toggleClass("select-y");
+        ifselectAll();
+      })
+
+      upData();
+    });
+  }
+
+  function pageresume(){
+    if (Comm.db("collect")) {
+      var d1 = Comm.db("collect");
+      Comm.db("collect", null);
+      ifcollect(d1);
+    }
+  }
+
+  function upData() {
+    getCollect(function (flag) {
+      mui('#refreshContainer').pullRefresh().endPullupToRefresh(flag);
+    });
+  }
+
+  //切换标题
+  function changeTheme(n) {
+    if (pageData.favType == n) {
+      return;
+    }
+
+    pageData.pageno = 1;
+    pageData.totalPage = 1;
+    pageData.ifFirst = true;
+    pageData.favType = n;
+    $(".order-t-c").removeClass("order-t-c-active");
+    $(event.target).addClass("order-t-c-active");
+    favorites_institutionsArr = [];
+    favorites_CoursesArr = [];
+    favorites_topicsArr = [];
+    $(".menu1").html("Edit");
+    pageData.editFlag = false;
+    $("#selectAll").removeClass("select-y");
+    $(".noDataS").addClass("hide");
+    $(".collect-l1s").html("");
+    $(".collect-l2s").html("");
+    $(".collect-l3s").html("");
+    mui('#refreshContainer').scroll().scrollTo(0, 0);
+
+    if (pageData.favType == 1) {
+      $(".collect-l1s").removeClass("hide");
+      $(".collect-l2s").addClass("hide");
+      $(".collect-l3s").addClass("hide");
+    } else if (pageData.favType == 2) {
+      $(".collect-l1s").addClass("hide");
+      $(".collect-l2s").removeClass("hide");
+      $(".collect-l3s").addClass("hide");
+    } else if (pageData.favType == 3) {
+      $(".collect-l1s").addClass("hide");
+      $(".collect-l2s").addClass("hide");
+      $(".collect-l3s").removeClass("hide");
+    }
+    upData();
+  }
+
+  function init() {
+    pageData.pageno = 1;
+    pageData.totalPage = 1;
+    pageData.ifFirst = true;
+    favorites_institutionsArr = [];
+    favorites_CoursesArr = [];
+    favorites_topicsArr = [];
+    $(".menu1").html("Edit");
+    pageData.editFlag = false;
+    $("#selectAll").removeClass("select-y");
+    $(".noDataS").addClass("hide");
+    $(".collect-l1s").html("");
+    $(".collect-l2s").html("");
+    $(".collect-l3s").html("");
+    mui('#refreshContainer').scroll().scrollTo(0, 0);
+
+    if (pageData.favType == 1) {
+      $(".collect-l1s").removeClass("hide");
+      $(".collect-l2s").addClass("hide");
+      $(".collect-l3s").addClass("hide");
+    } else if (pageData.favType == 2) {
+      $(".collect-l1s").addClass("hide");
+      $(".collect-l2s").removeClass("hide");
+      $(".collect-l3s").addClass("hide");
+    } else if (pageData.favType == 3) {
+      $(".collect-l1s").addClass("hide");
+      $(".collect-l2s").addClass("hide");
+      $(".collect-l3s").removeClass("hide");
+    }
+    upData();
+  }
+
+  //得到收藏
+  function getCollect(cb) {
+    if (pageData.pageno == 1) {
+      $(".collect-l1s").html("");
+      $(".collect-l2s").html("");
+    }
+    AJAX2.get("api/collect/collectList", { itemType: pageData.favType, pageno: pageData.pageno, pagesize: config.pagesize }, function (a) {
+      if (pageData.ifFirst == true) {
+        pageData.ifFirst = false;
+        pageData.totalPage = Math.ceil(a.totalCount / config.pagesize);
+      }
+
+      var data = a.data;
+      var noLoadFlag;
+      if (pageData.totalPage > pageData.pageno) {
+        noLoadFlag = false;
+        pageData.pageno++;
+      } else {
+        noLoadFlag = true;
+      }
+      data = data.splice(0, config.pagesize);
+
+      if (data && data.length > 0) {
+        $(".noDataS").addClass("hide");
+        mui('#refreshContainer').pullRefresh().enablePullupToRefresh();
+      } else {
+        $(".noDataS").removeClass("hide");
+        mui('#refreshContainer').pullRefresh().disablePullupToRefresh();
+        return;
+      }
+
+      if (pageData.favType == 1) {
+        getInstitutions(data, cb, noLoadFlag);
+      } else if (pageData.favType == 2) {
+        getCourses(data, cb, noLoadFlag);
+      } else if (pageData.favType == 3) {
+        getTopics(data);
+      }
+
+      console.log(noLoadFlag);
+
+      if (pageData.favType == 3) {
+        cb && cb(noLoadFlag);
+      }
+
+    }, function (data) {
+      Comm.message(data);
+    })
+  }
+
+  //得到机构
+  function getInstitutions(data, cb, noLoadFlag) {
+    var idsArr = [];
+    for (var i in data) {
+      idsArr.push(data[i].businessId);
+    }
+
+    AJAX2.get("api/business/enrolmentClasses", {ids: idsArr.join(",")}, function (data2) {
+      var obj1 = Tool.getDict(data2, "businessId");
+      for (var i in data) {
+        if (obj1[data[i].businessId]) {
+          data[i].count_obj = obj1[data[i].businessId];
+        } else {
+          data[i].count_obj = {count: 0};
+        }
+      }
+      console.log(data);
+
+      var h = '';
+      for (var i in data) {
+        h += '<div class="institutions-l collect-g-1 pre" businessId="' + data[i].businessId + '" favoritesid="' + data[i].collectId + '" enable="' + data[i].enable + '">\
+      <div class="message-left select-n"></div>\
+      <div class="institutions-l-1 pre' + (data[i].enable == 1 ? ('') : (' opacity_5')) + '">\
+              <img src="' + config.ossroot + data[i].logo + '" alt="" onerror="this.src=\'images/error.png\';this.onerror=null;" onload="$(this).fadeTo(\'slow\',1);" style="opacity:0;display: block;">\
+              <div class="institutions-l-1-1">Verified</div>\
+              </div>\
+              <div class="institutions-l-2 row1' + (data[i].enable == 1 ? ('') : (' opacity_5')) + '">' + data[i].tradingName + '</div>\
+      <div class="institutions-l-3 row2' + (data[i].enable == 1 ? ('') : (' opacity_5')) + '">' + data[i].introduce + '</div>\
+      <div class="institutions-l-4 ovf' + (data[i].enable == 1 ? ('') : (' opacity_5')) + '">\
+              <div class="left institutions-l-4-1 c-violet-1 brp bbmm">' + data[i].count_obj.count + '</div>\
+      <div class="left home-6-l-c-4-4">\
+              <div class="left search-goods-l-c-2-1 pre brp starl-n"><div class="search-goods-l-c-2-2 brp starl-y" style="width:' + (data[i].evaluateValue / 5) * 100 + '%"></div></div>\
+              <div class="left ml5 c-aaa">' + data[i].evaluateValue + '</div>\
+              </div>\
+              <div class="right institutions-l-4-2 brp location">' + data[i].addrRegSuburb + '</div>\
+      </div>\
+      <div class="c-red-1 mt10 font12 hide">The institution has new course, see now</div>\
+      </div>';
+      }
+      $(".collect-l1s").append(h);
+
+      favorites_institutionsArr = favorites_institutionsArr.concat(data);
+
+      cb && cb(noLoadFlag);
+
+    }, function(data) {
+      Comm.message(data);
+    })
+  }
+
+  //得到课程
+  function getCourses(data, cb, noLoadFlag) {
+    var courseIdsArr = [];
+    for (var i in data) {
+      courseIdsArr.push(data[i].courseId);
+    }
+
+    if (courseIdsArr.length > 0) {
+      AJAX2.get("api/class/openAndstart", {courseId: courseIdsArr.join(",")}, function (data2){
+        var obj1 = {};
+        obj1 = Tool.getDict(data2, "courseId");
+
+        for (var i in data) {
+          data[i].full_obj = obj1[data[i].courseId];
+        }
+
+        addCourse(data, cb, noLoadFlag);
+
+      }, function(data) {
+        Comm.message(data);
+      })
+    } else {
+      addCourse(data, cb, noLoadFlag);
+    }
+  }
+
+  function addCourse(data2, cb, noLoadFlag) {
+    console.log(data2);
+
+    var h = '';
+    for (var i in data2) {
+      h += '<div class="home-6-l bb3 collect-g-2 pre" courseId="' + data2[i].courseId + '" favoritesid="' + data2[i].collectId + '" enable="' + data2[i].enable + '" busenable="' + data2[i].busenable + '">\
+      <div class="message-left2 select-n"></div>\
+              <div class="left home-6-l-l' + (data2[i].enable == 1 && data2[i].busenable == 1 ? ('') : (' opacity_5')) + '"><img src="' + config.ossroot + data2[i].face + '" alt="" onerror="this.src=\'images/error.png\';this.onerror=null;" onload="$(this).fadeTo(\'slow\',1);" style="opacity:0;display: block;"></div>\
+              <div class="home-6-l-c' + (data2[i].enable == 1 && data2[i].busenable == 1 ? ('') : (' opacity_5')) + '">\
+              <div class="home-6-l-c-1">\
+              <div class="left home-6-l-c-1-1">' + GDict.getItem(data2[i].category2).dictname + '</div>\
+              <div class="home-6-l-c-1-2 row1">' + data2[i].courseName + '</div>\
+    </div>\
+      <div class="home-6-l-c-2 c-aaa font12 row1">' + data2[i].lessons + ' Courses &nbsp;&nbsp;' + data2[i].periods + 'min for each ' + '<span class="c-violet-1">' + (data2[i].full_obj ? parseInt(data2[i].full_obj.signupcount) : '0') + ' Classes' + (data2[i].full_obj && data2[i].full_obj.full_count != 0 ? '(' + data2[i].full_obj.full_count + ' Fulled)' : '') + '</span><span class="home-6-l-c-2-hot brp hot' + (data2[i].full_obj && data2[i].full_obj.newestcount > 0 ? '' : ' hide') + '"></span></div>\
+      <div class="home-6-l-c-5 ovf">\
+                        <div class="left home-6-l-c-4-4 ovf">\
+                        <div class="left search-goods-l-c-2-1 pre brp starl-n"><div class="search-goods-l-c-2-2 brp starl-y" style="width:' + (data2[i].evaluateValue / 5) * 100 + '%"></div></div>\
+                        <div class="left ml5 c-aaa">' + data2[i].evaluateValue + '</div>\
+                        </div>\
+                        <div class="left c-yellow-1 ml15">A$<span class="font18">' + data2[i].price + '</span></div>\
+                    </div>\
+      <div class="home-6-l-c-3 c-aaa font12 brp location2">' + data2[i].addrRegSuburb + '</div>\
+      <div class="home-6-l-c-4 c-aaa font12 ovf bt3">\
+                      <div class="home-6-l-c-4-1 brp age mt5">Age:' + GDict.getItem(data2[i].ageLimit).dictname + '</div>\
+                      <div class="home-6-l-c-4-1 brp' + (data2[i].sex == 2 ? (' boy') : (data2[i].sex == 3 ? (' girl') : (' sex'))) + '">Gender:' + (data2[i].sex == 2 ? (' boy') : (data2[i].sex == 3 ? (' girl') : (' No screening'))) + '</div>\
+                        </div>\
+          </div>\
+          <div class="cboth"></div>\
+          <div class="c-red-1 collect-cutMoney hide">cut prices：A$300</div>\
+          </div>';
+    }
+    $(".collect-l2s").append(h);
+
+    favorites_CoursesArr = favorites_CoursesArr.concat(data2);
+
+    cb && cb(noLoadFlag);
+  }
+
+  //得到文章
+  function getTopics(data2) {
+    var h = '';
+    for (var i in data2) {
+      h += '<div class="HT-l bb3 collect-g-3 pre" articleid="' + data2[i].articleid + '" favoritesid="' + data2[i].collectId + '" enable="' + data2[i].enable + '">\
+      <div class="message-left2 select-n"></div>\
+      <div class="HT-l-l' + (data2[i].enable == 1 ? ('') : (' opacity_5')) + '"><img src="' + config.ossroot + data2[i].face + '" alt="" onerror="this.src=\'images/error.png\';this.onerror=null;" onload="$(this).fadeTo(\'slow\',1);" style="opacity:0;display: block;"></div>\
+              <div class="HT-l-c' + (data2[i].enable == 1 ? ('') : (' opacity_5')) + '">\
+              <div class="HT-l-c-1 row2">' + data2[i].articlename + '</div>\
+      <div class="HT-l-c-2 ovf">\
+        <div class="HT-l-c-2-1 brp ydl">' + data2[i].readcount + '</div>\
+        <div class="HT-l-c-2-1 brp time">' + data2[i].subdate.replace(/\.0/g, '') + '</div>\
+        </div>\
+        </div>\
+        <div class="cboth"></div>\
+        </div>';
+    }
+    $(".collect-l3s").append(h);
+
+    favorites_topicsArr = favorites_topicsArr.concat(data2);
+  }
+
+  //编辑
+  function edit() {
+    pageData.editFlag = !pageData.editFlag;
+    if ($(".menu1").html() == "Edit") {
+      $(".menu1").html("Done");
+      $("footer").removeClass("hide");
+    } else {
+      $(".menu1").html("Edit");
+      $("footer").addClass("hide");
+    }
+    Comm.resizeSection();
+
+    if (pageData.editFlag) {
+      if (pageData.favType == 1) {
+        $(".collect-g-1").animate({ left: '+50px' }, "fast");
+      } else if (pageData.favType == 2) {
+        $(".collect-g-2").animate({ left: '+50px' }, "fast");
+      } else if (pageData.favType == 3) {
+        $(".collect-g-3").animate({ left: '+50px' }, "fast");
+      }
+    } else {
+      if (pageData.favType == 1) {
+        $(".collect-g-1").animate({ left: '+0px' }, "fast");
+      } else if (pageData.favType == 2) {
+        $(".collect-g-2").animate({ left: '+0px' }, "fast");
+      } else if (pageData.favType == 3) {
+        $(".collect-g-3").animate({ left: '+0px' }, "fast");
+      }
+    }
+  }
+
+  //删除
+  function collect_d() {
+    if (pageData.favType == 1) {
+      if (favorites_institutionsArr.length == 0) {
+        Comm.message("No removable favorites");
+        return;
+      }
+
+      if ($(".collect-g-1 .select-y").length == 0) {
+        Comm.message("Please select the favorites to delete");
+        return;
+      }
+    } else if (pageData.favType == 2) {
+      if (favorites_CoursesArr.length == 0) {
+        Comm.message("No removable favorites");
+        return;
+      }
+
+      if ($(".collect-g-2 .select-y").length == 0) {
+        Comm.message("Please select the favorites to delete");
+        return;
+      }
+    } else if (pageData.favType == 3) {
+      if (favorites_topicsArr.length == 0) {
+        Comm.message("No removable favorites");
+        return;
+      }
+
+      if ($(".collect-g-3 .select-y").length == 0) {
+        Comm.message("Please select the favorites to delete");
+        return;
+      }
+    }
+
+    Comm.confirm('Delete collections?', function (a) {
+      if (a == 1) {
+        var favoritesids = [];
+        var num1 = 0;
+        var deleteArr1 = [];
+
+        if (pageData.favType == 1) {
+          num1 = favorites_institutionsArr.length;
+
+          for (var i = 0; i < num1; i++) {
+            if ($($(".collect-g-1 .select-n")[i]).hasClass("select-y")) {
+              favoritesids.push(favorites_institutionsArr[i].collectId);
+              deleteArr1.push(i);
+            }
+          }
+        } else if (pageData.favType == 2) {
+          num1 = favorites_CoursesArr.length;
+
+          for (var i = 0; i < num1; i++) {
+            if ($($(".collect-g-2 .select-n")[i]).hasClass("select-y")) {
+              favoritesids.push(favorites_CoursesArr[i].collectId);
+              deleteArr1.push(i);
+            }
+          }
+        } else if (pageData.favType == 3) {
+          num1 = favorites_topicsArr.length;
+
+          for (var i = 0; i < num1; i++) {
+            if ($($(".collect-g-3 .select-n")[i]).hasClass("select-y")) {
+              favoritesids.push(favorites_topicsArr[i].collectId);
+              deleteArr1.push(i);
+            }
+          }
+        }
+
+        console.log(favoritesids);
+
+        AJAX2.post("api/collect/remove", { collectids: favoritesids.join(",") }, function (data) {
+//          deleteArr1.reverse();
+//
+//          for (var i in deleteArr1) {
+//            if (pageData.favType == 1) {
+//              favorites_institutionsArr.splice(deleteArr1[i], 1);
+//            } else if (pageData.favType == 2) {
+//              favorites_CoursesArr.splice(deleteArr1[i], 1);
+//            } else if (pageData.favType == 3) {
+//              favorites_topicsArr.splice(deleteArr1[i], 1);
+//            }
+//          }
+//
+//          for (var i in favoritesids) {
+//            if (pageData.favType == 1) {
+//              $(".collect-g-1").filter("[favoritesid='" + favoritesids[i] + "']").remove();
+//            } else if (pageData.favType == 2) {
+//              $(".collect-g-2").filter("[favoritesid='" + favoritesids[i] + "']").remove();
+//            } else if (pageData.favType == 3) {
+//              $(".collect-g-3").filter("[favoritesid='" + favoritesids[i] + "']").remove();
+//            }
+//          }
+//
+//          if (pageData.favType == 1 && favorites_institutionsArr.length <= 0) {
+//            $(".noDataS").removeClass("hide");
+//            mui('#refreshContainer').pullRefresh().disablePullupToRefresh();
+//            $("footer").addClass("hide");
+//            Comm.resizeSection();
+//            $(".menu1").html("Edit");
+//            pageData.editFlag = !pageData.editFlag;
+//          } else if (pageData.favType == 2 && favorites_CoursesArr.length <= 0) {
+//            $(".noDataS").removeClass("hide");
+//            mui('#refreshContainer').pullRefresh().disablePullupToRefresh();
+//            $("footer").addClass("hide");
+//            Comm.resizeSection();
+//            $(".menu1").html("Edit");
+//            pageData.editFlag = !pageData.editFlag;
+//          } else if (pageData.favType == 3 && favorites_topicsArr.length <= 0) {
+//            $(".noDataS").removeClass("hide");
+//            mui('#refreshContainer').pullRefresh().disablePullupToRefresh();
+//            $("footer").addClass("hide");
+//            Comm.resizeSection();
+//            $(".menu1").html("Edit");
+//            pageData.editFlag = !pageData.editFlag;
+//          }
+
+          Comm.message("Deleted");
+          pageData.pageno = 1;
+          pageData.totalPage = 1;
+          pageData.ifFirst = true;
+          favorites_institutionsArr = [];
+          favorites_CoursesArr = [];
+          favorites_topicsArr = [];
+          $(".menu1").html("Edit");
+          pageData.editFlag = false;
+          $("#selectAll").removeClass("select-y");
+          $(".noDataS").addClass("hide");
+          $(".collect-l1s").html("");
+          $(".collect-l2s").html("");
+          $(".collect-l3s").html("");
+          $("footer").addClass("hide");
+          Comm.resizeSection();
+          mui('#refreshContainer').scroll().scrollTo(0, 0);
+          upData();
+
+        }, function (data) {
+          Comm.message(data);
+        })
+      }
+    })
+  }
+
+  //返回是否取消收藏判断
+  function ifcollect(d) {
+    if (!user) {
+      return;
+    }
+
+    if (pageData.favType == 1) {
+      for (var i in favorites_institutionsArr) {
+        if (favorites_institutionsArr[i].businessId == d.itemid) {
+          init();
+
+//          $(".collect-g-1").filter("[favoritesid='" + favorites_institutionsArr[i].collectId + "']").remove();
+//          favorites_institutionsArr.splice(parseInt(i), 1);
+//
+//          if (favorites_institutionsArr.length <= 0 && pageData.pageno == pageData.totalPage) {
+//            $(".noDataS").removeClass("hide");
+//          }
+//          break;
+        }
+      }
+    } else if (pageData.favType == 2) {
+      for (var i in favorites_CoursesArr) {
+        if (favorites_CoursesArr[i].courseId == d.itemid) {
+          init();
+
+//          $(".collect-g-2").filter("[favoritesid='" + favorites_CoursesArr[i].collectId + "']").remove();
+//          favorites_CoursesArr.splice(parseInt(i), 1);
+//          break;
+        }
+      }
+    } else if (pageData.favType == 3) {
+      for (var i in favorites_topicsArr) {
+        if (favorites_topicsArr[i].articleid == d.itemid) {
+          init();
+
+//          $(".collect-g-3").filter("[favoritesid='" + favorites_topicsArr[i].collectId + "']").remove();
+//          favorites_topicsArr.splice(parseInt(i), 1);
+//          break;
+        }
+      }
+    }
+  }
+
+  //全选
+  function selectAll() {
+    $(event.target).toggleClass("select-y");
+    if ($(event.target).hasClass("select-y")) {
+      if (pageData.favType == 1) {
+        $(".collect-g-1 .message-left").addClass("select-y");
+      } else if (pageData.favType == 2) {
+        $(".collect-g-2 .message-left2").addClass("select-y");
+      } else if (pageData.favType == 3) {
+        $(".collect-g-3 .message-left2").addClass("select-y");
+      }
+    } else {
+      if (pageData.favType == 1) {
+        $(".collect-g-1 .message-left").removeClass("select-y");
+      } else if (pageData.favType == 2) {
+        $(".collect-g-2 .message-left2").removeClass("select-y");
+      } else if (pageData.favType == 3) {
+        $(".collect-g-3 .message-left2").removeClass("select-y");
+      }
+    }
+  }
+
+  //是否全选
+  function ifselectAll() {
+    if (pageData.favType == 1) {
+      if ($(".collect-l1s .select-n").length == $(".collect-l1s .select-y").length) {
+        $("#selectAll").addClass("select-y");
+      } else {
+        $("#selectAll").removeClass("select-y");
+      }
+    } else if (pageData.favType == 2) {
+      if ($(".collect-l2s .select-n").length == $(".collect-l2s .select-y").length) {
+        $("#selectAll").addClass("select-y");
+      } else {
+        $("#selectAll").removeClass("select-y");
+      }
+    } else if (pageData.favType == 3) {
+      if ($(".collect-l3s .select-n").length == $(".collect-l3s .select-y").length) {
+        $("#selectAll").addClass("select-y");
+      } else {
+        $("#selectAll").removeClass("select-y");
+      }
+    }
+  }
+</script>
+</body>
+</html>

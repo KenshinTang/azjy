@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title></title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no">
+  <meta http-equiv="Cache-Control" content="public" >
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="format-detection" content="telephone=no">
+  <meta name="apple-mobile-web-app-status-bar-style"  content="black" />
+  <meta name="renderer" content="webkit">
+  <meta name="description" content="All About Children">
+  <meta name="keywords" content="All About Children">
+  <link rel="stylesheet" href="mui/css/mui.min.css">
+  <link rel="stylesheet" href="inc/g.css" type="text/css">
+  <link rel="stylesheet" href="css/common.css" type="text/css">
+  <link rel="stylesheet" href="css/unique.css" type="text/css">
+  <script src="js/jquery-3.1.1.min.js"></script>
+  <script type="text/javascript" src="js/common.js"></script>
+  <style>
+    body > footer {
+      overflow: initial;
+    }
+    .selectTheme-l{
+      display: inline-block;
+      width: auto;
+      text-align: center;
+      padding: 0px 20px;
+    }
+  </style>
+</head>
+<body>
+<header>
+  <div class="menu1 c-green-1" onclick="Comm.go('post.html')">Post</div>
+  <div class="titlebar">Forum</div>
+  <div class="home-3" style="height:30vw;">
+    <!--<img src="images/test/goods3.png" alt="" onerror="this.src='images/error.png';this.onerror=null;" onload="$(this).fadeTo('slow',1);" style="opacity:0;display: block;">-->
+  </div>
+  <div class="selectTheme-h1 ovf" style="border-bottom:0px;">
+    <div class="selectTheme-h2">
+      <!--<div class="selectTheme-l brp selectTheme-l-active">All</div>-->
+      <!--<div class="selectTheme-l brp">bb</div>-->
+      <!--<div class="selectTheme-l brp">bb</div>-->
+      <!--<div class="selectTheme-l brp">bb</div>-->
+      <!--<div class="selectTheme-l brp">bb</div>-->
+      <!--<div class="selectTheme-l brp">bb</div>-->
+    </div>
+  </div>
+</header>
+
+<section class="pre">
+  <div id="refreshContainer" class="mui-content mui-scroll-wrapper">
+    <div class="mui-scroll">
+      <!--数据列表-->
+      <ul class="mui-table-view mui-table-view-chevron" id="listView">
+
+        <div class="noDataS hide">
+          <div class="noDataS-1 brpscn"></div>
+          <div class="noDataS-2">Sorry, there is no relevant data</div>
+        </div>
+
+        <div class="forum-ls"></div>
+
+      </ul>
+    </div>
+  </div>
+
+  <!--<div class="forum-ls">-->
+    <!--<div class="forum-l" onclick="Comm.go('forumDetail.html')">-->
+      <!--<div class="forum-l-1 ovf">-->
+        <!--<div class="left forum-l-1-l"><img src="images/test/goods2.jpg" alt="" onerror="this.src='images/error.png';this.onerror=null;" onload="$(this).fadeTo('slow',1);" style="opacity:0;display: block;"></div>-->
+        <!--<div class="right forum-l-1-r">2 hours ago</div>-->
+        <!--<div class="forum-l-1-c">shinaniry</div>-->
+      <!--</div>-->
+      <!--<div class="forum-l-2">Should parents not let their children think that scores are important?</div>-->
+      <!--<div class="ovf forum-l-3">-->
+        <!--<div class="forum-l-3-c brp like-n pre"><div class="forum-l-3-c-1">300</div></div>-->
+        <!--<div class="forum-l-3-c brp message2 pre"><div class="forum-l-3-c-1">300</div></div>-->
+        <!--<div class="forum-l-3-c brp share3 pre"><div class="forum-l-3-c-1">300</div></div>-->
+      <!--</div>-->
+    <!--</div>-->
+    <!--<div class="sp5"></div>-->
+  <!--</div>-->
+</section>
+
+<footer>
+  <ul>
+    <li class="index1-0" onclick="window.location.href='home.html'">Home</li>
+    <li class="index2-0" onclick="window.location.href='searchCourse.html'">Search</li>
+    <li class="index3-0 pre" onclick="window.location.href='myCourse.html'"><div class="index-search brp"><div class="index-search2 brp"></div></div></li>
+    <li class="index4-1">Forum</li>
+    <li class="index5-0" onclick="window.location.href='mine.html'">My</li>
+  </ul>
+</footer>
+
+<script src="inc/g.js"></script>
+<script src="js/md5.js"></script>
+<script src="inc/dict.js"></script>
+<script src="mui/js/mui.min.js"></script>
+
+<script>
+  var user = Comm.db("user");
+  var pageData = {pageno: 1, totalPage: 1, ifFirst: true, classify: ""};
+  var postList_arr = [];
+
+  function pageload() {
+    mui.init({
+      pullRefresh: {
+        container: "#refreshContainer",//下拉刷新容器标识，querySelector能定位的css选择器均可，比如：id、.class等
+        up: {
+          height: 50,//可选.默认50.触发上拉加载拖动距离
+          auto: false,//可选,默认false.自动上拉加载一次
+          contentrefresh: "loading...",//可选，正在加载状态时，上拉加载控件上显示的标题内容
+          contentnomore: "There's no more data",//可选，请求完毕若没有更多数据时显示的提醒内容；
+          contentinit: "Pull up shows more",
+          contentdown: "Pull up shows more",
+          callback: upData //必选，刷新函数，根据具体业务来编写，比如通过ajax从服务器获取新数据；
+        }
+      }
+    });
+    Comm.calcSection();
+
+    mui("#listView").off('tap');
+
+    mui("#listView").on('tap', '.forum-l', function (e) {
+      e.stopPropagation();
+      if (!checkIsLogin2()) {
+        return;
+      }
+      Comm.go('communityDetail.html?postid=' + $(this).attr("postid"));
+    })
+
+    GDict.load(function () {
+      var h = '<div class="selectTheme-l brp selectTheme-l-active" onclick="changeTheme(\'\')">All</div>';
+      for (var i in GDict._data.postType) {
+        h += '<div class="selectTheme-l brp" onclick="changeTheme(' + GDict._data.postType[i].dictid + ')">' + GDict._data.postType[i].dictname + '</div>';
+      }
+      $(".selectTheme-h2").html(h);
+      getAd();
+      upData();
+    });
+  }
+
+  function pageresume(){
+    var obj_post = Comm.db("obj_post");
+    Comm.db("obj_post", null);
+    if (obj_post && obj_post.change == 1) {
+      if (obj_post.remove == 1) {
+        init();
+        return;
+      }
+
+      var islikediv = $(".forum-l").filter("[postid='" + obj_post.postid + "']").find(".like-n div");
+      $(islikediv).html(parseInt($(islikediv).html()) + obj_post.isLike);
+      $(".forum-l").filter("[postid='" + obj_post.postid + "']").find(".message2 div").html(obj_post.commentLength);
+      $(".forum-l").filter("[postid='" + obj_post.postid + "']").find(".share3 div").html(obj_post.shareLength);
+    }
+
+    var posted = Comm.db("posted");
+    Comm.db("posted", null);
+    if (posted && posted.flag == 1) {
+      init();
+    }
+  }
+
+  function upData() {
+    getPostList(function (flag) {
+      mui('#refreshContainer').pullRefresh().endPullupToRefresh(flag);
+    });
+  }
+
+  function init() {
+    pageData.pageno = 1;
+    pageData.totalPage = 1;
+    pageData.ifFirst = true;
+    $(".noDataS").addClass("hide");
+    postList_arr = [];
+    $(".forum-ls").html("");
+    mui('#refreshContainer').scroll().scrollTo(0, 0);
+    upData();
+  }
+
+  //初始化
+  function changeTheme(classify) {
+    if (pageData.classify == classify) {
+      return;
+    }
+
+    pageData.pageno = 1;
+    pageData.totalPage = 1;
+    pageData.ifFirst = true;
+    pageData.classify = classify;
+    $(".selectTheme-l").removeClass("selectTheme-l-active");
+    $(event.target).addClass("selectTheme-l-active");
+    $(".noDataS").addClass("hide");
+    postList_arr = [];
+    $(".forum-ls").html("");
+    mui('#refreshContainer').scroll().scrollTo(0, 0);
+    upData();
+  }
+
+  //得到数据
+  function getPostList(cb) {
+    AJAX2.get("api/post/list", {classify: pageData.classify, pageno: pageData.pageno, pagesize: config.pagesize}, function (a) {
+      if (pageData.ifFirst == true) {
+        pageData.ifFirst = false;
+        pageData.totalPage = Math.ceil(a.totalCount / config.pagesize);
+      }
+
+      var data = a.data;
+      var noLoadFlag;
+      if (pageData.totalPage > pageData.pageno) {
+        noLoadFlag = false;
+        pageData.pageno++;
+      } else {
+        noLoadFlag = true;
+      }
+      data = data.splice(0, config.pagesize);
+
+      if (data && data.length > 0) {
+        $(".noDataS").addClass("hide");
+        mui('#refreshContainer').pullRefresh().enablePullupToRefresh();
+      } else {
+        $(".noDataS").removeClass("hide");
+        mui('#refreshContainer').pullRefresh().disablePullupToRefresh();
+      }
+
+      var h = '';
+      for (var i in data) {
+        h += '<div class="forum-l" postid="' + data[i].postid +  '">\
+        <div class="forum-l-1 ovf">\
+                <div class="left forum-l-1-l"><img src="' + config.ossroot + data[i].face + '" alt="" onerror="this.src=\'images/personal.png\';this.onerror=null;" onload="$(this).fadeTo(\'slow\',1);" style="opacity:0;display: block;"></div>\
+                <div class="right forum-l-1-r">' + CommonFunction.timeFormat3(data[i].createtime.replace(/\.0/g, '').replace(/-/g, '/')) + '</div>\
+        <div class="forum-l-1-c row1">' + data[i].customerName + '</div>\
+                </div>\
+                <div class="forum-l-2 row2">' + data[i].title + '</div>\
+        <div class="ovf forum-l-3">\
+          <div class="forum-l-3-c brp like-n pre"><div class="forum-l-3-c-1">' + data[i].likecount + '</div></div>\
+          <div class="forum-l-3-c brp message2 pre"><div class="forum-l-3-c-1">' + data[i].commentcount + '</div></div>\
+          <div class="forum-l-3-c brp share3 pre"><div class="forum-l-3-c-1">' + data[i].shareCount + '</div></div>\
+          </div>\
+          </div>\
+          <div class="sp5"></div>';
+      }
+      $(".forum-ls").append(h);
+
+      postList_arr = postList_arr.concat(data);
+
+      cb && cb(noLoadFlag);
+
+    }, function(data) {
+      Comm.message(data);
+    })
+  }
+
+  //广告
+  function getAd() {
+    AJAX2.get("api/advert/list", {postion: 70, pageno: 1, pagesize: 10}, function (data){
+      $(".home-3").html('<img src="' + config.ossroot + data[0].face + '" alt="" onerror="this.src=\'images/error.png\';this.onerror=null;" onload="$(this).fadeTo(\'slow\',1);" style="opacity:0;display: block;" onclick="goAd(' + data[0].adType + ', ' + data[0].itemID + ')">');
+
+    }, function(data) {
+      Comm.message(data);
+    })
+  }
+
+  function goAd(adtype, itemID) {
+    if (adtype == 1) {
+      Comm.go("institutionsDetail.html?businessId=" + itemID);
+    } else if (adtype == 2) {
+      Comm.go("institutionsCourseDetail.html?courseId=" + itemID);
+    } else if (adtype == 3) {
+      Comm.go("articleDetail.html?aid=" + itemID);
+    }
+  }
+</script>
+</body>
+</html>

@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title></title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no">
+  <meta http-equiv="Cache-Control" content="public" >
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="format-detection" content="telephone=no">
+  <meta name="apple-mobile-web-app-status-bar-style"  content="black" />
+  <meta name="renderer" content="webkit">
+  <meta name="description" content="All About Children">
+  <meta name="keywords" content="All About Children">
+  <link rel="stylesheet" href="mui/css/mui.min.css">
+  <link rel="stylesheet" href="inc/g.css" type="text/css">
+  <link rel="stylesheet" href="css/common.css" type="text/css">
+  <link rel="stylesheet" href="css/unique.css" type="text/css">
+  <script src="js/jquery-3.1.1.min.js"></script>
+  <script type="text/javascript" src="js/common.js"></script>
+</head>
+<body>
+<header>
+  <div class="back1" onclick="Comm.close();"></div>
+  <div class="menu1"></div>
+  <div class="titlebar">My order</div>
+  <div class="ovf order-t">
+    <div class="order-t-c brp order-t-c-active" onclick="changeTheme('')">All</div>
+    <div class="order-t-c brp" onclick="changeTheme('1,2')">Not paid</div>
+    <div class="order-t-c brp" style="width:28%" onclick="changeTheme('3')">Starting soon</div>
+    <div class="order-t-c brp" onclick="changeTheme('4')">Started</div>
+    <div class="order-t-c brp" onclick="changeTheme('5')">Done</div>
+  </div>
+</header>
+
+<section class="pre">
+  <div id="refreshContainer" class="mui-content mui-scroll-wrapper">
+    <div class="mui-scroll">
+      <!--数据列表-->
+      <ul class="mui-table-view mui-table-view-chevron" id="listView">
+
+        <div class="noDataS hide">
+          <div class="noDataS-1 brpscn"></div>
+          <div class="noDataS-2">Sorry, there is no relevant data</div>
+        </div>
+
+        <div class="order-ls"></div>
+
+      </ul>
+    </div>
+  </div>
+
+  <!--<div class="order-ls">-->
+    <!--<div class="order-l" onclick="Comm.go('orderDetail.html')">-->
+      <!--<div class="sp10"></div>-->
+      <!--<div class="order-l-1 ovf">-->
+        <!--<div class="left">Institutions Name</div>-->
+        <!--<div class="right c-red-1">Not paid</div>-->
+      <!--</div>-->
+      <!--<div class="order-l-2 bg-grey-1">-->
+        <!--<div class="order-l-2-l ovf">-->
+          <!--<div class="left order-l-2-l-l"><img src="images/test/goods3.png" alt="" onerror="this.src='images/error.png';this.onerror=null;" onload="$(this).fadeTo('slow',1);" style="opacity:0;display: block;"></div>-->
+          <!--<div class="order-l-2-l-c">-->
+            <!--<div class="order-l-2-l-c-1 mt10">-->
+              <!--<div class="home-6-l-c-1">-->
+                <!--<div class="left home-6-l-c-1-1 brp course">Math</div>-->
+                <!--<div class="home-6-l-c-1-2 row1">First-grade training math class</div>-->
+              <!--</div>-->
+            <!--</div>-->
+            <!--<div class="order-l-2-l-c-2">-->
+              <!--<div class="left">Start date：08.01-09.01</div>-->
+              <!--<div class="right">Educator：Casey</div>-->
+            <!--</div>-->
+            <!--<div class="order-l-2-l-c-3">-->
+              <!--<div class="right order-l-2-l-c-3-2 c-333 font14">A$300</div>-->
+              <!--<div class="order-l-2-l-c-3-1 row1">Child’s name：Casey</div>-->
+            <!--</div>-->
+          <!--</div>-->
+        <!--</div>-->
+      <!--</div>-->
+      <!--<div class="order-l-3 bb3"><span>Total：</span><span class="c-yellow-1">A$</span><span class="c-yellow-1 font18">300</span></div>-->
+      <!--<div class="order-b-ls bb3">-->
+        <!--<div class="order-b-l order-b-l-active">Pay Now</div>-->
+        <!--<div class="order-b-l">Cancel Order</div>-->
+      <!--</div>-->
+    <!--</div>-->
+
+    <!--<div class="order-l">-->
+      <!--<div class="sp10"></div>-->
+      <!--<div class="order-l-1 ovf">-->
+        <!--<div class="left">Institutions Name</div>-->
+        <!--<div class="right c-red-1">Not paid</div>-->
+      <!--</div>-->
+      <!--<div class="order-l-2 bg-grey-1">-->
+        <!--<div class="order-l-2-l ovf">-->
+          <!--<div class="left order-l-2-l-l"><img src="images/test/goods3.png" alt="" onerror="this.src='images/error.png';this.onerror=null;" onload="$(this).fadeTo('slow',1);" style="opacity:0;display: block;"></div>-->
+          <!--<div class="order-l-2-l-c">-->
+            <!--<div class="order-l-2-l-c-1 mt10">-->
+              <!--<div class="home-6-l-c-1">-->
+                <!--<div class="left home-6-l-c-1-1 brp course">Math</div>-->
+                <!--<div class="home-6-l-c-1-2 row1">First-grade training math class</div>-->
+              <!--</div>-->
+            <!--</div>-->
+            <!--<div class="order-l-2-l-c-2">-->
+              <!--<div class="left">Start date：08.01-09.01</div>-->
+              <!--<div class="right">Educator：Casey</div>-->
+            <!--</div>-->
+            <!--<div class="order-l-2-l-c-3">-->
+              <!--<div class="right order-l-2-l-c-3-2 c-333 font14">A$300</div>-->
+              <!--<div class="order-l-2-l-c-3-1 row1">Child’s name：Casey</div>-->
+            <!--</div>-->
+          <!--</div>-->
+        <!--</div>-->
+      <!--</div>-->
+      <!--<div class="order-l-3 bb3"><span>Total：</span><span class="c-yellow-1">A$</span><span class="c-yellow-1 font18">300</span></div>-->
+      <!--<div class="order-b-ls bb3">-->
+        <!--<div class="order-b-l order-b-l-active">Pay Now</div>-->
+        <!--<div class="order-b-l">Cancel Order</div>-->
+      <!--</div>-->
+    <!--</div>-->
+  <!--</div>-->
+</section>
+
+<script src="inc/g.js"></script>
+<script src="js/md5.js"></script>
+<script src="inc/dict.js"></script>
+<script src="mui/js/mui.min.js"></script>
+
+<script>
+  var user = Comm.db("user");
+  var pageData = {pageno: 1, totalPage: 1, ifFirst: true, orderstate: ""};
+  var orderStateObj = {1: "Not paid", 2: "Not paid", 3: "Starting soon", 4: "Started", 5: "Done", 7: "no verify", 8: "verify", 9: "cancel", 10: "Refund success", 11: "refunding"};
+  var orderListArr = [];
+  Comm.db("submitObj_l", null);
+
+  function pageload() {
+    GDict.load(function () {
+      mui.init({
+        pullRefresh: {
+          container: "#refreshContainer",//下拉刷新容器标识，querySelector能定位的css选择器均可，比如：id、.class等
+          up: {
+            height: 50,//可选.默认50.触发上拉加载拖动距离
+            auto: false,//可选,默认false.自动上拉加载一次
+            contentrefresh: "loading...",//可选，正在加载状态时，上拉加载控件上显示的标题内容
+            contentnomore: "There's no more data",//可选，请求完毕若没有更多数据时显示的提醒内容；
+            contentinit: "Pull up shows more",
+            contentdown: "Pull up shows more",
+            callback: upData //必选，刷新函数，根据具体业务来编写，比如通过ajax从服务器获取新数据；
+          }
+        }
+      });
+      Comm.calcSection();
+
+      mui("#listView").off('tap');
+
+      mui("#listView").on('tap', '.order-l-1', function (e) {
+        e.stopPropagation();
+        Comm.go('orderDetail.html?oid=' + $(this).attr("ordersId"));
+      })
+
+      mui("#listView").on('tap', '.order-l-2', function (e) {
+        e.stopPropagation();
+        Comm.go('orderDetail.html?oid=' + $(this).attr("ordersId"));
+      })
+
+      mui("#listView").on('tap', '.order-b-l', function (e) {
+        e.stopPropagation();
+
+        if ($(e.target).hasClass("order_pay")) {
+          order_pay($(e.target).attr("ordersId"));
+
+        } else if ($(e.target).hasClass("order_cancel")) {
+          order_cancel($(e.target).attr("ordersId"));
+
+        } else if ($(e.target).hasClass("order_detail")) {
+          Comm.go('orderDetail.html?oid=' + $(this).attr("ordersId"));
+
+        } else if ($(e.target).hasClass("order_eva")) {
+          order_eva($(e.target).attr("ordersId"));
+
+        } else if ($(e.target).hasClass("order_delete")) {
+          order_delete($(e.target).attr("ordersId"));
+
+        } else if ($(e.target).hasClass("order_code")) {
+          order_code($(e.target).attr("ordersId"));
+
+        } else if ($(e.target).hasClass("order_refund")) {
+          order_refund($(e.target).attr("ordersId"));
+
+        }
+      })
+
+      upData();
+    });
+  }
+
+  function pageresume() {
+    var o1 = Comm.db("order-l");
+    Comm.db("order-l", null);
+    console.log(o1);
+
+    if (o1 && o1.change == 1) {
+      if (o1.iscomment == 1) {
+        for (var i in orderListArr) {
+          if (orderListArr[i].ordersId == o1.ordersId) {
+            $(".order-l").filter("[ordersId='" + o1.ordersId + "']").find(".order-b-ls").html('<div class="order-b-l order_detail" ordersId="' + o1.ordersId + '">View Details</div>');
+          }
+        }
+      } else if (o1.remove == 1) {
+        $(".order-l").filter("[ordersId='" + o1.ordersId + "']").remove();
+
+        for (var i in orderListArr) {
+          if (orderListArr[i].ordersId == o1.ordersId) {
+            orderListArr.splice(i, 1);
+            break;
+          }
+        }
+
+        if (orderListArr.length <= 0 && $(".mui-pull-caption-nomore").html() == "There's no more data") {
+          $(".order-ls").html("");
+          $(".noDataS").removeClass("hide");
+          mui('#refreshContainer').pullRefresh().disablePullupToRefresh();
+        }
+
+      } else if (o1.status == 9) {
+        if (pageData.orderstate == "") {
+          $(".order-l").filter("[ordersId='" + o1.ordersId + "']").find(".order-b-ls").html('<div class="order-b-l order_detail" ordersId="' + o1.ordersId + '">View Details</div>');
+          $(".order-l").filter("[ordersId='" + o1.ordersId + "']").find(".order-text").html("cancel");
+        } else {
+          $(".order-l").filter("[ordersId='" + o1.ordersId + "']").remove();
+
+          for (var i in orderListArr) {
+            if (orderListArr[i].ordersId == o1.ordersId) {
+              orderListArr.splice(i, 1);
+              break;
+            }
+          }
+
+          if (orderListArr.length <= 0 && $(".mui-pull-caption-nomore").html() == "There's no more data") {
+            $(".order-ls").html("");
+            $(".noDataS").removeClass("hide");
+            mui('#refreshContainer').pullRefresh().disablePullupToRefresh();
+          }
+        }
+      } else if (o1.status == 11) {
+        if (pageData.orderstate == "") {
+          $(".order-l").filter("[ordersId='" + o1.ordersId + "']").find(".order-b-ls").html('<div class="order-b-l order_detail" ordersId="' + o1.ordersId + '">View Details</div>');
+          $(".order-l").filter("[ordersId='" + o1.ordersId + "']").find(".order-text").html("refunding");
+        } else {
+          $(".order-l").filter("[ordersId='" + o1.ordersId + "']").remove();
+
+          for (var i in orderListArr) {
+            if (orderListArr[i].ordersId == o1.ordersId) {
+              orderListArr.splice(i, 1);
+              break;
+            }
+          }
+
+          if (orderListArr.length <= 0 && $(".mui-pull-caption-nomore").html() == "There's no more data") {
+            $(".order-ls").html("");
+            $(".noDataS").removeClass("hide");
+            mui('#refreshContainer').pullRefresh().disablePullupToRefresh();
+          }
+        }
+      }
+    }
+  }
+
+  function upData() {
+    getOrderList(function (flag) {
+      mui('#refreshContainer').pullRefresh().endPullupToRefresh(flag);
+    });
+  }
+
+  function changeTheme(t) {
+    if (pageData.orderstate == t) {
+      return;
+    }
+
+    pageData.pageno = 1;
+    pageData.totalPage = 1;
+    pageData.ifFirst = true;
+    pageData.orderstate = t;
+    $(".order-t-c").removeClass("order-t-c-active");
+    $(event.target).addClass("order-t-c-active");
+    orderListArr = [];
+    $(".order-ls").html("");
+    mui('#refreshContainer').scroll().scrollTo(0, 0);
+    upData();
+  }
+
+  //订单列表
+  function getOrderList(cb) {
+    AJAX2.get("api/order/list", {orderstate: pageData.orderstate, pageno: pageData.pageno, pagesize: config.pagesize}, function (a){
+      if (pageData.ifFirst == true) {
+        pageData.ifFirst = false;
+        pageData.totalPage = Math.ceil(a.totalCount / config.pagesize);
+      }
+
+      var data = a.data;
+      var noLoadFlag;
+      if (pageData.totalPage > pageData.pageno) {
+        noLoadFlag = false;
+        pageData.pageno++;
+      } else {
+        noLoadFlag = true;
+      }
+      data = data.splice(0, config.pagesize);
+
+      if (data && data.length > 0) {
+        $(".noDataS").addClass("hide");
+        mui('#refreshContainer').pullRefresh().enablePullupToRefresh();
+      } else {
+        $(".noDataS").removeClass("hide");
+        mui('#refreshContainer').pullRefresh().disablePullupToRefresh();
+        return;
+      }
+
+      var h = '';
+      for (var i in data) {
+        h += '<div class="order-l" ordersId="' + data[i].ordersId + '">\
+        <div class="sp10"></div>\
+                <div class="order-l-1 ovf" ordersId="' + data[i].ordersId + '">\
+        <div class="right c-red-1 order-text tar">' + orderStateObj[data[i].orderState] + '</div>\
+        <div class="word row1 order-l-1-c">' + data[i].tradingName + '</div>\
+        </div>\
+        <div class="order-l-2 bg-grey-1" ordersId="' + data[i].ordersId + '">\
+                <div class="order-l-2-l ovf">\
+                <div class="left order-l-2-l-l"><img src="' + config.ossroot + data[i].face + '" alt="" onerror="this.src=\'images/error.png\';this.onerror=null;" onload="$(this).fadeTo(\'slow\',1);" style="opacity:0;display: block;"></div>\
+                <div class="order-l-2-l-c">\
+                <div class="order-l-2-l-c-1 mt5">\
+                <div class="home-6-l-c-1">\
+                <div class="left home-6-l-c-1-1">' + GDict.getName(data[i].category2) + '</div>\
+                <div class="home-6-l-c-1-2 row1">' + data[i].courseName + '</div>\
+      </div>\
+      </div>\
+        <div class="order-l-2-l-c-2">\
+          <div class="left order-l-2-l-c-2-1">Start date：' + data[i].startDate + '</div>\
+          <div class="right row1 order-l-2-l-c-2-2">Educator：' + data[i].teacher + '</div>\
+        </div>\
+        <div class="order-l-2-l-c-3">\
+          <div class="right order-l-2-l-c-3-2 c-333 font14 row1">A$' + data[i].payMoney + '</div>\
+          <div class="order-l-2-l-c-3-1 row1">Child’s name：' + data[i].studentName + '</div>\
+        </div>\
+      </div>\
+      </div>\
+      </div>\
+        <div class="order-l-3 bb3"><span>Total：</span><span class="c-yellow-1">A$</span><span class="c-yellow-1 font18">' + data[i].payMoney +'</span></div>\
+        <div class="order-b-ls bb3">' + getButton(data[i]) + '</div>\
+        </div>';
+      }
+      $(".order-ls").append(h);
+
+      orderListArr = orderListArr.concat(data);
+
+      cb && cb(noLoadFlag);
+
+    }, function(data) {
+      Comm.message(data);
+    })
+  }
+
+  function getButton(data) {
+    if (data.orderState == 1) {
+      return '<div class="order-b-l order-b-l-active order_pay" ordersId="' + data.ordersId + '">Pay Now</div><div class="order-b-l order_cancel" ordersId="' + data.ordersId + '">Cancel Order</div>';
+    } if (data.orderState == 2) {
+      return '<div class="order-b-l order-b-l-active order_pay" ordersId="' + data.ordersId + '">Pay Now</div><div class="order-b-l order_cancel" ordersId="' + data.ordersId + '">Cancel Order</div>';
+    } if (data.orderState == 3) {
+      //isVerify:7未核销，8已核销
+      //refundState:1退款中,2同意退款,3拒绝退款
+      if (data.isVerify == 7) {
+        return '<div class="order-b-l order-b-l-active order_code" ordersId="' + data.ordersId + '">Check verification code</div><div class="order-b-l order_refund" ordersId="' + data.ordersId + '">refund</div>';
+      } else if (data.isVerify == 8) {
+        return '<div class="order-b-l order_detail" ordersId="' + data.ordersId + '">View Details</div>';
+      }
+    } if (data.orderState == 4) {
+      if (data.isVerify == 7) {
+        return '<div class="order-b-l order-b-l-active order_code" ordersId="' + data.ordersId + '">Check verification code</div>';
+      } else if (data.isVerify == 8) {
+        return '<div class="order-b-l order_detail" ordersId="' + data.ordersId + '">View Details</div>';
+      }
+    } if (data.orderState == 5) {
+      if (data.isCommet == 1) {
+        return '<div class="order-b-l order_delete" ordersId="' + data.ordersId + '">Delete Order</div>';
+      } else {
+        return '<div class="order-b-l order_eva" ordersId="' + data.ordersId + '">Review</div><div class="order-b-l order_delete" ordersId="' + data.ordersId + '">Delete Order</div>';
+      }
+    } if (data.orderState == 7) {
+      return '<div class="order-b-l order_detail" ordersId="' + data.ordersId + '">View Details</div>';
+    } if (data.orderState == 8) {
+      return '<div class="order-b-l order_detail" ordersId="' + data.ordersId + '">View Details</div>';
+    } if (data.orderState == 9) {
+      return '<div class="order-b-l order_delete" ordersId="' + data.ordersId + '">Delete Order</div>';
+    } if (data.orderState == 10) {
+      return '<div class="order-b-l order_detail" ordersId="' + data.ordersId + '">View Details</div>';
+    } if (data.orderState == 11) {
+      return '<div class="order-b-l order_detail" ordersId="' + data.ordersId + '">View Details</div>';
+    }
+  }
+
+  //订单支付
+  function order_pay(oid) {
+    Comm.go("pay.html?oid=" + oid);
+  }
+
+  //取消订单
+  function order_cancel(oid) {
+    Comm.confirm('Confirm cancel the order?', function(a) {
+      if (a == 1) {
+        AJAX2.post("api/order/cancel", {ordersId: oid}, function(data) {
+          Comm.message("Canceled");
+
+          if (pageData.orderstate == "") {
+            $(".order-l").filter("[ordersId='" + oid + "']").find(".order-b-ls").html('<div class="order-b-l order_delete" ordersId="' + oid + '">Delete Order</div>');
+            $(".order-l").filter("[ordersId='" + oid + "']").find(".order-text").html("cancel");
+          } else {
+            $(".order-l").filter("[ordersid='" + oid + "']").remove();
+
+            for (var i in orderListArr) {
+              if (orderListArr[i].ordersId == oid) {
+                orderListArr.splice(i, 1);
+                break;
+              }
+            }
+
+            if (orderListArr.length <= 0 && $(".mui-pull-caption-nomore").html() == "There's no more data") {
+              $(".order-ls").html("");
+              $(".noDataS").removeClass("hide");
+              mui('#refreshContainer').pullRefresh().disablePullupToRefresh();
+            }
+          }
+
+        }, function(data) {
+          Comm.message(data);
+        })
+      }
+    })
+  }
+
+  //查看核销码
+  function order_code(oid) {
+    for (var i in orderListArr) {
+      if (orderListArr[i].ordersId == oid) {
+        Comm.alert("code:" + orderListArr[i].verifyCode, function(a) {
+
+        })
+        break;
+      }
+    }
+  }
+
+  //订单删除
+  function order_delete(oid) {
+    Comm.confirm('Confirm delete the order?', function(a) {
+      if (a == 1) {
+        AJAX2.post("api/order/del", {ordersId: oid}, function(data) {
+          Comm.message("Deleted");
+
+          $(".order-l").filter("[ordersid='" + oid + "']").remove();
+
+          for (var i in orderListArr) {
+            if (orderListArr[i].ordersId == oid) {
+              orderListArr.splice(i, 1);
+              break;
+            }
+          }
+
+          if (orderListArr.length <= 0 && $(".mui-pull-caption-nomore").html() == "There's no more data") {
+            $(".order-ls").html("");
+            $(".noDataS").removeClass("hide");
+            mui('#refreshContainer').pullRefresh().disablePullupToRefresh();
+          }
+
+        }, function(data) {
+          Comm.message(data);
+        })
+      }
+    })
+  }
+
+  //评论
+  function order_eva(oid) {
+    for (var i in orderListArr) {
+      if (orderListArr[i].ordersId == oid) {
+        Comm.db("orderDetail", orderListArr[i]);
+        Comm.db("order-l", {ordersId: oid, change: 0, remove: 0, status: 0, iscomment: 0});
+        Comm.go('evaluation.html?oid=' + oid);
+        break;
+      }
+    }
+  }
+
+  //退款
+  function order_refund(oid) {
+    Comm.confirm('Confirm application for refund?', function(a) {
+      if (a == 1) {
+        AJAX2.post("api/order/refund", {ordersid: oid}, function(data) {
+//          Comm.message("applied");
+
+          Comm.alert("Please contact customer service refund", function(a) {
+
+          })
+
+          if (pageData.orderstate == "") {
+            $(".order-l").filter("[ordersId='" + oid + "']").find(".order-b-ls").html('<div class="order-b-l order_detail" ordersId="' + oid + '">View Details</div>');
+            $(".order-l").filter("[ordersId='" + oid + "']").find(".order-text").html("refunding");
+          } else {
+            $(".order-l").filter("[ordersid='" + oid + "']").remove();
+
+            for (var i in orderListArr) {
+              if (orderListArr[i].ordersId == oid) {
+                orderListArr.splice(i, 1);
+                break;
+              }
+            }
+
+            if (orderListArr.length <= 0 && $(".mui-pull-caption-nomore").html() == "There's no more data") {
+              $(".order-ls").html("");
+              $(".noDataS").removeClass("hide");
+              mui('#refreshContainer').pullRefresh().disablePullupToRefresh();
+            }
+          }
+
+        }, function(data) {
+          Comm.message(data);
+        })
+      }
+    })
+  }
+</script>
+</body>
+</html>

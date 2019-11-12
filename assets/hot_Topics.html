@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title></title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no">
+  <meta http-equiv="Cache-Control" content="public" >
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="format-detection" content="telephone=no">
+  <meta name="apple-mobile-web-app-status-bar-style"  content="black" />
+  <meta name="renderer" content="webkit">
+  <meta name="description" content="All About Children">
+  <meta name="keywords" content="All About Children">
+  <link rel="stylesheet" href="mui/css/mui.min.css">
+  <link rel="stylesheet" href="inc/g.css" type="text/css">
+  <link rel="stylesheet" href="css/common.css" type="text/css">
+  <link rel="stylesheet" href="css/unique.css" type="text/css">
+  <script src="js/jquery-3.1.1.min.js"></script>
+  <script type="text/javascript" src="js/common.js"></script>
+  <style>
+    .selectTheme-l{
+      display: inline-block;
+      width: auto;
+      text-align: center;
+      padding: 0px 20px;
+    }
+  </style>
+</head>
+<body>
+<header class="bb0">
+  <div class="back1" onclick="Comm.close()"></div>
+  <div class="menu1"></div>
+  <div class="titlebar">Hot topics</div>
+  <div class="home-3" style="height: 30vw;">
+    <!--<img src="images/test/goods3.png" alt="" onerror="this.src='images/error.png';this.onerror=null;" onload="$(this).fadeTo('slow',1);" style="opacity:0;display: block;">-->
+  </div>
+  <div class="selectTheme-h1 ovf">
+    <div class="selectTheme-h2">
+      <!--<div class="selectTheme-l brp selectTheme-l-active">All</div>-->
+      <!--<div class="selectTheme-l brp">bb</div>-->
+    </div>
+  </div>
+</header>
+
+<section class="pre">
+  <div id="refreshContainer" class="mui-content mui-scroll-wrapper">
+    <div class="mui-scroll">
+      <!--数据列表-->
+      <ul class="mui-table-view mui-table-view-chevron" id="listView">
+
+        <div class="noDataS hide">
+          <div class="noDataS-1 brpscn"></div>
+          <div class="noDataS-2">Sorry, there is no relevant data</div>
+        </div>
+
+        <div class="HT-ls"></div>
+
+      </ul>
+    </div>
+  </div>
+
+  <!--<div class="HT-ls">-->
+    <!--<div class="HT-l ovf bb3" onclick="Comm.go('articleDetail.html')">-->
+      <!--<div class="HT-l-l"><img src="images/test/goods2.jpg" alt="" onerror="this.src='images/error.png';this.onerror=null;" onload="$(this).fadeTo('slow',1);" style="opacity:0;display: block;"></div>-->
+      <!--<div class="HT-l-c">-->
+        <!--<div class="HT-l-c-1 row2">If you purchase any fee-based Service， you agree that our third party...</div>-->
+        <!--<div class="HT-l-c-2 ovf">-->
+          <!--<div class="HT-l-c-2-1 brp ydl">10000</div>-->
+          <!--<div class="HT-l-c-2-1 brp time">2018-10-01</div>-->
+        <!--</div>-->
+      <!--</div>-->
+    <!--</div>-->
+  <!--</div>-->
+</section>
+
+<script src="inc/g.js"></script>
+<script src="js/md5.js"></script>
+<script src="inc/dict.js"></script>
+<script src="mui/js/mui.min.js"></script>
+
+<script>
+  var user = Comm.db("user");
+  var pageData = {pageno: 1, totalPage: 1, ifFirst: true, dictid: ""};
+  var article_arr = [];
+
+  function pageload() {
+    mui.init({
+      pullRefresh: {
+        container: "#refreshContainer",//下拉刷新容器标识，querySelector能定位的css选择器均可，比如：id、.class等
+        up: {
+          height: 50,//可选.默认50.触发上拉加载拖动距离
+          auto: false,//可选,默认false.自动上拉加载一次
+          contentrefresh: "loading...",//可选，正在加载状态时，上拉加载控件上显示的标题内容
+          contentnomore: "There's no more data",//可选，请求完毕若没有更多数据时显示的提醒内容；
+          contentinit: "Pull up shows more",
+          contentdown: "Pull up shows more",
+          callback: upData //必选，刷新函数，根据具体业务来编写，比如通过ajax从服务器获取新数据；
+        }
+      }
+    });
+    Comm.calcSection();
+
+    mui("#listView").off('tap');
+
+    mui("#listView").on('tap', '.HT-l', function (e) {
+      e.stopPropagation();
+      Comm.go('articleDetail.html?aid=' + $(this).attr("ArticleID"));
+    })
+
+    GDict.load(function () {
+      var h = '<div class="selectTheme-l brp selectTheme-l-active" onclick="changeTheme(\'\')">All</div>';
+      for (var i in GDict._data.articleType) {
+        h += '<div class="selectTheme-l brp" onclick="changeTheme(' + GDict._data.articleType[i].dictid + ')">' + GDict._data.articleType[i].dictname + '</div>';
+      }
+      $(".selectTheme-h2").html(h);
+      getAd();
+      upData();
+    });
+  }
+
+  function pageresume(){
+    var obj_article = Comm.db("obj_article");
+    Comm.db("obj_article", null);
+    if (obj_article && obj_article.aid) {
+      var d1 = $(".HT-l").filter("[ArticleID='" + obj_article.aid + "']").find(".ydl");
+      $(d1).html(parseInt($(d1).html()) + 1);
+    }
+  }
+
+  function upData() {
+    getArticleList(function (flag) {
+      mui('#refreshContainer').pullRefresh().endPullupToRefresh(flag);
+    });
+  }
+
+  //初始化
+  function changeTheme(dictid) {
+    if (pageData.dictid == dictid) {
+      return;
+    }
+
+    pageData.pageno = 1;
+    pageData.totalPage = 1;
+    pageData.ifFirst = true;
+    pageData.dictid = dictid;
+    article_arr = [];
+    $(".noDataS").addClass("hide");
+    $(".HT-ls").html("");
+    $(".selectTheme-l").removeClass("selectTheme-l-active");
+    $(event.target).addClass("selectTheme-l-active");
+    mui('#refreshContainer').scroll().scrollTo(0, 0);
+    upData();
+  }
+
+  //得到数据
+  function getArticleList(cb) {
+    AJAX2.get("api/article/articleList", {articleType: 2, category: pageData.dictid, pageno: pageData.pageno, pagesize: config.pagesize}, function (a) {
+      if (pageData.ifFirst == true) {
+        pageData.ifFirst = false;
+        pageData.totalPage = Math.ceil(a.totalCount / config.pagesize);
+      }
+
+      var data = a.data;
+      var noLoadFlag;
+      if (pageData.totalPage > pageData.pageno) {
+        noLoadFlag = false;
+        pageData.pageno++;
+      } else {
+        noLoadFlag = true;
+      }
+      data = data.splice(0, config.pagesize);
+
+      if (data && data.length > 0) {
+        $(".noDataS").addClass("hide");
+        mui('#refreshContainer').pullRefresh().enablePullupToRefresh();
+      } else {
+        $(".noDataS").removeClass("hide");
+        mui('#refreshContainer').pullRefresh().disablePullupToRefresh();
+      }
+
+      var h = '';
+      for (var i in data) {
+        h += '<div class="HT-l ovf bb3" ArticleID="' + data[i].ArticleID + '">\
+        <div class="HT-l-l"><img src="' + config.ossroot + data[i].Face + '" alt="" onerror="this.src=\'images/test/goods3.png\';this.onerror=null;" onload="$(this).fadeTo(\'slow\',1);" style="opacity:0;display: block;"></div>\
+                <div class="HT-l-c">\
+                <div class="HT-l-c-1 row2">' + data[i].ArticleName + '</div>\
+              <div class="HT-l-c-2 ovf">\
+                <div class="HT-l-c-2-1 brp ydl" ArticleID="' + data[i].ArticleID + '">' + data[i].ReadCount + '</div>\
+                <div class="HT-l-c-2-1 brp time">' + data[i].SubDate.replace(/\.0/g, '') + '</div>\
+                </div>\
+                </div>\
+          </div>';
+      }
+      $(".HT-ls").append(h);
+
+      article_arr = article_arr.concat(data);
+
+      cb && cb(noLoadFlag);
+
+    }, function(data) {
+      Comm.message(data);
+    })
+  }
+
+  //广告
+  function getAd() {
+    AJAX2.get("api/advert/list", {postion: 68, pageno: 1, pagesize: 10}, function (data){
+      $(".home-3").html('<img src="' + config.ossroot + data[0].face + '" alt="" onerror="this.src=\'images/error.png\';this.onerror=null;" onload="$(this).fadeTo(\'slow\',1);" style="opacity:0;display: block;" onclick="goAd(' + data[0].adType + ', ' + data[0].itemID + ')">');
+
+    }, function(data) {
+      Comm.message(data);
+    })
+  }
+
+  function goAd(adtype, itemID) {
+    if (adtype == 1) {
+      Comm.go("institutionsDetail.html?businessId=" + itemID);
+    } else if (adtype == 2) {
+      Comm.go("institutionsCourseDetail.html?courseId=" + itemID);
+    } else if (adtype == 3) {
+      Comm.go("articleDetail.html?aid=" + itemID);
+    }
+  }
+</script>
+</body>
+</html>

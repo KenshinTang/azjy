@@ -1,0 +1,721 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title></title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no">
+  <meta http-equiv="Cache-Control" content="public">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="format-detection" content="telephone=no">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  <meta name="renderer" content="webkit">
+  <meta name="description" content="All About Children">
+  <meta name="keywords" content="All About Children">
+  <link rel="stylesheet" href="mui/css/mui.min.css">
+  <link rel="stylesheet" href="inc/g.css" type="text/css">
+  <link rel="stylesheet" href="css/common.css" type="text/css">
+  <link rel="stylesheet" href="css/unique.css" type="text/css">
+  <link rel="stylesheet" href="side/side.css" type="text/css">
+  <script src="js/jquery-3.1.1.min.js"></script>
+  <script type="text/javascript" src="js/common.js"></script>
+  <style>
+    #box>ul>li{
+      height: 65vw;
+    }
+    .search-goods-l-c-2-1{
+      width: 80px;
+      height: 100%;
+      background-size: 75px;
+      background-position: left center;
+    }
+    .search-goods-l-c-2-2{
+      width: 0%;
+      height: 100%;
+      position: absolute;
+      top: 0px;
+      left: 0px;
+      background-size: 75px;
+      background-position: left center;
+    }
+  </style>
+</head>
+
+<body>
+<header class="bb0"></header>
+
+<div class="detail-a">
+  <div class="back3"><div class="back1 back2" onclick="Comm.close();"></div></div>
+  <div class="menu1 hide" style="width:90px;">
+    <div class="menu1-c-b1"><div class="menu1-c-b2 brp share2" onclick="share_open()"></div></div>
+    <div class="menu1-c-b1"><div class="menu1-c-b2 brp star2-n" id="collect" onclick="collect()"></div></div>
+  </div>
+</div>
+
+<section class="pre">
+  <div id="refreshContainer" class="mui-content mui-scroll-wrapper hide">
+    <div class="mui-scroll">
+      <!--数据列表-->
+      <ul class="mui-table-view mui-table-view-chevron" id="listView">
+
+        <div class="pre" style="height:65vw;">
+          <div id="box">
+            <ul></ul>
+          </div>
+        </div>
+
+        <div class="ID-1">
+          <!--<div class="ID-1-1">Name of Australian institution</div>-->
+          <!--<div class="ovf ID-1-2">-->
+          <!--<div class="left ID-1-2-l">Contact name</div>-->
+          <!--<div class="ID-1-2-c">Casey</div>-->
+          <!--</div>-->
+          <!--<div class="ovf ID-1-2">-->
+          <!--<div class="left ID-1-2-l">Contact number</div>-->
+          <!--<div class="ID-1-2-c">18080106950</div>-->
+          <!--</div>-->
+        </div>
+
+        <div class="sp10"></div>
+
+        <div class="ovf ID-t bb3">
+          <div class="ID-t-c brp ID-t-c-active" type="1">Detail</div>
+          <div class="ID-t-c brp" type="2">Courses</div>
+          <div class="ID-t-c brp" type="3">Review</div>
+        </div>
+
+        <div class="ID-S1 ID-SS">
+          <div class="ID-2">
+            <!--<table class="ID-2-table">-->
+            <!--<tr class="bb3">-->
+            <!--<td class="tal ID-2-table-1">Email</td>-->
+            <!--<td class="tar c333" style="padding-right: 15px !important;">943953782@qq.com</td>-->
+            <!--</tr>-->
+            <!--<tr class="bb3">-->
+            <!--<td class="tal ID-2-table-1">Website</td>-->
+            <!--<td class="tar c333" style="padding-right: 15px !important;">http://www.weilai9.com/</td>-->
+            <!--</tr>-->
+            <!--<tr class="bb3">-->
+            <!--<td class="tal ID-2-table-1">Address</td>-->
+            <!--<td class="tar c333" style="padding-right: 15px !important;">Unit 1, building 1, hangli center no.2 road, keyuan, chengdu</td>-->
+            <!--</tr>-->
+            <!--<tr onclick="Comm.go('certificate.html')">-->
+            <!--<td class="tal ID-2-table-1">Certificate</td>-->
+            <!--<td class="tar c333 brp arrowRight ID-2-table-2" style="padding-right: 15px !important;"></td>-->
+            <!--</tr>-->
+            <!--</table>-->
+          </div>
+
+          <div class="sp10"></div>
+
+          <div class="ID-3">Introduction</div>
+
+          <div class="ID-4"></div>
+        </div>
+
+        <div class="ID-S2 ID-SS hide">
+          <div class="ovf ID-S2-1">
+            <div class="ID-S2-1-c ID-S2-1-c-active" type="0">Open course(<span id="openCourseCount">0</span>)</div>
+            <div class="ID-S2-1-c" type="1">History course(<span id="historyCourseCount">0</span>)</div>
+          </div>
+
+          <div class="home-6-ls">
+            <!--<div class="home-6-l bb3">-->
+            <!--<div class="left home-6-l-l"><img src="images/test/goods2.jpg" alt="" onerror="this.src='images/error.png';this.onerror=null;" onload="$(this).fadeTo('slow',1);" style="opacity:0;display: block;"></div>-->
+            <!--<div class="home-6-l-c">-->
+            <!--<div class="home-6-l-c-1">-->
+            <!--<div class="left home-6-l-c-1-1 brp course">Math</div>-->
+            <!--<div class="home-6-l-c-1-2 row1">First-grade training math class</div>-->
+            <!--</div>-->
+            <!--<div class="home-6-l-c-2 c-aaa font12">20 Courses 45min for each <span class="c-violet-1">4 Classes(1 Fulled)</span></div>-->
+            <!--<div class="home-6-l-c-3 c-aaa font12 brp location2">HEIDELBERG WEST,VIC3081</div>-->
+            <!--<div class="home-6-l-c-4 c-aaa font12">-->
+            <!--<div class="left home-6-l-c-4-1 brp age">Age:3-6</div>-->
+            <!--<div class="left home-6-l-c-4-2 brp sex"></div>-->
+            <!--<div class="right c-yellow-1">A$<span class="font18">300</span></div>-->
+            <!--<div class="home-6-l-c-4-4">-->
+            <!--<div class="left search-goods-l-c-2-1 pre brp starl-n"><div class="search-goods-l-c-2-2 brp starl-y"></div></div>-->
+            <!--<div class="left ml5">5.0</div>-->
+            <!--</div>-->
+            <!--</div>-->
+            <!--</div>-->
+            <!--</div>-->
+          </div>
+        </div>
+
+        <div class="ID-S3 ID-SS hide">
+          <div class="ID-S3-1 ovf">
+            <div class="left ID-S3-1-l">
+              <div class="ID-S3-1-l-1">
+                <div class="home-6-l-c-4-4">
+                  <div class="left search-goods-l-c-2-1 pre brp starl-n"><div class="search-goods-l-c-2-2 brp starl-y" style="width:100%;"></div></div>
+                  <div class="left ml20 c-yellow-1" id="evaluate5">0</div>
+                </div>
+              </div>
+
+              <div class="ID-S3-1-l-1">
+                <div class="home-6-l-c-4-4">
+                  <div class="left search-goods-l-c-2-1 pre brp starl-n"><div class="search-goods-l-c-2-2 brp starl-y" style="width:80%;"></div></div>
+                  <div class="left ml20 c-yellow-1" id="evaluate4">0</div>
+                </div>
+              </div>
+
+              <div class="ID-S3-1-l-1">
+                <div class="home-6-l-c-4-4">
+                  <div class="left search-goods-l-c-2-1 pre brp starl-n"><div class="search-goods-l-c-2-2 brp starl-y" style="width:60%;"></div></div>
+                  <div class="left ml20 c-yellow-1" id="evaluate3">0</div>
+                </div>
+              </div>
+
+              <div class="ID-S3-1-l-1">
+                <div class="home-6-l-c-4-4">
+                  <div class="left search-goods-l-c-2-1 pre brp starl-n"><div class="search-goods-l-c-2-2 brp starl-y" style="width:40%;"></div></div>
+                  <div class="left ml20 c-yellow-1" id="evaluate2">0</div>
+                </div>
+              </div>
+
+              <div class="ID-S3-1-l-1">
+                <div class="home-6-l-c-4-4">
+                  <div class="left search-goods-l-c-2-1 pre brp starl-n"><div class="search-goods-l-c-2-2 brp starl-y" style="width:20%;"></div></div>
+                  <div class="left ml20 c-yellow-1" id="evaluate1">0</div>
+                </div>
+              </div>
+            </div>
+            <div class="right ID-S3-1-r tac">
+              <div class="ID-S3-1-r-1 c-yellow-1" id="evaluateValue">0</div>
+              <div class="ID-S3-1-r-2 font12">Overall rating</div>
+              <div class="ID-S3-1-r-3"><span id="thumb">0</span>%</div>
+              <div class="ID-S3-1-r-4 font12">Rate of Praise</div>
+            </div>
+            <div class="ID-S3-1-c"></div>
+          </div>
+
+          <div class="sp10"></div>
+
+          <div class="ID-S3-ls">
+            <!--<div class="ID-S3-l">-->
+            <!--<div class="ID-S3-l-1 ovf">-->
+            <!--<div class="left ID-S3-l-1-l"><img src="images/personal.png" alt="" onerror="this.src='images/personal.png';this.onerror=null;" onload="$(this).fadeTo('slow',1);" style="opacity:0;display: block;"></div>-->
+            <!--<div class="right ID-S3-l-1-r">2018-10-01</div>-->
+            <!--<div class="ID-S3-l-1-c">-->
+            <!--<div class="ID-S3-l-1-c-1">lili</div>-->
+            <!--<div class="ID-S3-l-1-c-2">-->
+            <!--<div class="home-6-l-c-4-4">-->
+            <!--<div class="left search-goods-l-c-2-1 pre brp starl-n"><div class="search-goods-l-c-2-2 brp starl-y" style="width:20%;"></div></div>-->
+            <!--</div>-->
+            <!--</div>-->
+            <!--</div>-->
+            <!--</div>-->
+
+            <!--<div class="ID-S3-l-2 bb3">-->
+            <!--The teacher is very professional, the classroom environment is very good, excellent-->
+            <!--</div>-->
+
+            <!--<div class="ID-S3-l-3">-->
+            <!--<div class="ovf mb10">-->
+            <!--<div class="left font16 c-333">Institutions Reply</div>-->
+            <!--<div class="right c-aaa">2018-10-01</div>-->
+            <!--</div>-->
+            <!--<div>The teacher is very professional, the classroom environment is very good, excellent</div>-->
+            <!--</div>-->
+
+            <!--<div class="ID-S3-l-4 ovf">-->
+            <!--<div class="ID-S3-l-4-c"><img src="images/test/goods2.jpg" alt="" onerror="this.src='images/error.png';this.onerror=null;" onload="$(this).fadeTo('slow',1);" style="opacity:0;display: block;"></div>-->
+            <!--<div class="ID-S3-l-4-c"><img src="images/test/goods2.jpg" alt="" onerror="this.src='images/error.png';this.onerror=null;" onload="$(this).fadeTo('slow',1);" style="opacity:0;display: block;"></div>-->
+            <!--<div class="ID-S3-l-4-c"><img src="images/test/goods2.jpg" alt="" onerror="this.src='images/error.png';this.onerror=null;" onload="$(this).fadeTo('slow',1);" style="opacity:0;display: block;"></div>-->
+            <!--<div class="ID-S3-l-4-c"><img src="images/test/goods2.jpg" alt="" onerror="this.src='images/error.png';this.onerror=null;" onload="$(this).fadeTo('slow',1);" style="opacity:0;display: block;"></div>-->
+            <!--</div>-->
+            <!--</div>-->
+            <!--<div class="sp5"></div>-->
+          </div>
+        </div>
+
+        <div class="noDataS hide">
+          <div class="noDataS-1 brpscn" style="margin-top: 50px;"></div>
+          <div class="noDataS-2" style="margin-bottom: 50px;">Sorry, there is no relevant data</div>
+        </div>
+
+      </ul>
+    </div>
+  </div>
+
+  <div class="noDataS2 hide">
+    <div class="noDataS-1 brpscn"></div>
+    <div class="noDataS-2">Sorry, The institution has been disabled.</div>
+    <div class="noDataS-3" onclick="Comm.close();">Back</div>
+  </div>
+</section>
+
+<div class="app-window1 hide" onclick="share_open()"></div>
+<div class="option-window hide">
+  <div class="ovf option-window-2 bg-grey-1">
+    <div class="brp option-window-2-c" onclick="share('1')">
+      <div class="brp Facebook2 option-window-2-c-1"></div>
+      <div>FACEBOOK</div>
+    </div>
+    <div class="brp option-window-2-c" onclick="share('2')">
+      <div class="brp Instagram2 option-window-2-c-1"></div>
+      <div>INSTAGRAM</div>
+    </div>
+    <div class="brp option-window-2-c" onclick="share('3')">
+      <div class="brp Twitter2 option-window-2-c-1"></div>
+      <div>TWITTER</div>
+    </div>
+  </div>
+  <div class="option-window-1" onclick="share_open()">Cancel</div>
+</div>
+
+<script src="inc/g.js"></script>
+<script src="js/md5.js"></script>
+<script src="inc/dict.js"></script>
+<script src="side/side.js"></script>
+<script src="mui/js/mui.min.js"></script>
+
+<script>
+  var user = Comm.db("user");
+  var pageData = { pageno: 1, totalPage: 1, ifFirst: true, businessId: Comm.query("businessId"), type: 1, isHistory: 0, collectids: 0, collect: Comm.query("collect") };
+  var inDetail = {};
+
+  function pageload() {
+    GDict.load(function () {
+      mui.init({
+        pullRefresh: {
+          container: "#refreshContainer",//下拉刷新容器标识，querySelector能定位的css选择器均可，比如：id、.class等
+          up: {
+            height: 50,//可选.默认50.触发上拉加载拖动距离
+            auto: false,//可选,默认false.自动上拉加载一次
+            contentrefresh: "loading...",//可选，正在加载状态时，上拉加载控件上显示的标题内容
+            contentnomore: "There's no more data",//可选，请求完毕若没有更多数据时显示的提醒内容；
+            contentinit: "Pull up shows more",
+            contentdown: "Pull up shows more",
+            callback: upData //必选，刷新函数，根据具体业务来编写，比如通过ajax从服务器获取新数据；
+          }
+        }
+      });
+      Comm.calcSection();
+
+      mui("#listView").off('tap');
+
+      mui("#listView").on('tap', '.HT-l', function (e) {
+        e.stopPropagation();
+        Comm.go('articleDetail.html?aid=' + $(this).attr("ArticleID"));
+      })
+
+      mui("#listView").on('tap', '.ID-t-c', function (e) {
+        e.stopPropagation();
+        changeTheme1($(this).attr("type"));
+      })
+
+      mui("#listView").on('tap', '.Certificate', function (e) {
+        e.stopPropagation();
+        Comm.db("inDetail", inDetail);
+        Comm.go('certificate.html');
+      })
+
+      mui("#listView").on('tap', '.ID-S2-1-c', function (e) {
+        e.stopPropagation();
+        changeTheme2($(this).attr("type"), this);
+      })
+
+      mui("#listView").on('tap', '.home-6-l', function (e) {
+        e.stopPropagation();
+        Comm.go('institutionsCourseDetail.html?courseId=' + $(this).attr("courseId"));
+      })
+
+      mui('#refreshContainer').pullRefresh().disablePullupToRefresh();
+
+      getInDetail();
+    });
+  }
+
+  function pageresume() {
+
+  }
+
+  function upData() {
+    if (pageData.type == 2) {
+      getCourseList(function (flag) {
+        mui('#refreshContainer').pullRefresh().endPullupToRefresh(flag);
+      });
+    } else if (pageData.type == 3) {
+      getEvaList(function (flag) {
+        mui('#refreshContainer').pullRefresh().endPullupToRefresh(flag);
+      });
+    }
+  }
+
+  //切换标题
+  function changeTheme1(type) {
+    if (pageData.type == type) {
+      return;
+    }
+    pageData.type = type;
+    $(".ID-SS").addClass("hide");
+    $(".ID-S" + pageData.type).removeClass("hide");
+    $(".ID-t-c").removeClass("ID-t-c-active");
+    $(event.target).addClass("ID-t-c-active");
+
+    if (pageData.type > 1) {
+      pageData.pageno = 1;
+      pageData.totalPage = 1;
+      pageData.ifFirst = true;
+      $(".noDataS").addClass("hide");
+      $(".home-6-ls").html("");
+      $(".ID-S3-ls").html("");
+      upData();
+    } else {
+      mui('#refreshContainer').pullRefresh().disablePullupToRefresh();
+    }
+  }
+
+  //切换标题
+  function changeTheme2(isHistory, _this) {
+    if (pageData.isHistory == isHistory) {
+      return;
+    }
+    pageData.pageno = 1;
+    pageData.totalPage = 1;
+    pageData.ifFirst = true;
+    pageData.isHistory = isHistory;
+    $(".noDataS").addClass("hide");
+    $(".home-6-ls").html("");
+    $(".ID-S2-1-c").removeClass("ID-S2-1-c-active");
+    $(_this).addClass("ID-S2-1-c-active");
+    mui('#refreshContainer').scroll().scrollTo(0, 0);
+    upData();
+  }
+
+  function getInDetail() {
+    AJAX2.get("api/business/show", {businessid: pageData.businessId}, function (data) {
+      inDetail = data;
+
+      if (inDetail.bus.enable == 0) {
+        $(".noDataS2").removeClass("hide");
+        return;
+      } else {
+        $(".menu1").removeClass("hide");
+        $("#refreshContainer").removeClass("hide");
+      }
+
+      ifCollect();
+      getClassCount();
+
+      var adImgArr = inDetail.ins.pictures.split(",");
+      var adList = '';
+      for (var i in adImgArr) {
+        adList += '<li><img src="' + CommonFunction.getImgUrl(config.ossroot + adImgArr[i], "l")+ '" alt="" onerror="this.src=\'images/error.png\';this.onerror=null;" onload="$(this).fadeTo(\'slow\',1);" style="opacity:0;display: block;"></li>';
+      }
+      $('#box>ul').html(adList);
+      bannerSide = new Side('box');
+
+      var h = "";
+      h += '<div class="ID-1-1 word">' + inDetail.ins.tradingName + '</div>\
+      <div class="ovf ID-1-2">\
+              <div class="left ID-1-2-l">Contact name</div>\
+      <div class="ID-1-2-c">' + inDetail.ins.contactPerson + '</div>\
+              </div>\
+              <div class="ovf ID-1-2">\
+              <div class="left ID-1-2-l">Contact number</div>\
+      <div class="ID-1-2-c">' + inDetail.ins.contactNumber + '</div>\
+              </div>';
+      $(".ID-1").html(h);
+
+      h = "";
+      h += '<table class="ID-2-table">\
+              <tr class="bb3">\
+              <td class="tal ID-2-table-1">Email</td>\
+              <td class="tar c333" style="padding-right: 15px !important;">' + inDetail.ins.contactEmail + '</td>\
+      </tr>\
+      <tr class="bb3">\
+              <td class="tal ID-2-table-1">Website</td>\
+              <td class="tar c333" style="padding-right: 15px !important;">' + inDetail.ins.website + '</td>\
+      </tr>\
+      <tr class="bb3">\
+        <td class="tal ID-2-table-1">Address</td>\
+        <td class="tar c333" style="padding-right: 15px !important;">' + inDetail.ins.addrRegOne + ' ' + inDetail.ins.addrBusTwo + ' ' + inDetail.ins.addrRegSuburb + ' ' + GDict.getName(inDetail.ins.addrRegState) + ' ' + inDetail.ins.addrRegPostcode + ' Australia</td>\
+        </tr>\
+        <tr class="Certificate">\
+        <td class="tal ID-2-table-1">Certificate</td>\
+        <td class="tar c333 brp arrowRight ID-2-table-2" style="padding-right: 15px !important;"></td>\
+        </tr>\
+        </table>';
+      $(".ID-2").html(h);
+
+      $(".ID-4").html(inDetail.ins.introduce);
+
+      $("#evaluate1").html(inDetail.bus.evaluate1);
+      $("#evaluate2").html(inDetail.bus.evaluate2);
+      $("#evaluate3").html(inDetail.bus.evaluate3);
+      $("#evaluate4").html(inDetail.bus.evaluate4);
+      $("#evaluate5").html(inDetail.bus.evaluate5);
+      $("#evaluateValue").html(inDetail.bus.evaluateValue);
+
+      var thumbSum = inDetail.bus.evaluate1 + inDetail.bus.evaluate2 + inDetail.bus.evaluate3 + inDetail.bus.evaluate4 + inDetail.bus.evaluate5;
+      if (thumbSum > 0 && inDetail.bus.evaluate5 > 0) {
+        $("#thumb").html((inDetail.bus.evaluate5 / thumbSum * 100).toFixed(2));
+      }
+
+    }, function(data) {
+      Comm.message(data);
+    })
+  }
+
+  //课程
+  function getCourseList(cb) {
+    AJAX2.get("api/course/list", {businessId: pageData.businessId, isHistory: pageData.isHistory, pageno: pageData.pageno, pagesize: config.pagesize}, function (a){
+      if (pageData.ifFirst == true) {
+        pageData.ifFirst = false;
+        pageData.totalPage = Math.ceil(a.totalCount / config.pagesize);
+      }
+
+      var data = a.data;
+      var noLoadFlag;
+      if (pageData.totalPage > pageData.pageno) {
+        noLoadFlag = false;
+        pageData.pageno++;
+      } else {
+        noLoadFlag = true;
+      }
+      data = data.splice(0, config.pagesize);
+
+      if (data && data.length > 0) {
+        $(".noDataS").addClass("hide");
+        mui('#refreshContainer').pullRefresh().enablePullupToRefresh();
+      } else {
+        $(".noDataS").removeClass("hide");
+        mui('#refreshContainer').pullRefresh().disablePullupToRefresh();
+      }
+
+      var courseIdsArr = [];
+      for (var i in data) {
+        courseIdsArr.push(data[i].courseId);
+      }
+
+      if (courseIdsArr.length > 0) {
+        AJAX2.get("api/class/openAndstart", {courseId: courseIdsArr.join(",")}, function (data2){
+          var obj1 = {};
+          obj1 = Tool.getDict(data2, "courseId");
+
+          for (var i in data) {
+            data[i].full_obj = obj1[data[i].courseId];
+          }
+
+          addCourse(data, cb, noLoadFlag);
+
+        }, function(data) {
+          Comm.message(data);
+        })
+      } else {
+        addCourse(data, cb, noLoadFlag);
+      }
+
+    }, function(data) {
+      Comm.message(data);
+    })
+  }
+
+  function addCourse(data, cb, noLoadFlag) {
+    var h = '';
+    for (var i in data) {
+      h += '<div class="home-6-l" courseId="' + data[i].courseId + '">\
+                  <div class="left home-6-l-l"><img src="' + config.ossroot + data[i].face + '" alt="" onerror="this.src=\'images/error.png\';this.onerror=null;" onload="$(this).fadeTo(\'slow\',1);" style="opacity:0;display: block;"></div>\
+                  <div class="home-6-l-c">\
+                  <div class="home-6-l-c-1">\
+                  <div class="left home-6-l-c-1-1">' + GDict.getItem(data[i].category2).dictname + '</div>\
+                  <div class="home-6-l-c-1-2 row1">' + data[i].courseName + '</div>\
+                  </div>\
+                    <div class="home-6-l-c-2 c-aaa font12 row1">' + data[i].lessons + ' Courses &nbsp;&nbsp;' + data[i].periods + 'min for each ' + '<span class="c-violet-1">' + (data[i].full_obj ? parseInt(data[i].full_obj.signupcount) : '0') + ' Classes' + (data[i].full_obj && data[i].full_obj.full_count != 0 ? '(' + data[i].full_obj.full_count + ' Fulled)' : '') + '</span><span class="home-6-l-c-2-hot brp hot' + (data[i].full_obj && data[i].full_obj.newestcount > 0 ? '' : ' hide') + '"></span></div>\
+                    <div class="home-6-l-c-5 ovf">\
+                        <div class="left home-6-l-c-4-4 ovf">\
+                        <div class="left search-goods-l-c-2-1 pre brp starl-n"><div class="search-goods-l-c-2-2 brp starl-y" style="width:' + (data[i].evaluateValue / 5) * 100 + '%"></div></div>\
+                        <div class="left ml5 c-aaa">' + data[i].evaluateValue + '</div>\
+                        </div>\
+                        <div class="left c-yellow-1 ml15">A$<span class="font18">' + data[i].price + '</span></div>\
+                    </div>\
+                    <div class="home-6-l-c-3 c-aaa font12 brp location2 row1">' + data[i].subur + ' ' + GDict.getName(data[i].territory) + '</div>\
+                    <div class="home-6-l-c-4 c-aaa font12 ovf bt3">\
+                      <div class="home-6-l-c-4-1 brp age mt5">Age:' + GDict.getItem(data[i].ageLimit).dictname + '</div>\
+                      <div class="home-6-l-c-4-1 brp' + (data[i].sex == 2 ? (' boy') : (data[i].sex == 3 ? (' girl') : (' sex'))) + '">Gender:' + (data[i].sex == 2 ? (' boy') : (data[i].sex == 3 ? (' girl') : (' No screening'))) + '</div>\
+                        </div>\
+                        </div>\
+                        </div>\
+                        <div class="sp5"></div>';
+    }
+    $(".home-6-ls").append(h);
+
+    cb && cb(noLoadFlag);
+  }
+
+  //评价
+  function getEvaList(cb) {
+    AJAX2.get("api/evaluate/apilist", {itemid: pageData.businessId, type: 1, pageno: pageData.pageno, pagesize: config.pagesize}, function (a){
+      if (pageData.ifFirst == true) {
+        pageData.ifFirst = false;
+        pageData.totalPage = Math.ceil(a.totalCount / config.pagesize);
+      }
+
+      var data = a.data;
+      var noLoadFlag;
+      if (pageData.totalPage > pageData.pageno) {
+        noLoadFlag = false;
+        pageData.pageno++;
+      } else {
+        noLoadFlag = true;
+      }
+      data = data.splice(0, config.pagesize);
+
+      if (data && data.length > 0) {
+        $(".noDataS").addClass("hide");
+        mui('#refreshContainer').pullRefresh().enablePullupToRefresh();
+      } else {
+        $(".noDataS").removeClass("hide");
+        mui('#refreshContainer').pullRefresh().disablePullupToRefresh();
+      }
+
+      var h = '';
+      for (var i in data) {
+        h += '<div class="ID-S3-l">\
+                <div class="ID-S3-l-1 ovf">\
+                <div class="left ID-S3-l-1-l"><img src="' + (data[i].isAnonymous == 0 ? (config.ossroot + data[i].face) : ('images/personal.png')) + '" alt="" onerror="this.src=\'images/personal.png\';this.onerror=null;" onload="$(this).fadeTo(\'slow\',1);" style="opacity:0;display: block;"></div>\
+                <div class="right ID-S3-l-1-r">' + data[i].addTime.replace(/\.0/g, '') + '</div>\
+                <div class="ID-S3-l-1-c">\
+                <div class="ID-S3-l-1-c-1">' + (data[i].isAnonymous == 0 ? (data[i].customerName) : ('******')) + '</div>\
+                <div class="ID-S3-l-1-c-2">\
+                <div class="home-6-l-c-4-4">\
+                <div class="left search-goods-l-c-2-1 pre brp starl-n"><div class="search-goods-l-c-2-2 brp starl-y" style="width:' + (parseFloat(data[i].value) / 5) * 100 + '%"></div></div>\
+                </div>\
+                </div>\
+                </div>\
+                </div>\
+\
+                <div class="ID-S3-l-2">' + data[i].message + '</div>' + addReplyImg(data[i]) + addReply(data[i]) + '\
+                </div>\
+                <div class="sp5"></div>';
+      }
+      $(".ID-S3-ls").append(h);
+
+      cb && cb(noLoadFlag);
+
+    }, function(data) {
+      Comm.message(data);
+    })
+  }
+
+  //加回复
+  function addReply(data) {
+    var h = '';
+    if (data.insReply && data.insReply != "null") {
+      h += '<div class="ID-S3-l-3 bt3">\
+                <div class="ovf mb10">\
+                <div class="left font16 c-333">Institutions Reply</div>\
+        <div class="right c-aaa">' + data.replyTime + '</div>\
+                </div>\
+                <div>' + data.insReply + '</div>\
+        </div>';
+    }
+    return h;
+  }
+
+  //加图片
+  function addReplyImg(data) {
+    var h = '';
+    if (data.imgurls && data.imgurls != "null") {
+      var arr1 = data.imgurls.split(",");
+
+      h = '<div class="ID-S3-l-4 ovf">';
+      for (var i in arr1) {
+        h += '<div class="ID-S3-l-4-c"><img src="' + config.ossroot + arr1[i] + '" alt="" onerror="this.src=\'images/error.png\';this.onerror=null;" onload="$(this).fadeTo(\'slow\',1);" style="opacity:0;display: block;"></div>';
+      }
+      h += '</div>';
+    }
+    return h;
+  }
+
+  //是否收藏
+  function ifCollect() {
+    if (!user) {
+      return;
+    }
+
+    AJAX2.get("api/collect/iscollect", { itemId: pageData.businessId, itemType: 1 }, function (data) {
+      if (data> 0) {
+        $("#collect").addClass("star2-y");
+        pageData.collectids = data;
+      } else {
+        $("#collect").removeClass("star2-y");
+        pageData.collectids = 0;
+      }
+
+    }, function (data) {
+      Comm.message(data);
+    })
+  }
+
+  //收藏
+  function collect() {
+    if (!checkIsLogin2()) {
+      return;
+    }
+
+    if (pageData.collectids) {
+      AJAX2.post("api/collect/remove", { collectids: pageData.collectids }, function (data) {
+        pageData.collectids = 0;
+        Comm.message("uncollectible");
+        $("#collect").removeClass("star2-y");
+
+        if (pageData.collect == 1 && pageData.collectids == 0) {
+          Comm.db("collect", { itemid: pageData.businessId });
+        }
+
+      }, function (data) {
+        Comm.message(data);
+      })
+    } else {
+      AJAX2.post("api/collect/save", { itemId: pageData.businessId, itemType: 1 }, function (data) {
+        pageData.collectids = data.collectid;
+        Comm.message("collected");
+        $("#collect").addClass("star2-y");
+
+        if (pageData.collect == 1 && pageData.collectids == 0) {
+          Comm.db("collect", null);
+        }
+
+      }, function (data) {
+        Comm.message(data);
+      })
+    }
+  }
+
+  //课程数量
+  function getClassCount() {
+    AJAX2.get("api/class/classCount", { businessId: pageData.businessId }, function (data) {
+      $("#openCourseCount").html(data.openCount);
+      $("#historyCourseCount").html(data.historyCount);
+
+    }, function (data) {
+      Comm.message(data);
+    })
+  }
+
+  function share_open() {
+    $(".option-window").toggleClass("hide");
+    $(".app-window1").toggleClass("hide");
+  }
+
+  //分享
+  function share(t) {
+    if (!checkIsLogin2()) {
+      return;
+    }
+
+    Comm.shareUrl({ title: inDetail.ins.tradingName, desc: inDetail.ins.introduce, pic: config.ossroot + inDetail.ins.logo, url: config.ip + 'institutionsDetail.html?businessId=' + pageData.businessId, platform: t}, function (d) {
+      share_open();
+      if (d == 1) {
+        Comm.message("Share succeed");
+      } else {
+        Comm.message("Share fail");
+      }
+    });
+  }
+</script>
+</body>
+</html>
