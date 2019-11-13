@@ -14,12 +14,8 @@ import android.webkit.WebViewClient;
 
 import java.net.URL;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
-
 public class PayPalActivity extends AppCompatActivity {
 
-    @BindView(R.id.web_view)
     WebView webView;
 
     @Override
@@ -31,7 +27,6 @@ public class PayPalActivity extends AppCompatActivity {
         requestPermission(Manifest.permission.CAMERA);
 
         setContentView(R.layout.activity_pay_pal);
-        ButterKnife.bind(this);
         Intent intent = getIntent();
         String url = intent.getStringExtra("url");
 
@@ -45,6 +40,7 @@ public class PayPalActivity extends AppCompatActivity {
         settings.setAllowFileAccess(true);
         settings.setJavaScriptCanOpenWindowsAutomatically(true);
         settings.setLoadsImagesAutomatically(true);
+        webView = findViewById(R.id.web_view);
         webView.setWebViewClient(new WebViewClient() {
 
             @Override

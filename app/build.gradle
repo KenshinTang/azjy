@@ -1,6 +1,6 @@
 apply plugin: 'com.android.application'
 apply plugin: 'com.mob.sdk'
-apply plugin: 'com.jakewharton.butterknife'
+apply plugin: 'mtj-circle-plugin'
 
 android {
 
@@ -9,11 +9,11 @@ android {
         release {
             keyAlias 'yunlinker'
             keyPassword '20160516'
-            storeFile file('G:\\Source\\ionic\\android_azjy\\Yunlinker-20160516.jks')
+            storeFile file('E:\\Src\\outSource\\miraiku\\guoren\\Yunlinker-20160516.jks')
             storePassword '20160516'
         }
         debug {
-            storeFile file('G:\\Source\\ionic\\android_azjy\\Yunlinker-20160516.jks')
+            storeFile file('E:\\Src\\outSource\\miraiku\\guoren\\Yunlinker-20160516.jks')
             storePassword '20160516'
             keyAlias = 'yunlinker'
             keyPassword '20160516'
@@ -90,36 +90,43 @@ MobSDK {
     }
 }
 
+MtjCirclePluginConfig {
+    // 设置appkey
+    appkey = '905bb2d804'
+    // 设置debug 开关，如果需要查看日志则打开开关，为避免影响性能建议上线前关闭（设置为false）
+    debug = false
+    // 默认启动此插件，如果开发者不需要可以禁用（设置为false）
+    enabled = true
+}
+
 dependencies {
-    compile fileTree(include: ['*.jar'], dir: 'libs')
-    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    androidTestImplementation('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
     //----------图片选择----------
-    compile project(':imagepicker')
-    compile project(':luban')
-    compile project(':push')
+    implementation project(':imagepicker')
+    implementation project(':luban')
+    implementation project(':push')
     //compile 'com.github.hackware1993:MagicIndicator:1.5.0'
 
     //时间选择器
-    compile 'com.android.support:appcompat-v7:25.3.1'
-    compile 'com.android.support.constraint:constraint-layout:1.0.2'
-    compile 'com.android.support:support-v4:25.3.1'
-    compile 'com.google.code.gson:gson:2.8.1'
-    compile 'com.github.bumptech.glide:glide:4.6.1'
-    compile 'com.squareup.okhttp3:okhttp:3.9.0'
-    compile 'com.umeng.analytics:analytics:latest.integration'
-    compile 'com.qiyukf.unicorn:unicorn:3.7.0'
-    compile 'com.android.support:design:27.0.2'
-    compile 'com.contrarywind:Android-PickerView:4.1.6'
-    compile 'com.jakewharton:butterknife:8.8.1'
-    compile 'com.google.android.gms:play-services-maps:12.0.1'
-    compile 'com.google.android.gms:play-services:12.0.1'
-    compile 'com.android.support:multidex:1.0.1'
-    compile 'com.hjq:xxpermissions:5.0'
-    compile 'com.kongzue.stacklabel:stacklabelview:1.1.0'
-    compile 'com.hyman:flowlayout-lib:1.1.2'
-    testCompile 'junit:junit:4.12'
+    implementation 'com.android.support:appcompat-v7:25.3.1'
+    implementation 'com.android.support.constraint:constraint-layout:1.0.2'
+    implementation 'com.android.support:support-v4:25.3.1'
+    implementation 'com.google.code.gson:gson:2.8.1'
+    implementation 'com.github.bumptech.glide:glide:4.6.1'
+    implementation 'com.squareup.okhttp3:okhttp:3.9.0'
+    implementation 'com.umeng.analytics:analytics:latest.integration'
+    implementation 'com.qiyukf.unicorn:unicorn:3.7.0'
+    implementation 'com.android.support:design:27.0.2'
+    implementation 'com.contrarywind:Android-PickerView:4.1.6'
+    implementation 'com.google.android.gms:play-services-maps:12.0.1'
+    implementation 'com.google.android.gms:play-services:12.0.1'
+    implementation 'com.android.support:multidex:1.0.1'
+    implementation 'com.hjq:xxpermissions:5.0'
+    implementation 'com.kongzue.stacklabel:stacklabelview:1.1.0'
+    implementation 'com.hyman:flowlayout-lib:1.1.2'
+    testImplementation 'junit:junit:4.12'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.6.1'
-    annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
 }
