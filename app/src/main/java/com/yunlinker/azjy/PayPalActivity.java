@@ -12,6 +12,8 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
+import com.yunlinker.util.PageReport;
+
 import java.net.URL;
 
 public class PayPalActivity extends AppCompatActivity {
@@ -85,8 +87,8 @@ public class PayPalActivity extends AppCompatActivity {
         });
 
         webView.loadUrl(url);
-
-
+        Log.d("kenshin", "load url:" + url);
+        PageReport.getInstance().loadPage(this, PageReport.getPageNameFromUrl(url));
     }
 
     private void requestPermission(String permission) {

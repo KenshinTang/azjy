@@ -8,6 +8,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Handler;
 import android.text.TextUtils;
+import android.util.Log;
 import android.webkit.WebResourceRequest;
 import android.webkit.WebResourceResponse;
 import android.webkit.WebView;
@@ -15,6 +16,7 @@ import android.webkit.WebViewClient;
 
 import com.yunlinker.azjy.PayPalActivity;
 import com.yunlinker.azjy.R;
+import com.yunlinker.util.PageReport;
 
 
 /**
@@ -123,8 +125,11 @@ public class BaseClient extends WebViewClient {
             });
         }else{
             if(url.contains("_ifr")) return  false;
-            else if(!TextUtils.isEmpty(url) && url.contains("asset"))
+            else if(!TextUtils.isEmpty(url) && url.contains("asset")) {
                 view.loadUrl(url);
+                Log.d("kenshin", "load url:" + url);
+                PageReport.getInstance().loadPage(view.getContext(), PageReport.getPageNameFromUrl(url));
+            }
         }
         return true;
     }
