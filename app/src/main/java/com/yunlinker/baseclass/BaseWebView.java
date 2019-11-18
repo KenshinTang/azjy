@@ -4,6 +4,8 @@ import android.content.Context;
 import android.text.TextUtils;
 import android.webkit.WebView;
 
+import com.baidu.mobstat.StatService;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Stack;
@@ -24,6 +26,7 @@ public class BaseWebView extends WebView {
     public BaseWebView(Context context) {
         super(context);
         insCodeMap = new HashMap<String, Stack<String>>();
+        StatService.trackWebView(context, this, null);
     }
 
 

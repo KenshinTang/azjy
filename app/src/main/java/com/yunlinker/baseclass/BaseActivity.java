@@ -25,6 +25,7 @@ import android.webkit.WebSettings;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
+import com.baidu.mobstat.StatService;
 import com.umeng.analytics.MobclickAgent;
 import com.umeng.socialize.UMShareAPI;
 import com.yunlinker.auth.WebPermissionManager;
@@ -231,6 +232,8 @@ public class BaseActivity extends Activity {
         setting.setAllowContentAccess(true);
         setting.setAllowFileAccessFromFileURLs(true);
         setting.setCacheMode(WebSettings.LOAD_DEFAULT);
+
+        StatService.trackWebView(this, mwebView, null);
 
 
         loadUrl = getIntent().getStringExtra("sendUrl");
