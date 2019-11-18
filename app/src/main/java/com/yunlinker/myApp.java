@@ -4,21 +4,15 @@ import android.app.Application;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
-import android.graphics.drawable.Drawable;
-import android.net.Uri;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
-
 import android.util.Log;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.annotation.GlideModule;
-import com.bumptech.glide.request.RequestOptions;
+import com.baidu.mobstat.StatService;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.transition.Transition;
+import com.lzy.imagepicker.ImagePicker;
 import com.mob.MobSDK;
-import com.mob.commons.SHARESDK;
 import com.qiyukf.unicorn.api.ImageLoaderListener;
 import com.qiyukf.unicorn.api.SavePowerConfig;
 import com.qiyukf.unicorn.api.StatusBarNotificationConfig;
@@ -33,15 +27,11 @@ import com.umeng.message.IUmengRegisterCallback;
 import com.umeng.message.PushAgent;
 import com.umeng.socialize.PlatformConfig;
 import com.umeng.socialize.UMShareAPI;
-import com.yunlinker.azjy.R;
+import com.yunlinker.azjy.MainActivity;
 import com.yunlinker.baseclass.BaseActivity;
 import com.yunlinker.image.GlideApp;
 import com.yunlinker.manager.ActivityManager;
-import com.yunlinker.azjy.MainActivity;
 import com.yunlinker.upimage.GlideImageLoader;
-import com.lzy.imagepicker.ImagePicker;
-
-import java.io.File;
 
 import static com.yunlinker.config.WebConfig.QQID;
 import static com.yunlinker.config.WebConfig.QQSECRET;
@@ -68,6 +58,7 @@ public class myApp extends Application {
         initUmeng();
         UMShareAPI.get(this);
         MobSDK.init(this);
+        StatService.start(this);
 //        initQiyu();
     }
 

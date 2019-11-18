@@ -9,11 +9,11 @@ android {
         release {
             keyAlias 'yunlinker'
             keyPassword '20160516'
-            storeFile file('G:\\Source\\ionic\\android_azjy\\Yunlinker-20160516.jks')
+            storeFile file('E:\\Src\\outSource\\miraiku\\guoren\\Yunlinker-20160516.jks')
             storePassword '20160516'
         }
         debug {
-            storeFile file('G:\\Source\\ionic\\android_azjy\\Yunlinker-20160516.jks')
+            storeFile file('E:\\Src\\outSource\\miraiku\\guoren\\Yunlinker-20160516.jks')
             storePassword '20160516'
             keyAlias = 'yunlinker'
             keyPassword '20160516'
@@ -100,6 +100,8 @@ dependencies {
     compile project(':luban')
     compile project(':push')
     //compile 'com.github.hackware1993:MagicIndicator:1.5.0'
+
+    compile 'com.baidu.mobstat:mtj-sdk:latest.integration'
 
     //时间选择器
     compile 'com.android.support:appcompat-v7:25.3.1'
