@@ -20,7 +20,6 @@ import com.yunlinker.azjy.MapsActivity;
 import com.yunlinker.azjy.PayPalActivity;
 import com.yunlinker.manager.ActivityManager;
 import com.yunlinker.upimage.UpImger;
-import com.yunlinker.util.PageReport;
 import com.yunlinker.zxing.android.CaptureActivity;
 
 import org.json.JSONException;
@@ -81,8 +80,6 @@ public class BaseInspect {
                 @Override
                 public void run() {
                     mweb.loadUrl(fUrl);
-                    Log.d("kenshin", "load url:" + fUrl);
-                    PageReport.getInstance().loadPage(mactivity, PageReport.getPageNameFromUrl(fUrl));
                 }
             });
         }

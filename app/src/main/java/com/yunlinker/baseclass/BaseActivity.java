@@ -30,7 +30,6 @@ import com.umeng.socialize.UMShareAPI;
 import com.yunlinker.auth.WebPermissionManager;
 import com.yunlinker.azjy.JSInspect;
 import com.yunlinker.manager.ActivityResult;
-import com.yunlinker.util.PageReport;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -116,11 +115,6 @@ public class BaseActivity extends Activity {
     protected void onPause() {
         super.onPause();
         if(dialog!=null) dialog.dismiss();
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
     }
 
     @Override
@@ -238,14 +232,11 @@ public class BaseActivity extends Activity {
             if(!loadUrl.startsWith("http") || !loadUrl.startsWith("file"))
              loadUrl = AssestRoot+loadUrl;
             mwebView.loadUrl(loadUrl);
-            Log.i("kenshin", "load url: " + loadUrl);
-            PageReport.getInstance().loadPage(this, PageReport.getPageNameFromUrl(loadUrl));
         } else {
             //首页
             mwebView.loadUrl(AssestRoot+"login.html");
-            Log.i("kenshin", "load url: " + AssestRoot+"login.html");
-            PageReport.getInstance().loadPage(this, "login");
         }
+
         setKeyBoard();
     }
 
