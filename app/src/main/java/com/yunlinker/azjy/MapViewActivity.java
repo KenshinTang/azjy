@@ -65,6 +65,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.FormBody;
@@ -79,41 +82,71 @@ import static com.yunlinker.config.WebConfig.SCREEN;
 public class MapViewActivity extends AppCompatActivity implements
         OnMapReadyCallback,
         GoogleMap.OnMyLocationButtonClickListener,
-        GoogleMap.OnMyLocationClickListener,
-        GoogleMap.OnMarkerClickListener, Controlunit,
-        View.OnClickListener {
+        GoogleMap.OnMyLocationClickListener
+        , GoogleMap.OnMarkerClickListener, Controlunit {
 
 
+    @BindView(R.id.img_back)
     ImageView imgBack;
+    @BindView(R.id.textView2)
     TextView textView2;
+    @BindView(R.id.img_search)
     ImageView imgSearch;
+    @BindView(R.id.img_lb)
     ImageView imgLb;
+    @BindView(R.id.relativeLayout)
     RelativeLayout relativeLayout;
+    @BindView(R.id.time)
     TextView time;
+    @BindView(R.id.img_time)
     ImageView imgTime;
+    @BindView(R.id.text_time)
     LinearLayout textTime;
+    @BindView(R.id.price)
     TextView price;
+    @BindView(R.id.img_price)
     ImageView imgPrice;
+    @BindView(R.id.text_price)
     LinearLayout textPrice;
+    @BindView(R.id.age)
     TextView age;
+    @BindView(R.id.img_age)
     ImageView imgAge;
+    @BindView(R.id.text_age)
     LinearLayout textAge;
+    @BindView(R.id.gender)
     TextView gender;
+    @BindView(R.id.img_gender)
     ImageView imgGender;
+    @BindView(R.id.text_gender)
     LinearLayout textGender;
+    @BindView(R.id.recruit_status)
     TextView recruitStatus;
+    @BindView(R.id.img_recruit_status)
     ImageView imgRecruitStatus;
+    @BindView(R.id.text_recruit_status)
     LinearLayout textRecruitStatus;
+    @BindView(R.id.gender_list)
     ListView genderList;
+    @BindView(R.id.price_list)
     ListView priceList;
+    @BindView(R.id.age_list)
     ListView ageList;
+    @BindView(R.id.recruit_status_list_one)
     ListView recruitStatusListOne;
+    @BindView(R.id.recruit_status_list_two)
     ListView recruitStatusListTwo;
+    @BindView(R.id.recruit_status_linear)
     LinearLayout recruitStatusLinear;
+    @BindView(R.id.stackLabelView)
     StackLabel stackLabelView;
+    @BindView(R.id.horizontalScrollView)
     HorizontalScrollView horizontalScrollView;
+    @BindView(R.id.text_reset)
     TextView textReset;
+    @BindView(R.id.text_done)
     TextView textDone;
+    @BindView(R.id.recruit_status_relative)
     RelativeLayout recruitStatusRelative;
 
     private TimePickerView pvTime;
@@ -147,38 +180,7 @@ public class MapViewActivity extends AppCompatActivity implements
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map_view);
-
-        imgBack = findViewById(R.id.img_back);
-        textView2 = findViewById(R.id.textView2);
-        imgSearch = findViewById(R.id.img_search);
-        imgLb = findViewById(R.id.img_lb);
-        relativeLayout = findViewById(R.id.relativeLayout);
-        time = findViewById(R.id.time);
-        imgTime = findViewById(R.id.img_time);
-        textTime = findViewById(R.id.text_time);
-        price = findViewById(R.id.price);
-        imgPrice = findViewById(R.id.img_price);
-        textPrice = findViewById(R.id.text_price);
-        age = findViewById(R.id.age);
-        imgAge = findViewById(R.id.img_age);
-        textAge = findViewById(R.id.text_age);
-        gender = findViewById(R.id.gender);
-        imgGender = findViewById(R.id.img_gender);
-        textGender = findViewById(R.id.text_gender);
-        recruitStatus = findViewById(R.id.recruit_status);
-        imgRecruitStatus = findViewById(R.id.img_recruit_status);
-        textRecruitStatus = findViewById(R.id.text_recruit_status);
-        genderList = findViewById(R.id.gender_list);
-        priceList = findViewById(R.id.price_list);
-        ageList = findViewById(R.id.age_list);
-        recruitStatusListOne = findViewById(R.id.recruit_status_list_one);
-        recruitStatusListTwo = findViewById(R.id.recruit_status_list_two);
-        recruitStatusLinear = findViewById(R.id.recruit_status_linear);
-        stackLabelView = findViewById(R.id.stackLabelView);
-        horizontalScrollView = findViewById(R.id.horizontalScrollView);
-        textReset = findViewById(R.id.text_reset);
-        textDone = findViewById(R.id.text_done);
-        recruitStatusRelative = findViewById(R.id.recruit_status_relative);
+        ButterKnife.bind(this);
 
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
@@ -518,9 +520,13 @@ public class MapViewActivity extends AppCompatActivity implements
         pvTime.show();
     }
 
+    /**
+     * 按钮的点击事件
+     * @param view
+     */
 
-    @Override
-    public void onClick(View view) {
+    @OnClick({R.id.img_back, R.id.img_search, R.id.img_lb, R.id.text_time, R.id.text_price, R.id.text_age, R.id.text_gender, R.id.text_recruit_status,R.id.text_reset, R.id.text_done})
+    public void onViewClicked(View view) {
         switch (view.getId()) {
             //返回
             case R.id.img_back:

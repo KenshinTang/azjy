@@ -32,11 +32,17 @@ import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback ,View.OnClickListener {
 
+    @BindView(R.id.map_back)
     ImageView mapBack;
+    @BindView(R.id.address)
     TextView address;
+    @BindView(R.id.play_daohang)
     ImageView playDaohang;
     private GoogleMap mMap;
     private String lat, lng, name;
@@ -45,6 +51,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
+        ButterKnife.bind(this);
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
@@ -53,10 +60,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     }
 
     private void initview() {
-        mapBack = findViewById(R.id.map_back);
-        address = findViewById(R.id.address);
-        playDaohang = findViewById(R.id.play_daohang);
-
         Intent intent = getIntent();
         lat = intent.getStringExtra("lat");
         lng = intent.getStringExtra("lng");
@@ -85,6 +88,19 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap.addMarker(new MarkerOptions().position(sydney).icon(BitmapDescriptorFactory.fromResource(R.mipmap.wu)));
         //mMap.moveCamera(CameraUpdateFactory.newLatLngzoom(sydney),15);
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(mlat,mlng), 15));// 定位当前经纬度，level 10显示
+    }
+
+
+    @OnClick({R.id.map_back, R.id.play_daohang})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.map_back:
+                finish();
+                break;
+            case R.id.play_daohang:
+                dhPopupView();
+                break;
+        }
     }
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
@@ -138,12 +154,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 if (window != null) {
                     window.dismiss();
                 }
-                break;
-            case R.id.map_back:
-                finish();
-                break;
-            case R.id.play_daohang:
-                dhPopupView();
                 break;
         }
     }
