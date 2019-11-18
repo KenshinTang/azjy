@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    xmlns:Android="http://schemas.android.com/apk/res-auto"
     package="com.yunlinker.azjy"
     android:versionCode="1"
-    android:versionName="1.0.0">
+    android:versionName="1.0.2">
 
     <!-- <uses-sdk android:minSdkVersion="19"></uses-sdk> -->
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
